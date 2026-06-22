@@ -1,0 +1,2219 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sofrım — Restoran Yönetim Sistemi</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
+
+  :root {
+    --bg: #07070F;
+    --surface: #0F0F1A;
+    --card: #141420;
+    --border: #1E1E2E;
+    --accent: #FF6B1A;
+    --accent2: #E63900;
+    --teal: #2DD4BF;
+    --text: #F0F0F8;
+    --sec: #8888AA;
+    --muted: #4444660;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(7,7,15,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+
+  .nav-logo-icon {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 900; color: #fff;
+    box-shadow: 0 4px 16px rgba(255,107,26,0.4);
+  }
+
+  .nav-logo-text {
+    font-size: 20px; font-weight: 900;
+    background: linear-gradient(135deg, #fff, var(--accent));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+
+  .nav-links {
+    display: flex; align-items: center; gap: 8px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--sec); text-decoration: none;
+    font-size: 13.5px; font-weight: 600;
+    padding: 8px 14px; border-radius: 8px;
+    transition: all .2s;
+    cursor: pointer;
+  }
+
+  .nav-links a:hover, .nav-links a.active {
+    color: var(--text);
+    background: var(--surface);
+  }
+
+  .nav-right {
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  .lang-toggle {
+    display: flex; background: var(--surface); border-radius: 8px;
+    border: 1px solid var(--border); overflow: hidden;
+  }
+
+  .lang-btn {
+    padding: 6px 12px; font-size: 11px; font-weight: 700;
+    cursor: pointer; border: none; background: transparent;
+    color: var(--sec); transition: all .2s;
+  }
+
+  .lang-btn.active {
+    background: var(--accent); color: #fff;
+  }
+
+  .nav-cta {
+    padding: 9px 20px; border-radius: 10px; border: none;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff; font-size: 13px; font-weight: 700;
+    cursor: pointer; transition: all .2s;
+    box-shadow: 0 4px 16px rgba(255,107,26,0.3);
+  }
+
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(255,107,26,0.4); }
+
+  /* ─── PAGES ───────────────────────────── */
+  .page { display: none; padding-top: 64px; min-height: 100vh; }
+  .page.active { display: block !important; }
+
+  /* ─── HERO ────────────────────────────── */
+  .hero {
+    min-height: calc(100vh - 64px);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 60px 24px;
+    position: relative; overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,107,26,0.12), transparent),
+                radial-gradient(ellipse 60% 40% at 80% 80%, rgba(45,212,191,0.08), transparent);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,107,26,0.1); border: 1px solid rgba(255,107,26,0.3);
+    border-radius: 100px; padding: 6px 16px;
+    font-size: 12px; font-weight: 700; color: var(--accent);
+    margin-bottom: 28px;
+  }
+
+  .hero h1 {
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 900; line-height: 1.1;
+    margin-bottom: 20px; max-width: 800px;
+  }
+
+  .hero h1 span {
+    background: linear-gradient(135deg, var(--accent), var(--teal));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+
+  .hero-sub {
+    font-size: clamp(15px, 2vw, 19px);
+    color: var(--sec); max-width: 560px;
+    line-height: 1.7; margin-bottom: 40px;
+  }
+
+  .hero-buttons {
+    display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+    margin-bottom: 60px;
+  }
+
+  .btn-primary {
+    padding: 15px 32px; border-radius: 14px; border: none;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff; font-size: 15px; font-weight: 800;
+    cursor: pointer; transition: all .2s;
+    box-shadow: 0 8px 28px rgba(255,107,26,0.35);
+  }
+
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(255,107,26,0.5); }
+
+  .btn-secondary {
+    padding: 15px 32px; border-radius: 14px;
+    border: 1.5px solid var(--border);
+    background: transparent; color: var(--text);
+    font-size: 15px; font-weight: 700;
+    cursor: pointer; transition: all .2s;
+  }
+
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  .hero-stats {
+    display: flex; gap: 48px; flex-wrap: wrap; justify-content: center;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-size: 32px; font-weight: 900;
+    background: linear-gradient(135deg, var(--accent), var(--teal));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+
+  .stat-label { font-size: 12px; color: var(--sec); font-weight: 600; margin-top: 4px; }
+
+  /* ─── SECTIONS ────────────────────────── */
+  section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
+
+  .section-label {
+    font-size: 11px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 2px;
+    color: var(--accent); margin-bottom: 14px;
+  }
+
+  .section-title {
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 900; line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .section-sub {
+    font-size: 16px; color: var(--sec);
+    line-height: 1.7; max-width: 560px;
+    margin-bottom: 52px;
+  }
+
+  /* ─── FEATURES GRID ───────────────────── */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+  }
+
+  .feature-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px; padding: 28px;
+    transition: all .3s;
+    position: relative; overflow: hidden;
+  }
+
+  .feature-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    opacity: 0; transition: opacity .3s;
+  }
+
+  .feature-card:hover { border-color: rgba(255,107,26,0.3); transform: translateY(-4px); }
+  .feature-card:hover::before { opacity: 1; }
+
+  .feature-icon {
+    width: 52px; height: 52px; border-radius: 14px;
+    background: rgba(255,107,26,0.1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; margin-bottom: 18px;
+  }
+
+  .feature-title { font-size: 17px; font-weight: 800; margin-bottom: 10px; }
+  .feature-desc { font-size: 13.5px; color: var(--sec); line-height: 1.7; }
+
+  /* ─── PRICING ─────────────────────────── */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+  }
+
+  .pricing-card {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: 24px; padding: 32px 28px;
+    position: relative; transition: all .3s;
+  }
+
+  .pricing-card.popular {
+    border-color: var(--accent);
+    background: linear-gradient(160deg, rgba(255,107,26,0.08), var(--card));
+  }
+
+  .popular-badge {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff; font-size: 10px; font-weight: 800;
+    padding: 4px 14px; border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  .plan-name { font-size: 14px; font-weight: 800; color: var(--sec); margin-bottom: 8px; }
+
+  .plan-price {
+    font-size: 36px; font-weight: 900; color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .plan-price span { font-size: 16px; color: var(--sec); font-weight: 600; }
+
+  .plan-desc { font-size: 12px; color: var(--sec); margin-bottom: 24px; }
+
+  .plan-features { list-style: none; margin-bottom: 28px; }
+
+  .plan-features li {
+    font-size: 13px; color: var(--sec);
+    padding: 6px 0; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .plan-features li::before { content: '✓'; color: var(--teal); font-weight: 800; }
+  .plan-features li.no::before { content: '—'; color: #444; }
+  .plan-features li.no { opacity: 0.5; }
+
+  .plan-btn {
+    width: 100%; padding: 13px; border-radius: 12px;
+    font-size: 13px; font-weight: 700; cursor: pointer;
+    transition: all .2s; border: none;
+  }
+
+  .plan-btn.outline {
+    background: transparent; border: 1.5px solid var(--border); color: var(--text);
+  }
+
+  .plan-btn.outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  .plan-btn.filled {
+    background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff;
+    box-shadow: 0 6px 20px rgba(255,107,26,0.3);
+  }
+
+  .plan-btn.filled:hover { transform: translateY(-2px); }
+
+  /* ─── HOW IT WORKS ────────────────────── */
+  .steps {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 24px;
+  }
+
+  .step {
+    text-align: center; padding: 32px 20px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; position: relative;
+  }
+
+  .step-num {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 900; color: #fff;
+    margin: 0 auto 18px;
+    box-shadow: 0 6px 20px rgba(255,107,26,0.35);
+  }
+
+  .step-title { font-size: 15px; font-weight: 800; margin-bottom: 10px; }
+  .step-desc { font-size: 13px; color: var(--sec); line-height: 1.7; }
+
+  /* ─── ABOUT ───────────────────────────── */
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+    align-items: center;
+  }
+
+  .about-text h2 { font-size: 36px; font-weight: 900; margin-bottom: 20px; }
+  .about-text p { font-size: 15px; color: var(--sec); line-height: 1.8; margin-bottom: 16px; }
+
+  .about-values {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px;
+  }
+
+  .value-item {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 18px;
+  }
+
+  .value-icon { font-size: 24px; margin-bottom: 8px; }
+  .value-title { font-size: 13px; font-weight: 800; margin-bottom: 4px; }
+  .value-desc { font-size: 12px; color: var(--sec); }
+
+  .about-visual {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 24px; padding: 32px;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+
+  .mock-stat {
+    background: var(--surface); border-radius: 12px; padding: 16px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+
+  .mock-stat-label { font-size: 12px; color: var(--sec); }
+  .mock-stat-val { font-size: 20px; font-weight: 900; color: var(--accent); }
+
+  /* ─── CONTACT ─────────────────────────── */
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+  }
+
+  .contact-form {
+    display: flex; flex-direction: column; gap: 16px;
+  }
+
+  .form-group label {
+    display: block; font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    color: var(--sec); margin-bottom: 6px;
+  }
+
+  .form-group input, .form-group textarea, .form-group select {
+    width: 100%; padding: 12px 16px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; color: var(--text);
+    font-size: 14px; outline: none;
+    font-family: inherit; transition: border-color .2s;
+  }
+
+  .form-group input:focus, .form-group textarea:focus {
+    border-color: var(--accent);
+  }
+
+  .form-group textarea { resize: vertical; min-height: 120px; }
+
+  .contact-info { display: flex; flex-direction: column; gap: 20px; }
+
+  .contact-item {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 20px;
+    display: flex; gap: 14px; align-items: center;
+  }
+
+  .contact-item-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: rgba(255,107,26,0.1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+  }
+
+  .contact-item-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+  .contact-item-val { font-size: 13px; color: var(--sec); }
+
+  /* ─── FOOTER ──────────────────────────── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 20px;
+  }
+
+  .footer-logo { font-size: 18px; font-weight: 900; color: var(--accent); }
+  .footer-copy { font-size: 12px; color: var(--sec); }
+
+  /* ─── CTA BANNER ──────────────────────── */
+  .cta-banner {
+    background: linear-gradient(135deg, rgba(255,107,26,0.12), rgba(45,212,191,0.08));
+    border: 1px solid rgba(255,107,26,0.2);
+    border-radius: 28px; padding: 56px 40px;
+    text-align: center; margin: 0 40px 80px;
+  }
+
+  .cta-banner h2 { font-size: 36px; font-weight: 900; margin-bottom: 14px; }
+  .cta-banner p { color: var(--sec); margin-bottom: 32px; font-size: 16px; }
+
+  /* WhatsApp sabit butonu */
+  .whatsapp-btn {
+    position: fixed; bottom: 24px; right: 24px; z-index: 999;
+    width: 56px; height: 56px; border-radius: 50%;
+    background: #25D366; color: #fff; font-size: 26px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 24px rgba(37,211,102,0.5);
+    cursor: pointer; border: none; transition: transform .2s;
+    text-decoration: none;
+  }
+  .whatsapp-btn:hover { transform: scale(1.1); }
+
+  /* Demo modal */
+  .demo-modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,.85);
+    display: flex; align-items: center; justify-content: center;
+    padding: 16px; z-index: 500; display: none;
+  }
+  .demo-modal {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; width: 100%; max-width: 400px; padding: 32px;
+  }
+
+  /* SSS accordion */
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+  }
+  .faq-q {
+    padding: 18px 0; font-size: 15px; font-weight: 700;
+    cursor: pointer; display: flex; justify-content: space-between;
+    align-items: center; color: var(--text);
+  }
+  .faq-q:hover { color: var(--accent); }
+  .faq-a {
+    font-size: 13.5px; color: var(--sec); line-height: 1.8;
+    padding-bottom: 16px; display: none;
+  }
+  .faq-a.open { display: block; }
+  .faq-arrow { transition: transform .2s; font-size: 12px; color: var(--sec); }
+  .faq-arrow.open { transform: rotate(180deg); }
+
+  /* Nasıl Çalışır timeline */
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .timeline-item {
+    display: flex; gap: 24px; position: relative;
+  }
+  .timeline-left {
+    display: flex; flex-direction: column; align-items: center;
+    flex-shrink: 0; width: 48px;
+  }
+  .timeline-dot {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(255,107,26,0.35);
+  }
+  .timeline-line {
+    width: 2px; flex: 1; background: var(--border); margin: 4px 0;
+    min-height: 40px;
+  }
+  .timeline-content {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 20px 24px; margin-bottom: 16px; flex: 1;
+  }
+  .timeline-title { font-size: 16px; font-weight: 800; margin-bottom: 6px; }
+  .timeline-desc { font-size: 13px; color: var(--sec); line-height: 1.7; }
+
+  /* Referans kartları */
+  .review-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 28px;
+  }
+  .review-stars { color: #F59E0B; font-size: 16px; margin-bottom: 12px; }
+  .review-text { font-size: 14px; color: var(--sec); line-height: 1.8; margin-bottom: 16px; font-style: italic; }
+  .review-author { display: flex; align-items: center; gap: 12px; }
+  .review-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--teal));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 800; color: #fff;
+  }
+  .review-name { font-size: 13px; font-weight: 800; }
+  .review-role { font-size: 11px; color: var(--sec); }
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    background: var(--teal); color: #07070F;
+    padding: 12px 24px; border-radius: 100px;
+    font-size: 13px; font-weight: 700;
+    opacity: 0; transition: opacity .3s; pointer-events: none;
+    z-index: 999;
+  }
+
+  .toast.show { opacity: 1; }
+
+  .nav-hamburger {
+    display: none;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 8px 12px;
+    color: var(--text); cursor: pointer; font-size: 18px;
+  }
+
+  #mobile-menu {
+    display: none; flex-direction: column;
+    position: fixed; top: 64px; left: 0; right: 0;
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    padding: 12px; z-index: 99; gap: 4px;
+  }
+
+  #mobile-menu a {
+    color: var(--sec); text-decoration: none;
+    font-size: 14px; font-weight: 600;
+    padding: 12px 16px; border-radius: 10px;
+    display: block; cursor: pointer;
+  }
+
+  #mobile-menu a:hover { background: var(--card); color: var(--text); }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 16px; }
+    .nav-links { display: none; }
+    .nav-hamburger { display: block; }
+    section { padding: 60px 20px; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 28px; }
+    .cta-banner { margin: 0 16px 60px; padding: 40px 24px; }
+    footer { padding: 24px; flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" onclick="showPage('home')">
+    <div class="nav-logo-icon">S</div>
+    <span class="nav-logo-text">Sofrım</span>
+  </a>
+
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')" id="nav-home" class="active" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a></li>
+    <li><a onclick="showPage('whatis')" id="nav-whatis" data-tr="Sofrım Nedir?" data-en="What is Sofrım?">Sofrım Nedir?</a></li>
+    <li><a onclick="showPage('howitworks')" id="nav-howitworks" data-tr="Nasıl Çalışır?" data-en="How it Works?">Nasıl Çalışır?</a></li>
+    <li><a onclick="showPage('features')" id="nav-features" data-tr="Özellikler" data-en="Features">Özellikler</a></li>
+    <li><a onclick="showPage('comparison')" id="nav-comparison" data-tr="Neden Sofrım?" data-en="Why Sofrım?">Neden Sofrım?</a></li>
+    <li><a onclick="showPage('promise')" id="nav-promise" data-tr="Ne Vaat Ediyoruz?" data-en="Our Promise">Ne Vaat Ediyoruz?</a></li>
+    <li><a onclick="showPage('pricing')" id="nav-pricing" data-tr="Fiyatlar" data-en="Pricing">Fiyatlar</a></li>
+    <li><a onclick="showPage('faq')" id="nav-faq" data-tr="SSS" data-en="FAQ">SSS</a></li>
+    <li><a onclick="showPage('about')" id="nav-about" data-tr="Hakkımızda" data-en="About">Hakkımızda</a></li>
+    <li><a onclick="showPage('contact')" id="nav-contact" data-tr="İletişim" data-en="Contact">İletişim</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('tr')">TR</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+    </div>
+    <button class="nav-cta" onclick="showPage('contact')" data-tr="Başvur" data-en="Apply">Başvur</button>
+    <button class="nav-hamburger" onclick="toggleMobileMenu()">☰</button>
+  </div>
+</nav>
+
+<!-- MOBİL MENÜ -->
+<div id="mobile-menu">
+  <a onclick="showPage('home')" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a>
+  <a onclick="showPage('whatis')" data-tr="Sofrım Nedir?" data-en="What is Sofrım?">Sofrım Nedir?</a>
+  <a onclick="showPage('howitworks')" data-tr="Nasıl Çalışır?" data-en="How it Works?">Nasıl Çalışır?</a>
+  <a onclick="showPage('features')" data-tr="Özellikler" data-en="Features">Özellikler</a>
+  <a onclick="showPage('comparison')" data-tr="Neden Sofrım?" data-en="Why Sofrım?">Neden Sofrım?</a>
+  <a onclick="showPage('promise')" data-tr="Ne Vaat Ediyoruz?" data-en="Our Promise">Ne Vaat Ediyoruz?</a>
+  <a onclick="showPage('pricing')" data-tr="Fiyatlar" data-en="Pricing">Fiyatlar</a>
+  <a onclick="showPage('faq')" data-tr="SSS" data-en="FAQ">SSS</a>
+  <a onclick="showPage('about')" data-tr="Hakkımızda" data-en="About">Hakkımızda</a>
+  <a onclick="showPage('contact')" data-tr="Başvuru Yap" data-en="Apply">Başvuru Yap</a>
+</div>
+
+<div class="toast" id="toast">✓ Mesajınız alındı!</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: HOME -->
+<!-- ══════════════════════════════════════ -->
+<div class="page active" id="page-home">
+
+  <div class="hero">
+    <div class="hero-badge">
+      <span>🚀</span>
+      <span data-tr="Türkiye'nin En Kapsamlı Restoran Yönetim Sistemi" data-en="Turkey's Most Comprehensive Restaurant Management System">Türkiye'nin En Kapsamlı Restoran Yönetim Sistemi</span>
+    </div>
+
+    <h1>
+      <span data-tr="Restoranını Tek" data-en="Manage Your">Restoranını Tek</span><br>
+      <span data-tr="Platformdan Yönet" data-en="Restaurant From One Platform">Platformdan Yönet</span>
+    </h1>
+
+    <p class="hero-sub" data-tr="Mutfaktan kasaya, personelden kuryeye — restoranınızın ihtiyacı olan her şey tek bir sistemde. Kağıt defter, el yazısı sipariş, unutulan stok tarihe karıştı." data-en="From kitchen to cashier, from staff to delivery — everything your restaurant needs in one system. Paper notebooks, handwritten orders, and forgotten stock are history.">
+      Mutfaktan kasaya, personelden kuryeye — restoranınızın ihtiyacı olan her şey tek bir sistemde. Kağıt defter, el yazısı sipariş, unutulan stok tarihe karıştı.
+    </p>
+
+    <div class="hero-buttons">
+      <button class="btn-primary" onclick="showPage('contact')" data-tr="14 Gün Ücretsiz Dene →" data-en="Try Free for 14 Days →">14 Gün Ücretsiz Dene →</button>
+      
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">14</div>
+        <div class="stat-label" data-tr="Gün Ücretsiz" data-en="Days Free">Gün Ücretsiz</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">30+</div>
+        <div class="stat-label" data-tr="Özellik" data-en="Features">Özellik</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">7/24</div>
+        <div class="stat-label" data-tr="Bulut Erişim" data-en="Cloud Access">Bulut Erişim</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4</div>
+        <div class="stat-label" data-tr="Esnek Paket" data-en="Flexible Plans">Esnek Paket</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MINI FEATURES -->
+  <section>
+    <div style="text-align:center; margin-bottom: 52px;">
+      <div class="section-label" data-tr="NEDEN SOFRIM?" data-en="WHY SOFRIM?">NEDEN SOFRIM?</div>
+      <h2 class="section-title" data-tr="Rakiplerinizden Bir Adım Önde" data-en="One Step Ahead of Your Competitors">Rakiplerinizden Bir Adım Önde</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🗺️</div>
+        <div class="feature-title" data-tr="Canlı Masa Haritası" data-en="Live Table Map">Canlı Masa Haritası</div>
+        <div class="feature-desc" data-tr="İnternet kafe mantığıyla — hangi masa dolu, kaç süredir, ne harcadı. Tek bakışta tüm restoran." data-en="Internet café style — which table is occupied, for how long, how much spent. See the whole restaurant at a glance.">İnternet kafe mantığıyla — hangi masa dolu, kaç süredir, ne harcadı. Tek bakışta tüm restoran.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <div class="feature-title" data-tr="QR ile Sipariş" data-en="QR Ordering">QR ile Sipariş</div>
+        <div class="feature-desc" data-tr="Müşteri masadan QR okutup sipariş verir, mutfağa otomatik düşer. Garson bekleme yok." data-en="Customers scan QR at the table, order goes straight to the kitchen. No waiting for a waiter.">Müşteri masadan QR okutup sipariş verir, mutfağa otomatik düşer. Garson bekleme yok.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🛵</div>
+        <div class="feature-title" data-tr="Kurye Yönetimi" data-en="Delivery Management">Kurye Yönetimi</div>
+        <div class="feature-desc" data-tr="Sipariş havuzu, zimmet sistemi, gerçek zamanlı konum takibi ve çoklu harita uygulaması desteği." data-en="Order pool, consignment system, real-time location tracking and multi-map app support.">Sipariş havuzu, zimmet sistemi, gerçek zamanlı konum takibi ve çoklu harita uygulaması desteği.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">👥</div>
+        <div class="feature-title" data-tr="Eksiksiz Personel Yönetimi" data-en="Complete Staff Management">Eksiksiz Personel Yönetimi</div>
+        <div class="feature-desc" data-tr="Vardiya planlama, izin takibi, avans talebi, maaş hesaplama — WhatsApp'a gerek yok." data-en="Shift planning, leave tracking, advance requests, salary calculation — no WhatsApp needed.">Vardiya planlama, izin takibi, avans talebi, maaş hesaplama — WhatsApp'a gerek yok.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📦</div>
+        <div class="feature-title" data-tr="Akıllı Stok Takibi" data-en="Smart Stock Tracking">Akıllı Stok Takibi</div>
+        <div class="feature-desc" data-tr="Sipariş verilince stok otomatik düşer. Kritik seviyede uyarı verir, menüde otomatik 'tükendi' olur." data-en="Stock automatically decreases when ordered. Alerts at critical levels, automatically shows 'out of stock' on menu.">Sipariş verilince stok otomatik düşer. Kritik seviyede uyarı verir, menüde otomatik 'tükendi' olur.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <div class="feature-title" data-tr="Komuta Merkezi" data-en="Command Center">Komuta Merkezi</div>
+        <div class="feature-desc" data-tr="Canlı ciro, mutfak yükü, personel durumu, geçen haftayla karşılaştırma — tek ekranda." data-en="Live revenue, kitchen load, staff status, comparison with last week — on one screen.">Canlı ciro, mutfak yükü, personel durumu, geçen haftayla karşılaştırma — tek ekranda.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section>
+    <div style="text-align:center; margin-bottom: 52px;">
+      <div class="section-label" data-tr="NASIL ÇALIŞIR?" data-en="HOW IT WORKS?">NASIL ÇALIŞIR?</div>
+      <h2 class="section-title" data-tr="3 Adımda Başlayın" data-en="Start in 3 Steps">3 Adımda Başlayın</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-title" data-tr="Başvurun" data-en="Apply">Başvurun</div>
+        <div class="step-desc" data-tr="Formu doldurun, başvurunuzu gönderin. En geç 1 iş günü içinde size dönüyoruz." data-en="Fill out the form and submit your application. We get back to you within 1 business day.">Formu doldurun, başvurunuzu gönderin. En geç 1 iş günü içinde size dönüyoruz.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-title" data-tr="Giriş Bilgilerinizi Alın" data-en="Receive Your Login">Giriş Bilgilerinizi Alın</div>
+        <div class="step-desc" data-tr="Onay sonrası size özel kullanıcı kodunuzu ve şifrenizi iletiyoruz." data-en="After approval, we provide your unique user code and password.">Onay sonrası size özel kullanıcı kodunuzu ve şifrenizi iletiyoruz.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-title" data-tr="Kullanmaya Başlayın" data-en="Start Using">Kullanmaya Başlayın</div>
+        <div class="step-desc" data-tr="Sisteme giriş yapın, masalarınızı ve menünüzü ekleyin, hemen kullanmaya başlayın." data-en="Log in, add your tables and menu, and start using immediately.">Sisteme giriş yapın, masalarınızı ve menünüzü ekleyin, hemen kullanmaya başlayın.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-title" data-tr="Büyüyün" data-en="Grow">Büyüyün</div>
+        <div class="step-desc" data-tr="İhtiyaçlarınız arttıkça paketinizi yükseltin, yeni özellikler açılsın." data-en="As your needs grow, upgrade your plan and unlock new features.">İhtiyaçlarınız arttıkça paketinizi yükseltin, yeni özellikler açılsın.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REFERANSLAR -->
+  <section>
+    <div style="text-align:center; margin-bottom:40px;">
+      <div class="section-label" data-tr="KULLANICI YORUMLARI" data-en="USER REVIEWS">KULLANICI YORUMLARI</div>
+      <h2 class="section-title" data-tr="Restoranlar Ne Diyor?" data-en="What Restaurants Say?">Restoranlar Ne Diyor?</h2>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:20px;">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text" data-tr='"Garsonlarımız artık siparişleri kağıda yazmıyor. Hata sayısı sıfıra düştü."' data-en='"Our waiters no longer write orders on paper. Errors dropped to zero."'>"Garsonlarımız artık siparişleri kağıda yazmıyor. Hata sayısı sıfıra düştü."</div>
+        <div class="review-author">
+          <div class="review-avatar">A</div>
+          <div>
+            <div class="review-name">Ahmet K.</div>
+            <div class="review-role" data-tr="Restoran Sahibi, İstanbul" data-en="Restaurant Owner, Istanbul">Restoran Sahibi, İstanbul</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text" data-tr='"Kurye takip sistemi harika. Artık telefon etmeden kuryenin nerede olduğunu görüyorum."' data-en='"The courier tracking is great. I see where my courier is without calling."'>"Kurye takip sistemi harika. Artık telefon etmeden kuryenin nerede olduğunu görüyorum."</div>
+        <div class="review-author">
+          <div class="review-avatar" style="background:linear-gradient(135deg,var(--teal),#1ab5a0);">M</div>
+          <div>
+            <div class="review-name">Mehmet S.</div>
+            <div class="review-role" data-tr="Kafe İşletmecisi, Ankara" data-en="Cafe Owner, Ankara">Kafe İşletmecisi, Ankara</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text" data-tr='"Stok takibi sayesinde malzeme bitince anında haberi alıyorum. Müşteriye tükendi demekten kurtuldum."' data-en='"Thanks to stock tracking, I know instantly when something runs out."'>"Stok takibi sayesinde malzeme bitince anında haberi alıyorum. Müşteriye tükendi demekten kurtuldum."</div>
+        <div class="review-author">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#8B5CF6,#6D28D9);">F</div>
+          <div>
+            <div class="review-name">Fatma Y.</div>
+            <div class="review-role" data-tr="Pastane Sahibi, İzmir" data-en="Bakery Owner, Izmir">Pastane Sahibi, İzmir</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-banner">
+    <h2 data-tr="14 Gün Ücretsiz Deneyin" data-en="Try Free for 14 Days">14 Gün Ücretsiz Deneyin</h2>
+    <p data-tr="Kredi kartı gerekmez. Tüm özellikler açık. Beğenmezseniz hiçbir ücret ödemezsiniz." data-en="No credit card required. All features unlocked. No charge if you don't like it.">Kredi kartı gerekmez. Tüm özellikler açık. Beğenmezseniz hiçbir ücret ödemezsiniz.</p>
+    <button class="btn-primary" onclick="showPage('contact')" data-tr="Hemen Başvur →" data-en="Apply Now →">Hemen Başvur →</button>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: FEATURES -->
+<!-- ══════════════════════════════════════ -->
+<div class="page" id="page-features">
+  <section>
+    <div class="section-label" data-tr="ÖZELLİKLER" data-en="FEATURES">ÖZELLİKLER</div>
+    <h2 class="section-title" data-tr="Restoranın Her İhtiyacı<br>Tek Sistemde" data-en="Every Restaurant Need<br>In One System">Restoranın Her İhtiyacı<br>Tek Sistemde</h2>
+    <p class="section-sub" data-tr="Rakipleriniz 4-5 farklı uygulama kullanırken siz hepsini tek platformdan yönetiyorsunuz." data-en="While your competitors use 4-5 different apps, you manage everything from one platform.">Rakipleriniz 4-5 farklı uygulama kullanırken siz hepsini tek platformdan yönetiyorsunuz.</p>
+
+    <div style="margin-bottom: 40px;">
+      <div class="section-label" style="margin-bottom: 20px;" data-tr="MÜŞTERİ DENEYİMİ" data-en="CUSTOMER EXPERIENCE">MÜŞTERİ DENEYİMİ</div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📱</div>
+          <div class="feature-title" data-tr="QR ile Sipariş" data-en="QR Ordering">QR ile Sipariş</div>
+          <div class="feature-desc" data-tr="Müşteri masadan QR okutup sipariş verir. Garson bekleme yok, sipariş otomatik mutfağa düşer." data-en="Customers scan QR at the table to order. No waiting, order goes straight to kitchen.">Müşteri masadan QR okutup sipariş verir. Garson bekleme yok, sipariş otomatik mutfağa düşer.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔔</div>
+          <div class="feature-title" data-tr="Masa Çağrı Butonu" data-en="Table Call Button">Masa Çağrı Butonu</div>
+          <div class="feature-desc" data-tr='"Garson Çağır" veya "Hesap İstiyorum" — garsonun telefonuna anında bildirim.' data-en='"Call Waiter" or "Request Bill" — instant notification to the waiter\'s phone.'>"Garson Çağır" veya "Hesap İstiyorum" — garsonun telefonuna anında bildirim.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⭐</div>
+          <div class="feature-title" data-tr="Ürün Opsiyonları" data-en="Product Options">Ürün Opsiyonları</div>
+          <div class="feature-desc" data-tr="Pişirme derecesi, ekstralar, özel istekler — müşteri kendi tercihini seçer." data-en="Cooking level, extras, special requests — customers choose their own preferences.">Pişirme derecesi, ekstralar, özel istekler — müşteri kendi tercihini seçer.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 40px;">
+      <div class="section-label" style="margin-bottom: 20px;" data-tr="MUTFAK & OPERASYON" data-en="KITCHEN & OPERATIONS">MUTFAK & OPERASYON</div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">👨‍🍳</div>
+          <div class="feature-title" data-tr="Akıllı Mutfak Ekranı" data-en="Smart Kitchen Screen">Akıllı Mutfak Ekranı</div>
+          <div class="feature-desc" data-tr="Yemekler mutfağa, içecekler bara düşer. Akıllı zamanlama ile ana yemek ve tatlı ayrı yönetilir." data-en="Food goes to kitchen, drinks to bar. Smart timing manages main courses and desserts separately.">Yemekler mutfağa, içecekler bara düşer. Akıllı zamanlama ile ana yemek ve tatlı ayrı yönetilir.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔗</div>
+          <div class="feature-title" data-tr="Masa Birleştirme & Hesap Bölme" data-en="Table Merge & Bill Split">Masa Birleştirme & Hesap Bölme</div>
+          <div class="feature-desc" data-tr="Masaları tek tıkla birleştir. Alman usulü hesap bölme — herkes kendi yediğini öder." data-en="Merge tables with one click. German-style bill splitting — everyone pays for what they ate.">Masaları tek tıkla birleştir. Alman usulü hesap bölme — herkes kendi yediğini öder.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📝</div>
+          <div class="feature-title" data-tr="Mutfak Notu" data-en="Kitchen Notes">Mutfak Notu</div>
+          <div class="feature-desc" data-tr='Garson siparişe not ekler: "az baharatlı", "soğansız" — mutfak direkt görür.' data-en='Waiter adds notes to order: "less spicy", "no onion" — kitchen sees it directly.'>Garson siparişe not ekler: "az baharatlı", "soğansız" — mutfak direkt görür.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 40px;">
+      <div class="section-label" style="margin-bottom: 20px;" data-tr="KURYE & TESLİMAT" data-en="DELIVERY">KURYE & TESLİMAT</div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🛵</div>
+          <div class="feature-title" data-tr="Sipariş Havuzu & Zimmet" data-en="Order Pool & Consignment">Sipariş Havuzu & Zimmet</div>
+          <div class="feature-desc" data-tr="Siparişler havuza düşer, kurye üzerine alır (zimmet). Teslimatta ödeme yöntemi işaretlenir." data-en="Orders go to pool, courier takes them (consignment). Payment method marked on delivery.">Siparişler havuza düşer, kurye üzerine alır (zimmet). Teslimatta ödeme yöntemi işaretlenir.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📍</div>
+          <div class="feature-title" data-tr="Gerçek Zamanlı Konum" data-en="Real-Time Location">Gerçek Zamanlı Konum</div>
+          <div class="feature-desc" data-tr="Kuryenin anlık konumu restoran panelinde görünür. Google Maps, Yandex, Waze desteği." data-en="Courier's live location visible in restaurant panel. Google Maps, Yandex, Waze support.">Kuryenin anlık konumu restoran panelinde görünür. Google Maps, Yandex, Waze desteği.</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-label" style="margin-bottom: 20px;" data-tr="YÖNETİM & ANALİTİK" data-en="MANAGEMENT & ANALYTICS">YÖNETİM & ANALİTİK</div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🗺️</div>
+          <div class="feature-title" data-tr="Canlı Masa Haritası" data-en="Live Table Map">Canlı Masa Haritası</div>
+          <div class="feature-desc" data-tr="Renk kodlu masa durumu, süre, harcama. 2 saatten fazla oturan masaya otomatik uyarı." data-en="Color-coded table status, time, spending. Automatic alert for tables occupied over 2 hours.">Renk kodlu masa durumu, süre, harcama. 2 saatten fazla oturan masaya otomatik uyarı.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💰</div>
+          <div class="feature-title" data-tr="Personel Maaş Takibi" data-en="Staff Salary Tracking">Personel Maaş Takibi</div>
+          <div class="feature-desc" data-tr="Mesai, avans, fazla mesai otomatik hesaplanır. Ay sonunda net maaş hazır." data-en="Overtime, advances, extra hours calculated automatically. Net salary ready at month end.">Mesai, avans, fazla mesai otomatik hesaplanır. Ay sonunda net maaş hazır.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📅</div>
+          <div class="feature-title" data-tr="Vardiya & İzin Yönetimi" data-en="Shift & Leave Management">Vardiya & İzin Yönetimi</div>
+          <div class="feature-desc" data-tr="Haftalık/aylık vardiya planı, izin talebi, onay sistemi — personel sadece kendi planını görür." data-en="Weekly/monthly shift plan, leave requests, approval system — staff only sees their own schedule.">Haftalık/aylık vardiya planı, izin talebi, onay sistemi — personel sadece kendi planını görür.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: PRICING -->
+<!-- ══════════════════════════════════════ -->
+<div class="page" id="page-pricing">
+  <section>
+    <div style="text-align:center; margin-bottom: 40px;">
+      <div class="section-label" data-tr="FİYATLAR" data-en="PRICING">FİYATLAR</div>
+      <h2 class="section-title" data-tr="Restoranınıza Uygun Paket" data-en="The Right Plan for Your Restaurant">Restoranınıza Uygun Paket</h2>
+      <p style="color:var(--sec); font-size:15px; margin-bottom:28px;" data-tr="Tüm paketler 14 gün ücretsiz deneme ile başlar. Kredi kartı gerekmez." data-en="All plans start with a 14-day free trial. No credit card required.">Tüm paketler 14 gün ücretsiz deneme ile başlar. Kredi kartı gerekmez.</p>
+
+      <!-- AYLK/YILLIK TOGGLE -->
+      <div style="display:inline-flex; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:4px; gap:4px;">
+        <button id="toggle-monthly" onclick="setBilling('monthly')" style="padding:10px 24px; border-radius:9px; border:none; background:var(--accent); color:#fff; font-size:13px; font-weight:700; cursor:pointer;" data-tr="Aylık" data-en="Monthly">Aylık</button>
+        <button id="toggle-yearly" onclick="setBilling('yearly')" style="padding:10px 24px; border-radius:9px; border:none; background:transparent; color:var(--sec); font-size:13px; font-weight:700; cursor:pointer;" data-tr="Yıllık (2 ay ücretsiz)" data-en="Yearly (2 months free)">Yıllık (2 ay ücretsiz)</button>
+      </div>
+    </div>
+
+    <div class="pricing-grid">
+      <!-- LITE -->
+      <div class="pricing-card">
+        <div class="plan-name">Lite</div>
+        <div class="plan-price" id="price-lite">799₺ <span>/ay</span></div>
+        <div id="price-lite-yearly" style="display:none; font-size:12px; color:var(--teal); font-weight:700; margin-top:-8px; margin-bottom:8px;" data-tr="7.990₺/yıl — 2 ay ücretsiz" data-en="7,990₺/year — 2 months free">7.990₺/yıl — 2 ay ücretsiz</div>
+        <div class="plan-desc" data-tr="Küçük kafeler ve restoranlar için" data-en="For small cafes and restaurants">Küçük kafeler ve restoranlar için</div>
+        <ul class="plan-features">
+          <li data-tr="QR ile müşteri sipariş" data-en="QR customer ordering">QR ile müşteri sipariş</li>
+          <li data-tr="Mutfak & Bar ekranı" data-en="Kitchen & Bar screen">Mutfak & Bar ekranı</li>
+          <li data-tr="Kasa yönetimi" data-en="Cash register">Kasa yönetimi</li>
+          <li data-tr="Garson sipariş alma" data-en="Waiter ordering">Garson sipariş alma</li>
+          <li data-tr="Temel raporlar" data-en="Basic reports">Temel raporlar</li>
+          <li data-tr="Yazıcı desteği" data-en="Printer support">Yazıcı desteği</li>
+          <li data-tr="3 personel" data-en="3 staff">3 personel • 1 şube</li>
+          <li class="no" data-tr="Stok & reçete takibi" data-en="Stock tracking">Stok & reçete takibi</li>
+          <li class="no" data-tr="Kurye modülü" data-en="Delivery module">Kurye modülü</li>
+          <li class="no" data-tr="Vardiya & maaş yönetimi" data-en="Shift & salary">Vardiya & maaş yönetimi</li>
+        </ul>
+        <button class="plan-btn outline" onclick="showPage('contact')" data-tr="Başvur" data-en="Apply">Başvur</button>
+      </div>
+
+      <!-- STANDART -->
+      <div class="pricing-card popular">
+        <div class="popular-badge" data-tr="En Çok Tercih Edilen" data-en="Most Popular">En Çok Tercih Edilen</div>
+        <div class="plan-name">Standart</div>
+        <div class="plan-price" id="price-standart">1.499₺ <span>/ay</span></div>
+        <div id="price-standart-yearly" style="display:none; font-size:12px; color:var(--teal); font-weight:700; margin-top:-8px; margin-bottom:8px;" data-tr="14.990₺/yıl — 2 ay ücretsiz" data-en="14,990₺/year — 2 months free">14.990₺/yıl — 2 ay ücretsiz</div>
+        <div class="plan-desc" data-tr="Büyüyen restoranlar için" data-en="For growing restaurants">Büyüyen restoranlar için</div>
+        <ul class="plan-features">
+          <li data-tr="Lite'ın tamamı +" data-en="Everything in Lite +">Lite'ın tamamı +</li>
+          <li data-tr="Stok & reçete takibi" data-en="Stock & recipe tracking">Stok & reçete takibi</li>
+          <li data-tr="Masa birleştirme & hesap bölme" data-en="Table merge & bill split">Masa birleştirme & hesap bölme</li>
+          <li data-tr="Ürün opsiyonları (pişirme derecesi vb.)" data-en="Product options">Ürün opsiyonları</li>
+          <li data-tr="Denetim kaydı & yetki hiyerarşisi" data-en="Audit log & authority">Denetim kaydı & yetki hiyerarşisi</li>
+          <li data-tr="Canlı masa haritası" data-en="Live table map">Canlı masa haritası</li>
+          <li data-tr="Mobil patron özeti" data-en="Mobile owner summary">Mobil patron özeti</li>
+          <li data-tr="Vardiya & izin yönetimi" data-en="Shift & leave management">Vardiya & izin yönetimi</li>
+          <li data-tr="7 personel • 1 şube" data-en="7 staff • 1 branch">7 personel • 1 şube</li>
+          <li class="no" data-tr="Kurye modülü" data-en="Delivery module">Kurye modülü</li>
+        </ul>
+        <button class="plan-btn filled" onclick="showPage('contact')" data-tr="Başvur" data-en="Apply">Başvur</button>
+      </div>
+
+      <!-- PRO -->
+      <div class="pricing-card">
+        <div class="plan-name">Pro</div>
+        <div class="plan-price" id="price-pro">2.499₺ <span>/ay</span></div>
+        <div id="price-pro-yearly" style="display:none; font-size:12px; color:var(--teal); font-weight:700; margin-top:-8px; margin-bottom:8px;" data-tr="24.990₺/yıl — 2 ay ücretsiz" data-en="24,990₺/year — 2 months free">24.990₺/yıl — 2 ay ücretsiz</div>
+        <div class="plan-desc" data-tr="Tam donanımlı restoranlar için" data-en="For fully-equipped restaurants">Tam donanımlı restoranlar için</div>
+        <ul class="plan-features">
+          <li data-tr="Standart'ın tamamı +" data-en="Everything in Standart +">Standart'ın tamamı +</li>
+          <li data-tr="Kurye & teslimat modülü" data-en="Delivery module">Kurye & teslimat modülü</li>
+          <li data-tr="Gerçek zamanlı kurye takibi" data-en="Real-time courier tracking">Gerçek zamanlı kurye takibi</li>
+          <li data-tr="Müşteri sadakat sistemi" data-en="Customer loyalty">Müşteri sadakat sistemi</li>
+          <li data-tr="Rezervasyon sistemi" data-en="Reservation system">Rezervasyon sistemi</li>
+          <li data-tr="Maaş takibi & hesaplama" data-en="Salary tracking">Maaş takibi & hesaplama</li>
+          <li data-tr="Gelişmiş raporlar & analitik" data-en="Advanced reports">Gelişmiş raporlar & analitik</li>
+          <li data-tr="Öncelikli teknik destek" data-en="Priority support">Öncelikli teknik destek</li>
+          <li data-tr="Sınırsız personel • 1 şube" data-en="Unlimited staff • 1 branch">Sınırsız personel • 1 şube</li>
+        </ul>
+        <button class="plan-btn outline" onclick="showPage('contact')" data-tr="Başvur" data-en="Apply">Başvur</button>
+      </div>
+
+      <!-- ŞUBELİ -->
+      <div class="pricing-card">
+        <div class="plan-name" data-tr="Şubeli Plan" data-en="Multi-Branch">Şubeli Plan</div>
+        <div class="plan-price" style="font-size:22px;" id="price-subeli" data-tr="2.499₺ + şube başı" data-en="2,499₺ + per branch">2.499₺ + şube başı</div>
+        <div id="price-subeli-yearly" style="display:none; font-size:12px; color:var(--teal); font-weight:700; margin-top:-8px; margin-bottom:8px;" data-tr="Yıllık ödemede 2 ay ücretsiz" data-en="2 months free with yearly payment">Yıllık ödemede 2 ay ücretsiz</div>
+        <div class="plan-desc" data-tr="Birden fazla şubesi olan zincirler için" data-en="For chains with multiple branches">Birden fazla şubesi olan zincirler için</div>
+
+        <!-- ŞUBE HESAPLAYICI -->
+        <div style="background:var(--surface); border-radius:12px; padding:14px; margin-bottom:16px;">
+          <div style="font-size:11px; color:var(--sec); font-weight:700; margin-bottom:10px;" data-tr="ŞUBE SAYISI SEÇİN" data-en="SELECT BRANCH COUNT">ŞUBE SAYISI SEÇİN</div>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <button onclick="setBranch(2)" id="branch-2" class="branch-btn active-branch" style="padding:6px 12px; border-radius:8px; border:1.5px solid var(--accent); background:rgba(255,107,26,0.1); color:var(--accent); font-size:12px; font-weight:700; cursor:pointer;">2</button>
+            <button onclick="setBranch(3)" id="branch-3" class="branch-btn" style="padding:6px 12px; border-radius:8px; border:1.5px solid var(--border); background:transparent; color:var(--sec); font-size:12px; font-weight:700; cursor:pointer;">3</button>
+            <button onclick="setBranch(5)" id="branch-5" class="branch-btn" style="padding:6px 12px; border-radius:8px; border:1.5px solid var(--border); background:transparent; color:var(--sec); font-size:12px; font-weight:700; cursor:pointer;">5</button>
+            <button onclick="setBranch(10)" id="branch-10" class="branch-btn" style="padding:6px 12px; border-radius:8px; border:1.5px solid var(--border); background:transparent; color:var(--sec); font-size:12px; font-weight:700; cursor:pointer;">10</button>
+            <button onclick="setBranch(99)" id="branch-99" class="branch-btn" style="padding:6px 12px; border-radius:8px; border:1.5px solid var(--border); background:transparent; color:var(--sec); font-size:12px; font-weight:700; cursor:pointer;" data-tr="10+" data-en="10+">10+</button>
+          </div>
+          <div id="branch-price" style="margin-top:12px; font-size:18px; font-weight:900; color:var(--accent);">3.999₺/ay</div>
+          <div id="branch-saving" style="font-size:11px; color:var(--teal); margin-top:2px;"></div>
+        </div>
+
+        <ul class="plan-features">
+          <li data-tr="Pro'nun tamamı +" data-en="Everything in Pro +">Pro'nun tamamı +</li>
+          <li data-tr="Birden fazla şube yönetimi" data-en="Multiple branch management">Birden fazla şube yönetimi</li>
+          <li data-tr="Şubeler arası karşılaştırmalı raporlar" data-en="Cross-branch reports">Şubeler arası karşılaştırmalı raporlar</li>
+          <li data-tr="Merkezi menü & fiyat yönetimi" data-en="Central menu management">Merkezi menü & fiyat yönetimi</li>
+          <li data-tr="Franchise yönetimi" data-en="Franchise management">Franchise yönetimi</li>
+          <li data-tr="Sınırsız personel" data-en="Unlimited staff">Sınırsız personel</li>
+        </ul>
+        <button class="plan-btn outline" onclick="showPage('contact')" data-tr="Başvur" data-en="Apply">Başvur</button>
+      </div>
+    </div>
+
+    <!-- KARŞILAŞTIRMA TABLOSU -->
+    <div style="margin-top: 64px;">
+      <h3 style="text-align:center; font-size:22px; font-weight:900; margin-bottom:32px;" data-tr="Paket Karşılaştırması" data-en="Plan Comparison">Paket Karşılaştırması</h3>
+      <div style="overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; font-size:13px;">
+          <thead>
+            <tr style="border-bottom:2px solid var(--border);">
+              <th style="text-align:left; padding:12px 16px; color:var(--sec); font-weight:700;" data-tr="Özellik" data-en="Feature">Özellik</th>
+              <th style="text-align:center; padding:12px 16px; color:var(--text);">Lite</th>
+              <th style="text-align:center; padding:12px 16px; color:var(--accent);">Standart</th>
+              <th style="text-align:center; padding:12px 16px; color:var(--text);">Pro</th>
+              <th style="text-align:center; padding:12px 16px; color:var(--teal);" data-tr="Şubeli" data-en="Multi-Branch">Şubeli</th>
+            </tr>
+          </thead>
+          <tbody id="comparison-table">
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:11px 16px; color:var(--sec);" data-tr="QR Sipariş" data-en="QR Ordering">QR Sipariş</td>
+              <td style="text-align:center;">✅</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border); background:rgba(255,255,255,0.02);">
+              <td style="padding:11px 16px; color:var(--sec);" data-tr="Mutfak & Bar Ekranı" data-en="Kitchen & Bar Screen">Mutfak & Bar Ekranı</td>
+              <td style="text-align:center;">✅</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:11px 16px; color:var(--sec);" data-tr="Garson Sipariş Alma" data-en="Waiter Ordering">Garson Sipariş Alma</td>
+              <td style="text-align:center;">✅</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border); background:rgba(255,255,255,0.02);">
+              <td style="padding:11px 16px; color:var(--sec);" data-tr="Personel Sayısı" data-en="Staff Count">Personel Sayısı</td>
+              <td style="text-align:center; color:var(--sec);" data-tr="3" data-en="3">3</td>
+              <td style="text-align:center; color:var(--sec);" data-tr="7" data-en="7">7</td>
+              <td style="text-align:center; color:var(--teal);" data-tr="Sınırsız" data-en="Unlimited">Sınırsız</td>
+              <td style="text-align:center; color:var(--teal);" data-tr="Sınırsız" data-en="Unlimited">Sınırsız</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:11px 16px; color:var(--sec);" data-tr="Stok & Reçete Takibi" data-en="Stock Tracking">Stok & Reçete Takibi</td>
+              <td style="text-align:center; color:#444;">—</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border); background:rgba(255,255,255,0.02);">
+              <td style="padding:11px 16px; color:var(--sec);" data-tr="Canlı Masa Haritası" data-en="Live Table Map">Canlı Masa Haritası</td>
+              <td style="text-align:center; color:#444;">—</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:11px 16px; color:var(--sec);" data-tr="Masa Birleştirme & Hesap Bölme" data-en="Table Merge & Split">Masa Birleştirme & Hesap Bölme</td>
+              <td style="text-align:center; color:#444;">—</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border); background:rgba(255,255,255,0.02);">
+              <td style="padding:11px 16px; color:var(--sec);" data-tr="Vardiya & İzin Yönetimi" data-en="Shift & Leave">Vardiya & İzin Yönetimi</td>
+              <td style="text-align:center; color:#444;">—</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:11px 16px; color:var(--sec);" data-tr="Kurye & Teslimat Modülü" data-en="Delivery Module">Kurye & Teslimat Modülü</td>
+              <td style="text-align:center; color:#444;">—</td><td style="text-align:center; color:#444;">—</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border); background:rgba(255,255,255,0.02);">
+              <td style="padding:11px 16px; color:var(--sec);" data-tr="Gerçek Zamanlı Kurye Takibi" data-en="Real-time Courier">Gerçek Zamanlı Kurye Takibi</td>
+              <td style="text-align:center; color:#444;">—</td><td style="text-align:center; color:#444;">—</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:11px 16px; color:var(--sec);" data-tr="Maaş Takibi & Hesaplama" data-en="Salary Tracking">Maaş Takibi & Hesaplama</td>
+              <td style="text-align:center; color:#444;">—</td><td style="text-align:center; color:#444;">—</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border); background:rgba(255,255,255,0.02);">
+              <td style="padding:11px 16px; color:var(--sec);" data-tr="Müşteri Sadakat Sistemi" data-en="Customer Loyalty">Müşteri Sadakat Sistemi</td>
+              <td style="text-align:center; color:#444;">—</td><td style="text-align:center; color:#444;">—</td><td style="text-align:center;">✅</td><td style="text-align:center;">✅</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:11px 16px; color:var(--sec);" data-tr="Çoklu Şube Yönetimi" data-en="Multi-Branch">Çoklu Şube Yönetimi</td>
+              <td style="text-align:center; color:#444;">—</td><td style="text-align:center; color:#444;">—</td><td style="text-align:center; color:#444;">—</td><td style="text-align:center;">✅</td>
+            </tr>
+            <tr>
+              <td style="padding:11px 16px; color:var(--sec);" data-tr="Franchise Yönetimi" data-en="Franchise">Franchise Yönetimi</td>
+              <td style="text-align:center; color:#444;">—</td><td style="text-align:center; color:#444;">—</td><td style="text-align:center; color:#444;">—</td><td style="text-align:center;">✅</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: WHAT IS SOFRIM -->
+<!-- ══════════════════════════════════════ -->
+<div class="page" id="page-whatis">
+  <section>
+    <div style="text-align:center; margin-bottom:52px;">
+      <div class="section-label" data-tr="SOFRIM NEDİR?" data-en="WHAT IS SOFRIM?">SOFRIM NEDİR?</div>
+      <h2 class="section-title" data-tr="Restoranın Tüm İhtiyacı<br>Tek Bir Sistemde" data-en="Everything Your Restaurant Needs<br>In One System">Restoranın Tüm İhtiyacı<br>Tek Bir Sistemde</h2>
+      <p style="color:var(--sec); font-size:16px; max-width:600px; margin:0 auto; line-height:1.8;" data-tr="Sofrım, restoranların kasasından mutfağına, personelinden kuryesine kadar tüm operasyonunu tek bir bulut tabanlı platformdan yönetmesini sağlayan Türkiye'nin en kapsamlı restoran yönetim sistemidir." data-en="Sofrım is Turkey's most comprehensive restaurant management system that allows restaurants to manage all their operations from a single cloud-based platform.">Sofrım, restoranların kasasından mutfağına, personelinden kuryesine kadar tüm operasyonunu tek bir bulut tabanlı platformdan yönetmesini sağlayan Türkiye'nin en kapsamlı restoran yönetim sistemidir.</p>
+    </div>
+
+    <!-- SORUN & ÇÖZÜM -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:60px;">
+      <div style="background:rgba(255,71,87,0.06); border:1px solid rgba(255,71,87,0.2); border-radius:20px; padding:32px;">
+        <div style="font-size:32px; margin-bottom:16px;">😰</div>
+        <div style="font-size:17px; font-weight:900; margin-bottom:16px; color:#FF4757;" data-tr="Restoran Sahibinin Gerçekliği" data-en="The Restaurant Owner's Reality">Restoran Sahibinin Gerçekliği</div>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <div style="font-size:13px; color:var(--sec); display:flex; gap:8px;"><span>📋</span><span data-tr="Kağıt kalemle sipariş — kayıplar, hatalar" data-en="Paper orders — losses, mistakes">Kağıt kalemle sipariş — kayıplar, hatalar</span></div>
+          <div style="font-size:13px; color:var(--sec); display:flex; gap:8px;"><span>📦</span><span data-tr="Stok bitti, müşteri hayal kırıklığı" data-en="Stock ran out, customer disappointment">Stok bitti, müşteri hayal kırıklığı</span></div>
+          <div style="font-size:13px; color:var(--sec); display:flex; gap:8px;"><span>📱</span><span data-tr="WhatsApp'tan avans isteği, izin talebi" data-en="Advance and leave requests via WhatsApp">WhatsApp'tan avans isteği, izin talebi</span></div>
+          <div style="font-size:13px; color:var(--sec); display:flex; gap:8px;"><span>🛵</span><span data-tr="Kuryenin nerede olduğunu bilmiyorum" data-en="I don't know where the courier is">Kuryenin nerede olduğunu bilmiyorum</span></div>
+          <div style="font-size:13px; color:var(--sec); display:flex; gap:8px;"><span>💸</span><span data-tr="5 ayrı uygulama, 5 ayrı abonelik" data-en="5 separate apps, 5 separate subscriptions">5 ayrı uygulama, 5 ayrı abonelik</span></div>
+          <div style="font-size:13px; color:var(--sec); display:flex; gap:8px;"><span>😴</span><span data-tr="Dükkanda olmadan ne olduğunu bilmiyorum" data-en="I don't know what's happening when I'm away">Dükkanda olmadan ne olduğunu bilmiyorum</span></div>
+        </div>
+      </div>
+      <div style="background:rgba(45,212,191,0.06); border:1px solid rgba(45,212,191,0.2); border-radius:20px; padding:32px;">
+        <div style="font-size:32px; margin-bottom:16px;">✨</div>
+        <div style="font-size:17px; font-weight:900; margin-bottom:16px; color:var(--teal);" data-tr="Sofrım ile Yeni Gerçeklik" data-en="New Reality with Sofrım">Sofrım ile Yeni Gerçeklik</div>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <div style="font-size:13px; color:var(--sec); display:flex; gap:8px;"><span>✅</span><span data-tr="QR okut, sipariş otomatik mutfağa düşer" data-en="Scan QR, order goes straight to kitchen">QR okut, sipariş otomatik mutfağa düşer</span></div>
+          <div style="font-size:13px; color:var(--sec); display:flex; gap:8px;"><span>✅</span><span data-tr="Stok bitmeden sistem uyarır, menüde tükendi olur" data-en="System alerts before stock runs out">Stok bitmeden sistem uyarır</span></div>
+          <div style="font-size:13px; color:var(--sec); display:flex; gap:8px;"><span>✅</span><span data-tr="Personel talepler sistemden açar, siz onaylarsınız" data-en="Staff requests through system, you approve">Personel talepler sistemden açar</span></div>
+          <div style="font-size:13px; color:var(--sec); display:flex; gap:8px;"><span>✅</span><span data-tr="Kuryenin konumunu gerçek zamanlı görürsünüz" data-en="See courier location in real-time">Kuryenin konumu canlı görünür</span></div>
+          <div style="font-size:13px; color:var(--sec); display:flex; gap:8px;"><span>✅</span><span data-tr="Her şey tek platformda, tek abonelik" data-en="Everything in one platform, one subscription">Her şey tek platformda, tek abonelik</span></div>
+          <div style="font-size:13px; color:var(--sec); display:flex; gap:8px;"><span>✅</span><span data-tr="Canlı ciro, masa durumu, personel — cebinizde" data-en="Live revenue, tables, staff — in your pocket">Canlı ciro, masa durumu — cebinizde</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KİMLER İÇİN -->
+    <div style="text-align:center; margin-bottom:36px;">
+      <div class="section-label" data-tr="KİMLER İÇİN?" data-en="WHO IS IT FOR?">KİMLER İÇİN?</div>
+      <h3 class="section-title" style="font-size:30px;" data-tr="Her Ölçekte Restoran İçin" data-en="For Restaurants of Every Scale">Her Ölçekte Restoran İçin</h3>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:16px; margin-bottom:60px;">
+      <div class="feature-card" style="text-align:center;">
+        <div style="font-size:40px; margin-bottom:12px;">☕</div>
+        <div class="feature-title" data-tr="Kafeler" data-en="Cafes">Kafeler</div>
+        <div class="feature-desc" data-tr="Küçük ekip, hızlı servis. Lite paket yeterli." data-en="Small team, fast service. Lite plan is enough.">Küçük ekip, hızlı servis. Lite paket yeterli.</div>
+      </div>
+      <div class="feature-card" style="text-align:center;">
+        <div style="font-size:40px; margin-bottom:12px;">🍽️</div>
+        <div class="feature-title" data-tr="Restoranlar" data-en="Restaurants">Restoranlar</div>
+        <div class="feature-desc" data-tr="Masa yönetimi, mutfak ekranı, personel — Standart veya Pro." data-en="Table management, kitchen screen, staff — Standard or Pro.">Masa yönetimi, mutfak, personel — Standart veya Pro.</div>
+      </div>
+      <div class="feature-card" style="text-align:center;">
+        <div style="font-size:40px; margin-bottom:12px;">🛵</div>
+        <div class="feature-title" data-tr="Teslimat Yapanlar" data-en="Delivery Services">Teslimat Yapanlar</div>
+        <div class="feature-desc" data-tr="Kurye yönetimi, konum takibi, zimmet sistemi — Pro pakette." data-en="Courier management, location tracking — Pro plan.">Kurye yönetimi, konum takibi — Pro pakette.</div>
+      </div>
+      <div class="feature-card" style="text-align:center;">
+        <div style="font-size:40px; margin-bottom:12px;">🏢</div>
+        <div class="feature-title" data-tr="Zincir & Franchise" data-en="Chains & Franchise">Zincir & Franchise</div>
+        <div class="feature-desc" data-tr="Çoklu şube yönetimi, merkezi menü — Şubeli Plan." data-en="Multi-branch management, central menu — Multi-Branch Plan.">Çoklu şube yönetimi — Şubeli Plan.</div>
+      </div>
+    </div>
+
+    <div class="cta-banner" style="margin:0;">
+      <h2 data-tr="Restoranınız Hangi Kategoride?" data-en="Which Category is Your Restaurant?">Restoranınız Hangi Kategoride?</h2>
+      <p data-tr="14 gün ücretsiz deneyin, size en uygun paketi birlikte belirleyelim." data-en="Try free for 14 days, let's find the right plan together.">14 gün ücretsiz deneyin, size en uygun paketi birlikte belirleyelim.</p>
+      <button class="btn-primary" onclick="showPage('contact')" data-tr="Başvuru Yap →" data-en="Apply Now →">Başvuru Yap →</button>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: OUR PROMISE -->
+<!-- ══════════════════════════════════════ -->
+<div class="page" id="page-promise">
+  <section>
+    <div style="text-align:center; margin-bottom:52px;">
+      <div class="section-label" data-tr="NE VAADEDİYORUZ?" data-en="OUR PROMISE">NE VAADEDİYORUZ?</div>
+      <h2 class="section-title" data-tr="Size Karşı Taahhütlerimiz" data-en="Our Commitments to You">Size Karşı Taahhütlerimiz</h2>
+      <p style="color:var(--sec); font-size:16px; max-width:560px; margin:0 auto; line-height:1.8;" data-tr="Sofrım olarak sadece bir yazılım satmıyoruz. Restoranınızın büyümesine ortak oluyoruz." data-en="At Sofrım, we don't just sell software. We partner in your restaurant's growth.">Sofrım olarak sadece bir yazılım satmıyoruz. Restoranınızın büyümesine ortak oluyoruz.</p>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:20px; margin-bottom:60px;">
+
+      <div style="background:var(--card); border:1px solid var(--border); border-radius:20px; padding:32px; display:flex; gap:24px; align-items:flex-start;">
+        <div style="width:56px; height:56px; border-radius:16px; background:linear-gradient(135deg,var(--accent),var(--accent2)); display:flex; align-items:center; justify-content:center; font-size:26px; flex-shrink:0;">⚡</div>
+        <div>
+          <div style="font-size:18px; font-weight:900; margin-bottom:8px;" data-tr="1 İş Günü İçinde Yanıt" data-en="Response Within 1 Business Day">1 İş Günü İçinde Yanıt</div>
+          <div style="font-size:14px; color:var(--sec); line-height:1.8;" data-tr="Başvurunuzu aldıktan sonra en geç 1 iş günü içinde size dönüş yapıyoruz. Onay sonrası kullanıcı kodunuz ve şifreniz iletilir, aynı gün sistemi kullanmaya başlayabilirsiniz." data-en="After receiving your application, we get back to you within 1 business day. After approval, you can start using the system the same day.">Başvurunuzu aldıktan sonra en geç 1 iş günü içinde size dönüş yapıyoruz. Onay sonrası aynı gün sistemi kullanmaya başlayabilirsiniz.</div>
+        </div>
+      </div>
+
+      <div style="background:var(--card); border:1px solid var(--border); border-radius:20px; padding:32px; display:flex; gap:24px; align-items:flex-start;">
+        <div style="width:56px; height:56px; border-radius:16px; background:linear-gradient(135deg,var(--teal),#1ab5a0); display:flex; align-items:center; justify-content:center; font-size:26px; flex-shrink:0;">🎓</div>
+        <div>
+          <div style="font-size:18px; font-weight:900; margin-bottom:8px;" data-tr="Ücretsiz Kurulum & Eğitim" data-en="Free Setup & Training">Ücretsiz Kurulum & Eğitim</div>
+          <div style="font-size:14px; color:var(--sec); line-height:1.8;" data-tr="Sistemi nasıl kullanacağınızı size ve ekibinize adım adım gösteriyoruz. Yazıcı kurulumu, menü girişi, personel tanımlama — teknik destek ekibimiz yanınızda." data-en="We show you and your team step by step how to use the system. Printer setup, menu entry, staff definitions — our support team is with you.">Sistemi nasıl kullanacağınızı size ve ekibinize adım adım gösteriyoruz. Teknik destek ekibimiz her adımda yanınızda.</div>
+        </div>
+      </div>
+
+      <div style="background:var(--card); border:1px solid var(--border); border-radius:20px; padding:32px; display:flex; gap:24px; align-items:flex-start;">
+        <div style="width:56px; height:56px; border-radius:16px; background:linear-gradient(135deg,#8B5CF6,#6D28D9); display:flex; align-items:center; justify-content:center; font-size:26px; flex-shrink:0;">🔒</div>
+        <div>
+          <div style="font-size:18px; font-weight:900; margin-bottom:8px;" data-tr="Verileriniz Sizindir" data-en="Your Data Belongs to You">Verileriniz Sizindir</div>
+          <div style="font-size:14px; color:var(--sec); line-height:1.8;" data-tr="Restoranınıza ait tüm veriler — siparişler, stok, personel, raporlar — yalnızca sizin erişiminizde. Hiçbir veriyi üçüncü taraflarla paylaşmıyoruz, hiçbir zaman." data-en="All data belonging to your restaurant is only accessible to you. We never share any data with third parties.">Restoranınıza ait tüm veriler yalnızca sizin erişiminizde. Hiçbir veriyi üçüncü taraflarla paylaşmıyoruz, hiçbir zaman.</div>
+        </div>
+      </div>
+
+      <div style="background:var(--card); border:1px solid var(--border); border-radius:20px; padding:32px; display:flex; gap:24px; align-items:flex-start;">
+        <div style="width:56px; height:56px; border-radius:16px; background:linear-gradient(135deg,#F59E0B,#D97706); display:flex; align-items:center; justify-content:center; font-size:26px; flex-shrink:0;">📈</div>
+        <div>
+          <div style="font-size:18px; font-weight:900; margin-bottom:8px;" data-tr="Sürekli Gelişen Sistem" data-en="Continuously Improving System">Sürekli Gelişen Sistem</div>
+          <div style="font-size:14px; color:var(--sec); line-height:1.8;" data-tr="Restoranların ihtiyaçları değiştikçe Sofrım gelişiyor. Her güncelleme otomatik olarak sisteminize yansır — ek ücret yok, yeni kurulum yok." data-en="As restaurant needs change, Sofrım evolves. Every update automatically reflects in your system — no extra charge, no new installation.">Restoranların ihtiyaçları değiştikçe Sofrım gelişiyor. Her güncelleme otomatik yansır — ek ücret yok, yeni kurulum yok.</div>
+        </div>
+      </div>
+
+      <div style="background:var(--card); border:1px solid var(--border); border-radius:20px; padding:32px; display:flex; gap:24px; align-items:flex-start;">
+        <div style="width:56px; height:56px; border-radius:16px; background:linear-gradient(135deg,var(--accent),var(--accent2)); display:flex; align-items:center; justify-content:center; font-size:26px; flex-shrink:0;">💬</div>
+        <div>
+          <div style="font-size:18px; font-weight:900; margin-bottom:8px;" data-tr="Geri Bildiriminiz Sistemi Şekillendirir" data-en="Your Feedback Shapes the System">Geri Bildiriminiz Sistemi Şekillendirir</div>
+          <div style="font-size:14px; color:var(--sec); line-height:1.8;" data-tr="Kullandığınız sistemin nasıl gelişeceğine siz karar veriyorsunuz. Önerdiğiniz özellikler değerlendirilir, en çok talep gören geliştirmeler önceliklendirilir." data-en="You decide how the system you use will develop. Suggested features are evaluated, most requested improvements are prioritized.">Önerdiğiniz özellikler değerlendirilir, en çok talep gören geliştirmeler önceliklendirilir. Sistemi birlikte şekillendiriyoruz.</div>
+        </div>
+      </div>
+
+      <div style="background:var(--card); border:1px solid var(--border); border-radius:20px; padding:32px; display:flex; gap:24px; align-items:flex-start;">
+        <div style="width:56px; height:56px; border-radius:16px; background:linear-gradient(135deg,var(--teal),#1ab5a0); display:flex; align-items:center; justify-content:center; font-size:26px; flex-shrink:0;">🤝</div>
+        <div>
+          <div style="font-size:18px; font-weight:900; margin-bottom:8px;" data-tr="Beğenmezseniz Ödeme Yok" data-en="No Payment If You Don't Like It">Beğenmezseniz Ödeme Yok</div>
+          <div style="font-size:14px; color:var(--sec); line-height:1.8;" data-tr="14 günlük ücretsiz deneme süresinde tüm özellikleri kullanın. Sistemi beğenmezseniz herhangi bir ücret ödemezsiniz. Söz." data-en="Use all features during the 14-day free trial. If you don't like the system, you pay nothing. Promise.">14 günlük ücretsiz deneme süresinde tüm özellikleri kullanın. Beğenmezseniz hiçbir ücret ödemezsiniz. Söz.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="cta-banner" style="margin:0;">
+      <h2 data-tr="Bu Taahhütlere Güvenin" data-en="Trust These Commitments">Bu Taahhütlere Güvenin</h2>
+      <p data-tr="14 gün boyunca ücretsiz deneyin, farkı kendiniz görün." data-en="Try free for 14 days, see the difference yourself.">14 gün boyunca ücretsiz deneyin, farkı kendiniz görün.</p>
+      <button class="btn-primary" onclick="showPage('contact')" data-tr="Hemen Başvur →" data-en="Apply Now →">Hemen Başvur →</button>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: COMPARISON -->
+<!-- ══════════════════════════════════════ -->
+<div class="page" id="page-comparison">
+  <section>
+    <div style="text-align:center; margin-bottom: 52px;">
+      <div class="section-label" data-tr="NEDEN SOFRIM?" data-en="WHY SOFRIM?">NEDEN SOFRIM?</div>
+      <h2 class="section-title" data-tr="Rakiplerimizden Farkımız" data-en="How We Differ From Competitors">Rakiplerimizden Farkımız</h2>
+      <p style="color:var(--sec); font-size:15px; max-width:560px; margin:0 auto;" data-tr="Diğer sistemler siparişi yönetir. Sofrım restoranı yönetir." data-en="Other systems manage orders. Sofrım manages the restaurant.">Diğer sistemler siparişi yönetir. Sofrım restoranı yönetir.</p>
+    </div>
+
+    <!-- KARŞILAŞTIRMA TABLOSU -->
+    <div style="overflow-x:auto; margin-bottom:60px;">
+      <table style="width:100%; border-collapse:collapse; font-size:13px;">
+        <thead>
+          <tr style="border-bottom:2px solid var(--border);">
+            <th style="text-align:left; padding:14px 16px; color:var(--sec); font-weight:700; min-width:200px;" data-tr="Özellik" data-en="Feature">Özellik</th>
+            <th style="text-align:center; padding:14px 16px; color:var(--sec); font-weight:700;" data-tr="X Firması" data-en="Firm X">X Firması</th>
+            <th style="text-align:center; padding:14px 16px; color:var(--sec); font-weight:700;" data-tr="Y Firması" data-en="Firm Y">Y Firması</th>
+            <th style="text-align:center; padding:14px 16px; color:var(--sec); font-weight:700;" data-tr="Z Firması" data-en="Firm Z">Z Firması</th>
+            <th style="text-align:center; padding:14px 20px; background:rgba(255,107,26,0.06); border-radius:12px;">
+              <span style="color:var(--accent); font-weight:900; font-size:15px;">Sofrım</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:13px 16px; color:var(--sec);" data-tr="QR ile Müşteri Sipariş" data-en="QR Customer Ordering">QR ile Müşteri Sipariş</td>
+            <td style="text-align:center;">✅</td>
+            <td style="text-align:center;">✅</td>
+            <td style="text-align:center;">✅</td>
+            <td style="text-align:center; background:rgba(255,107,26,0.04);">✅</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border); background:rgba(255,255,255,0.015);">
+            <td style="padding:13px 16px; color:var(--sec);" data-tr="Akıllı Mutfak Zamanlama (tatlı/ana yemek ayrımı)" data-en="Smart Kitchen Timing">Akıllı Mutfak Zamanlama</td>
+            <td style="text-align:center; color:#555;">—</td>
+            <td style="text-align:center; color:#555;">—</td>
+            <td style="text-align:center; color:#555;">—</td>
+            <td style="text-align:center; background:rgba(255,107,26,0.04); color:var(--teal); font-weight:800;">✅</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:13px 16px; color:var(--sec);" data-tr="Canlı Masa Haritası (internet kafe tarzı)" data-en="Live Table Map">Canlı Masa Haritası</td>
+            <td style="text-align:center; color:#555;">—</td>
+            <td style="text-align:center; color:#555;">—</td>
+            <td style="text-align:center;">⚠️ <span style="font-size:10px; color:#666;">Kısmi</span></td>
+            <td style="text-align:center; background:rgba(255,107,26,0.04); color:var(--teal); font-weight:800;">✅</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border); background:rgba(255,255,255,0.015);">
+            <td style="padding:13px 16px; color:var(--sec);" data-tr="Kurye & Teslimat Modülü" data-en="Delivery Module">Kurye & Teslimat Modülü</td>
+            <td style="text-align:center; color:#555;">—</td>
+            <td style="text-align:center; color:#555;">—</td>
+            <td style="text-align:center; color:#555;">—</td>
+            <td style="text-align:center; background:rgba(255,107,26,0.04); color:var(--teal); font-weight:800;">✅</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:13px 16px; color:var(--sec);" data-tr="Gerçek Zamanlı Kurye Konum Takibi" data-en="Real-time Courier Tracking">Gerçek Zamanlı Kurye Takibi</td>
+            <td style="text-align:center; color:#555;">—</td>
+            <td style="text-align:center; color:#555;">—</td>
+            <td style="text-align:center; color:#555;">—</td>
+            <td style="text-align:center; background:rgba(255,107,26,0.04); color:var(--teal); font-weight:800;">✅</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border); background:rgba(255,255,255,0.015);">
+            <td style="padding:13px 16px; color:var(--sec);" data-tr="Stok & Reçete Takibi" data-en="Stock & Recipe Tracking">Stok & Reçete Takibi</td>
+            <td style="text-align:center;">⚠️ <span style="font-size:10px; color:#666;">Kısmi</span></td>
+            <td style="text-align:center; color:#555;">—</td>
+            <td style="text-align:center;">✅</td>
+            <td style="text-align:center; background:rgba(255,107,26,0.04);">✅</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:13px 16px; color:var(--sec);" data-tr="Vardiya & İzin Yönetimi" data-en="Shift & Leave Management">Vardiya & İzin Yönetimi</td>
+            <td style="text-align:center; color:#555;">—</td>
+            <td style="text-align:center; color:#555;">—</td>
+            <td style="text-align:center; color:#555;">—</td>
+            <td style="text-align:center; background:rgba(255,107,26,0.04); color:var(--teal); font-weight:800;">✅</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border); background:rgba(255,255,255,0.015);">
+            <td style="padding:13px 16px; color:var(--sec);" data-tr="Personel Maaş Takibi" data-en="Salary Tracking">Personel Maaş Takibi</td>
+            <td style="text-align:center; color:#555;">—</td>
+            <td style="text-align:center; color:#555;">—</td>
+            <td style="text-align:center; color:#555;">—</td>
+            <td style="text-align:center; background:rgba(255,107,26,0.04); color:var(--teal); font-weight:800;">✅</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:13px 16px; color:var(--sec);" data-tr="Masa Birleştirme & Hesap Bölme" data-en="Table Merge & Bill Split">Masa Birleştirme & Hesap Bölme</td>
+            <td style="text-align:center;">✅</td>
+            <td style="text-align:center; color:#555;">—</td>
+            <td style="text-align:center;">✅</td>
+            <td style="text-align:center; background:rgba(255,107,26,0.04);">✅</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border); background:rgba(255,255,255,0.015);">
+            <td style="padding:13px 16px; color:var(--sec);" data-tr="Ürün Opsiyonları (pişirme derecesi vb.)" data-en="Product Options">Ürün Opsiyonları</td>
+            <td style="text-align:center;">✅</td>
+            <td style="text-align:center; color:#555;">—</td>
+            <td style="text-align:center;">✅</td>
+            <td style="text-align:center; background:rgba(255,107,26,0.04);">✅</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:13px 16px; color:var(--sec);" data-tr="Mutfak Notu (az baharatlı vb.)" data-en="Kitchen Notes">Mutfak Notu</td>
+            <td style="text-align:center; color:#555;">—</td>
+            <td style="text-align:center; color:#555;">—</td>
+            <td style="text-align:center;">⚠️ <span style="font-size:10px; color:#666;">Kısmi</span></td>
+            <td style="text-align:center; background:rgba(255,107,26,0.04); color:var(--teal); font-weight:800;">✅</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border); background:rgba(255,255,255,0.015);">
+            <td style="padding:13px 16px; color:var(--sec);" data-tr="Çoklu Harita Desteği (Google, Yandex, Waze)" data-en="Multi-map Support">Çoklu Harita Desteği</td>
+            <td style="text-align:center; color:#555;">—</td>
+            <td style="text-align:center; color:#555;">—</td>
+            <td style="text-align:center; color:#555;">—</td>
+            <td style="text-align:center; background:rgba(255,107,26,0.04); color:var(--teal); font-weight:800;">✅</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:13px 16px; color:var(--sec);" data-tr="Mobil Patron Özeti (canlı ciro)" data-en="Mobile Owner Dashboard">Mobil Patron Özeti</td>
+            <td style="text-align:center; color:#555;">—</td>
+            <td style="text-align:center; color:#555;">—</td>
+            <td style="text-align:center; color:#555;">—</td>
+            <td style="text-align:center; background:rgba(255,107,26,0.04); color:var(--teal); font-weight:800;">✅</td>
+          </tr>
+          <tr style="border-bottom:2px solid var(--border); background:rgba(255,107,26,0.04);">
+            <td style="padding:13px 16px; font-weight:800;" data-tr="Aylık Fiyat (başlangıç)" data-en="Monthly Price (starting)">Aylık Fiyat</td>
+            <td style="text-align:center; color:var(--sec);">~1.200₺</td>
+            <td style="text-align:center; color:var(--sec);">~900₺</td>
+            <td style="text-align:center; color:var(--sec);">~2.000₺</td>
+            <td style="text-align:center; color:var(--accent); font-weight:900;">799₺</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ÖZEL FARK KARTLARI -->
+    <div style="text-align:center; margin-bottom:36px;">
+      <div class="section-label" data-tr="SADECE SOFRIM'DA" data-en="ONLY IN SOFRIM">SADECE SOFRIM'DA</div>
+      <h3 class="section-title" style="font-size:30px;" data-tr="Başka Hiçbir Sistemde Olmayan Özellikler" data-en="Features Not Found Anywhere Else">Başka Hiçbir Sistemde Olmayan Özellikler</h3>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card" style="border-color:rgba(255,107,26,0.3);">
+        <div class="feature-icon" style="background:rgba(255,107,26,0.15);">🗺️</div>
+        <div class="feature-title" data-tr="Canlı Masa Haritası" data-en="Live Table Map">Canlı Masa Haritası</div>
+        <div class="feature-desc" data-tr="İnternet kafe mantığı ile restorana uyarlandı. Hangi masa kaç süredir dolu, ne harcadı, 2 saati geçti mi — tek bakışta. Türkiye'de hiçbir rakipte yok." data-en="Internet café concept adapted for restaurants. Which table has been occupied how long, what they spent — at a glance. No competitor in Turkey has this.">İnternet kafe mantığı ile restorana uyarlandı. Hangi masa kaç süredir dolu, ne harcadı — tek bakışta. Türkiye'de hiçbir rakipte yok.</div>
+      </div>
+      <div class="feature-card" style="border-color:rgba(45,212,191,0.3);">
+        <div class="feature-icon" style="background:rgba(45,212,191,0.15);">🛵</div>
+        <div class="feature-title" data-tr="Tam Kurye Yönetimi" data-en="Full Delivery Management">Tam Kurye Yönetimi</div>
+        <div class="feature-desc" data-tr="Sipariş havuzu, zimmet sistemi, gerçek zamanlı konum takibi. Kurye telefonda Google Maps, Yandex veya Waze ile navigasyona tek tıkla geçer." data-en="Order pool, consignment system, real-time tracking. Courier navigates with Google Maps, Yandex or Waze in one tap.">Sipariş havuzu, zimmet, gerçek zamanlı takip. Google Maps, Yandex veya Waze — kurye hangisini kullanıyorsa o açılır.</div>
+      </div>
+      <div class="feature-card" style="border-color:rgba(255,107,26,0.3);">
+        <div class="feature-icon" style="background:rgba(255,107,26,0.15);">👥</div>
+        <div class="feature-title" data-tr="Eksiksiz Personel Modülü" data-en="Complete Staff Module">Eksiksiz Personel Modülü</div>
+        <div class="feature-desc" data-tr="Vardiya planlama, izin talebi, avans sistemi, maaş hesaplama — hepsi aynı platformda. Personel WhatsApp yerine sistemden talep açar, patron onaylar." data-en="Shift planning, leave requests, advance system, salary calculation — all in one platform. Staff requests through the system, not WhatsApp.">Vardiya, izin, avans, maaş — hepsi aynı platformda. Personel WhatsApp yerine sistemden talep açar.</div>
+      </div>
+      <div class="feature-card" style="border-color:rgba(45,212,191,0.3);">
+        <div class="feature-icon" style="background:rgba(45,212,191,0.15);">🔐</div>
+        <div class="feature-title" data-tr="Başvuru Tabanlı Güvenli Erişim" data-en="Application-Based Secure Access">Güvenli Erişim Sistemi</div>
+        <div class="feature-desc" data-tr="Açık kayıt yok. Her restoran başvurur, biz onaylarız. TC/Vergi No ile kimlik doğrulama — aynı kişi birden fazla hesap açamaz. Size özel 6 haneli kod ile giriş." data-en="No open registration. Every restaurant applies, we approve. ID verification — same person can't open multiple accounts. Login with your unique 6-digit code.">Açık kayıt yok. TC/Vergi No doğrulaması. Size özel 6 haneli kod ile giriş. Rakipler herkese açık kayıt yapıyor.</div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-banner" style="margin-top:60px; margin-left:0; margin-right:0;">
+      <h2 data-tr="Farkı Kendiniz Görün" data-en="See the Difference Yourself">Farkı Kendiniz Görün</h2>
+      <p data-tr="14 gün boyunca ücretsiz kullanın. Beğenmezseniz hiçbir ücret ödemezsiniz." data-en="Use free for 14 days. No charge if you don't like it.">14 gün boyunca ücretsiz kullanın. Beğenmezseniz hiçbir ücret ödemezsiniz.</p>
+      <button class="btn-primary" onclick="showPage('contact')" data-tr="Hemen Başvur →" data-en="Apply Now →">Hemen Başvur →</button>
+    </div>
+  </section>
+</div>
+
+<!-- WhatsApp Sabit Butonu -->
+<a class="whatsapp-btn" href="https://wa.me/903128201013" target="_blank" title="WhatsApp ile İletişim">💬</a>
+
+<!-- Demo Modal -->
+<div class="demo-modal-overlay" id="demo-overlay" onclick="if(event.target===this)closeDemoModal()">
+  <div class="demo-modal">
+    <div style="font-size:18px; font-weight:900; margin-bottom:6px;" data-tr="🎯 Canlı Demo İste" data-en="🎯 Request Live Demo">🎯 Canlı Demo İste</div>
+    <div style="font-size:13px; color:var(--sec); margin-bottom:20px;" data-tr="Sistemi ekibimiz size canlı olarak göstersin." data-en="Let our team show you the system live.">Sistemi ekibimiz size canlı olarak göstersin.</div>
+    <div class="contact-form">
+      <div class="form-group">
+        <label data-tr="ADI SOYADI" data-en="FULL NAME">ADI SOYADI</label>
+        <input type="text" id="demo-name" placeholder="Ahmet Yılmaz">
+      </div>
+      <div class="form-group">
+        <label data-tr="TELEFON" data-en="PHONE">TELEFON</label>
+        <input type="tel" id="demo-phone" placeholder="0532 xxx xx xx">
+      </div>
+      <div class="form-group">
+        <label data-tr="UYGUN SAAT" data-en="PREFERRED TIME">UYGUN SAAT</label>
+        <select id="demo-time">
+          <option data-tr="09:00 - 11:00" data-en="09:00 - 11:00">09:00 - 11:00</option>
+          <option data-tr="11:00 - 13:00" data-en="11:00 - 13:00">11:00 - 13:00</option>
+          <option data-tr="14:00 - 16:00" data-en="14:00 - 16:00">14:00 - 16:00</option>
+          <option data-tr="16:00 - 18:00" data-en="16:00 - 18:00">16:00 - 18:00</option>
+        </select>
+      </div>
+      <div style="display:flex; gap:8px; margin-top:4px;">
+        <button onclick="closeDemoModal()" style="flex:1; padding:12px; border-radius:10px; border:1px solid var(--border); background:transparent; color:var(--sec); cursor:pointer; font-size:13px; font-weight:600;" data-tr="İptal" data-en="Cancel">İptal</button>
+        <button onclick="submitDemo()" style="flex:2; padding:12px; border-radius:10px; border:none; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#fff; cursor:pointer; font-size:13px; font-weight:700;" data-tr="Demo Talep Et →" data-en="Request Demo →">Demo Talep Et →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: HOW IT WORKS -->
+<!-- ══════════════════════════════════════ -->
+<div class="page" id="page-howitworks">
+  <section>
+    <div style="text-align:center; margin-bottom:52px;">
+      <div class="section-label" data-tr="NASIL ÇALIŞIR?" data-en="HOW IT WORKS?">NASIL ÇALIŞIR?</div>
+      <h2 class="section-title" data-tr="Siparişten Ödemeye<br>Tüm Akış" data-en="From Order to Payment<br>The Complete Flow">Siparişten Ödemeye<br>Tüm Akış</h2>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start;">
+      <div>
+        <div style="font-size:13px; font-weight:800; color:var(--accent); text-transform:uppercase; letter-spacing:1px; margin-bottom:24px;" data-tr="📱 Müşteri Akışı" data-en="📱 Customer Flow">📱 Müşteri Akışı</div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-left"><div class="timeline-dot">📲</div><div class="timeline-line"></div></div>
+            <div class="timeline-content">
+              <div class="timeline-title" data-tr="QR Kodu Okutur" data-en="Scans QR Code">QR Kodu Okutur</div>
+              <div class="timeline-desc" data-tr="Masadaki QR'ı telefona okutunca restoranın dijital menüsü açılır. Uygulama indirmek gerekmez." data-en="Scanning the QR code on the table opens the restaurant's digital menu. No app download needed.">Masadaki QR'ı telefona okutunca dijital menü açılır. Uygulama indirmek gerekmez.</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-left"><div class="timeline-dot">🍽️</div><div class="timeline-line"></div></div>
+            <div class="timeline-content">
+              <div class="timeline-title" data-tr="Siparişini Seçer" data-en="Selects Order">Siparişini Seçer</div>
+              <div class="timeline-desc" data-tr="Ürünleri seçer, pişirme derecesi gibi opsiyonları belirler, sepete ekler." data-en="Selects items, sets options like cooking level, adds to cart.">Ürünleri seçer, pişirme derecesi gibi opsiyonları belirler, sepete ekler.</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-left"><div class="timeline-dot">✅</div><div class="timeline-line"></div></div>
+            <div class="timeline-content">
+              <div class="timeline-title" data-tr="Siparişi Onaylar" data-en="Confirms Order">Siparişi Onaylar</div>
+              <div class="timeline-desc" data-tr="'Sipariş Ver' butonuna basar, sıra numarası alır. Mutfak anında haberi alır." data-en="Taps 'Order' button, gets queue number. Kitchen is instantly notified.">Sipariş Ver butonuna basar, sıra numarası alır. Mutfak anında haberi alır.</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-left"><div class="timeline-dot">🔔</div></div>
+            <div class="timeline-content">
+              <div class="timeline-title" data-tr="Garson Çağırır / Hesap İster" data-en="Calls Waiter / Requests Bill">Garson Çağırır / Hesap İster</div>
+              <div class="timeline-desc" data-tr="İhtiyaç duyunca QR ekranından garson çağırır veya hesap ister. Garsonun telefonuna bildirim düşer." data-en="When needed, calls waiter or requests bill from QR screen. Notification goes to waiter's phone.">İhtiyaç duyunca garson çağırır veya hesap ister. Garsonun telefonuna bildirim düşer.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:13px; font-weight:800; color:var(--teal); text-transform:uppercase; letter-spacing:1px; margin-bottom:24px;" data-tr="👨‍🍳 Restoran Akışı" data-en="👨‍🍳 Restaurant Flow">👨‍🍳 Restoran Akışı</div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-left"><div class="timeline-dot" style="background:linear-gradient(135deg,var(--teal),#1ab5a0);">🍳</div><div class="timeline-line"></div></div>
+            <div class="timeline-content">
+              <div class="timeline-title" data-tr="Mutfak Ekranına Düşer" data-en="Appears on Kitchen Screen">Mutfak Ekranına Düşer</div>
+              <div class="timeline-desc" data-tr="Yemekler mutfak ekranına, içecekler bar ekranına otomatik olarak düşer. Aşçı sadece kendi istasyonunu görür." data-en="Food goes to kitchen screen, drinks to bar screen automatically. Chef only sees their station.">Yemekler mutfak, içecekler bar ekranına düşer. Her istasyon kendi siparişini görür.</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-left"><div class="timeline-dot" style="background:linear-gradient(135deg,var(--teal),#1ab5a0);">⏱️</div><div class="timeline-line"></div></div>
+            <div class="timeline-content">
+              <div class="timeline-title" data-tr="Hazırlanır, Hazır İşaretlenir" data-en="Prepared, Marked Ready">Hazırlanır, Hazır İşaretlenir</div>
+              <div class="timeline-desc" data-tr="Aşçı hazırladığında 'Hazır' der. Garsonun telefonuna bildirim düşer, müşteriyle paylaşır." data-en="When chef prepares, marks 'Ready'. Notification goes to waiter's phone to serve.">Aşçı hazırladığında Hazır der, garsonun telefonuna bildirim düşer.</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-left"><div class="timeline-dot" style="background:linear-gradient(135deg,var(--teal),#1ab5a0);">💳</div><div class="timeline-line"></div></div>
+            <div class="timeline-content">
+              <div class="timeline-title" data-tr="Kasa Ödemeyi Alır" data-en="Cashier Takes Payment">Kasa Ödemeyi Alır</div>
+              <div class="timeline-desc" data-tr="Kasiyer ödeme yöntemini seçip onaylar. Gerekirse hesabı kişilere böler (Alman usulü)." data-en="Cashier selects payment method and confirms. Can split the bill per person if needed.">Kasiyer ödeme yöntemini seçer. Gerekirse hesabı kişilere böler.</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-left"><div class="timeline-dot" style="background:linear-gradient(135deg,var(--teal),#1ab5a0);">📊</div></div>
+            <div class="timeline-content">
+              <div class="timeline-title" data-tr="Patron Canlı Takip Eder" data-en="Owner Monitors Live">Patron Canlı Takip Eder</div>
+              <div class="timeline-desc" data-tr="Tüm bunlar olurken patron cebinden canlı ciroyu, masa durumlarını ve mutfak yükünü izler." data-en="While all this happens, owner monitors live revenue, table status and kitchen load from their phone.">Patron cebinden canlı ciroyu, masa durumunu, mutfak yükünü izler.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-banner" style="margin-top:60px; margin-left:0; margin-right:0;">
+      <h2 data-tr="Canlı Görmek İster misiniz?" data-en="Want to See it Live?">Canlı Görmek İster misiniz?</h2>
+      <p data-tr="Ekibimiz sistemi size canlı olarak göstersin, sorularınızı yanıtlasın." data-en="Let our team show you the system live and answer your questions.">Ekibimiz sistemi size canlı olarak göstersin, sorularınızı yanıtlasın.</p>
+      <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+        
+        <button class="btn-secondary" onclick="showPage('contact')" data-tr="Başvuru Yap →" data-en="Apply Now →">Başvuru Yap →</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: FAQ -->
+<!-- ══════════════════════════════════════ -->
+<div class="page" id="page-faq">
+  <section style="max-width:760px;">
+    <div style="text-align:center; margin-bottom:52px;">
+      <div class="section-label" data-tr="SIKÇA SORULAN SORULAR" data-en="FREQUENTLY ASKED QUESTIONS">SIKÇA SORULAN SORULAR</div>
+      <h2 class="section-title" data-tr="Aklınızdaki Tüm Sorular" data-en="All Your Questions Answered">Aklınızdaki Tüm Sorular</h2>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span data-tr="Sözleşme imzalamam gerekiyor mu?" data-en="Do I need to sign a contract?">Sözleşme imzalamam gerekiyor mu?</span>
+        <span class="faq-arrow">▼</span>
+      </div>
+      <div class="faq-a" data-tr="Hayır. Sofrım'da uzun vadeli sözleşme yoktur. Aylık veya yıllık ödeme yapabilirsiniz. İstediğiniz zaman iptal edebilirsiniz." data-en="No. There are no long-term contracts with Sofrım. You can pay monthly or yearly and cancel anytime.">Hayır. Sofrım'da uzun vadeli sözleşme yoktur. Aylık veya yıllık ödeme yapabilirsiniz. İstediğiniz zaman iptal edebilirsiniz.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span data-tr="İnternet kesilirse ne olur?" data-en="What happens if the internet goes down?">İnternet kesilirse ne olur?</span>
+        <span class="faq-arrow">▼</span>
+      </div>
+      <div class="faq-a" data-tr="Sofrım bulut tabanlı bir sistemdir, internet bağlantısı gerektirir. İnternet kesilirse garson ve kasa ekranları geçici olarak çalışmayabilir. Ancak kısa süreli kesintilerde mevcut açık siparişler kaybolmaz." data-en="Sofrım is a cloud-based system requiring internet. If internet goes down, waiter and cashier screens may temporarily stop working. However, current open orders won't be lost in brief outages.">Sofrım bulut tabanlı bir sistemdir, internet bağlantısı gerektirir. Kısa süreli kesintilerde mevcut açık siparişler kaybolmaz, yeniden bağlanınca sistem kaldığı yerden devam eder.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span data-tr="Verilerimi başka bir sisteme aktarabilir miyim?" data-en="Can I transfer my data to another system?">Verilerimi başka bir sisteme aktarabilir miyim?</span>
+        <span class="faq-arrow">▼</span>
+      </div>
+      <div class="faq-a" data-tr="Evet. Verileriniz (siparişler, raporlar, personel bilgileri) her zaman size aittir. Aboneliğinizi sonlandırmak istediğinizde verilerinizi Excel/CSV formatında indirebilirsiniz." data-en="Yes. Your data (orders, reports, staff info) always belongs to you. When you end your subscription, you can download your data in Excel/CSV format.">Evet. Verileriniz her zaman size aittir. Aboneliğinizi sonlandırmak istediğinizde tüm verilerinizi Excel/CSV formatında indirebilirsiniz.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span data-tr="Kaç cihazda kullanabilirim?" data-en="How many devices can I use?">Kaç cihazda kullanabilirim?</span>
+        <span class="faq-arrow">▼</span>
+      </div>
+      <div class="faq-a" data-tr="Sınırsız cihaz desteği vardır. Mutfak tableti, garson telefonu, patron telefonu, kasa bilgisayarı — hepsi aynı anda kullanılabilir. Ek cihaz ücreti yoktur." data-en="Unlimited device support. Kitchen tablet, waiter phone, owner phone, cashier computer — all can be used simultaneously. No extra device fee.">Sınırsız cihaz desteği vardır. Mutfak tableti, garson telefonu, patron telefonu, kasa bilgisayarı — hepsi aynı anda kullanılabilir. Ek cihaz ücreti yoktur.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span data-tr="Yazıcı desteği var mı?" data-en="Is there printer support?">Yazıcı desteği var mı?</span>
+        <span class="faq-arrow">▼</span>
+      </div>
+      <div class="faq-a" data-tr="Evet. Termal yazıcı desteği mevcuttur. Mutfak ekranını 'Yazıcı Modu'na alarak yeni siparişleri otomatik yazdırabilirsiniz. Yazıcı kurulumunda teknik destek ekibimiz yardımcı olur." data-en="Yes. Thermal printer support is available. Set the kitchen screen to 'Printer Mode' to automatically print new orders. Our support team helps with printer setup.">Evet. Termal yazıcı desteği mevcuttur. Mutfak ekranını Yazıcı Modu'na alarak yeni siparişleri otomatik yazdırabilirsiniz. Kurulumda destek sağlarız.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span data-tr="Müşterilerin uygulama indirmesi gerekiyor mu?" data-en="Do customers need to download an app?">Müşterilerin uygulama indirmesi gerekiyor mu?</span>
+        <span class="faq-arrow">▼</span>
+      </div>
+      <div class="faq-a" data-tr="Hayır. Müşteriler sadece QR kodu okutarak tarayıcıda siparişlerini verebilir. Uygulama indirmek, hesap açmak gerekmez. Herhangi bir telefon ve tarayıcı ile çalışır." data-en="No. Customers can order just by scanning the QR code in their browser. No app download or account creation needed. Works with any phone and browser.">Hayır. Müşteriler sadece QR kodu okutarak tarayıcıda siparişlerini verebilir. Uygulama indirmek veya hesap açmak gerekmez.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span data-tr="Paketimi yükseltebilir veya düşürebilir miyim?" data-en="Can I upgrade or downgrade my plan?">Paketimi yükseltebilir veya düşürebilir miyim?</span>
+        <span class="faq-arrow">▼</span>
+      </div>
+      <div class="faq-a" data-tr="Evet. İhtiyaçlarınız değiştikçe paketinizi yükseltebilir veya düşürebilirsiniz. Yükseltme anında aktif olur. Düşürme bir sonraki fatura döneminden itibaren geçerli olur." data-en="Yes. You can upgrade or downgrade as your needs change. Upgrades are immediate. Downgrades take effect from the next billing period.">Evet. İhtiyaçlarınız değiştikçe paketinizi değiştirebilirsiniz. Yükseltme anında aktif olur, düşürme bir sonraki fatura döneminden geçerli olur.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span data-tr="Teknik sorunlarda nasıl destek alabilirim?" data-en="How do I get support for technical issues?">Teknik sorunlarda nasıl destek alabilirim?</span>
+        <span class="faq-arrow">▼</span>
+      </div>
+      <div class="faq-a" data-tr="Teknik destek ekibimize WhatsApp, e-posta veya sistem içindeki destek formu üzerinden ulaşabilirsiniz. Pro pakette öncelikli destek mevcuttur." data-en="You can reach our technical support team via WhatsApp, email or the in-system support form. Pro plan includes priority support.">Teknik destek ekibimize WhatsApp, e-posta veya sistem içindeki destek formu üzerinden ulaşabilirsiniz. Pro pakette öncelikli destek mevcuttur.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span data-tr="14 günlük deneme sonrası ne olur?" data-en="What happens after the 14-day trial?">14 günlük deneme sonrası ne olur?</span>
+        <span class="faq-arrow">▼</span>
+      </div>
+      <div class="faq-a" data-tr="Deneme süresi bittiğinde sisteme giriş yaparken bir paket seçim ekranı görürsünüz. Bir paket aktivasyon kodu satın alarak veya bizimle iletişime geçerek aboneliğinizi başlatabilirsiniz. Verileriniz korunur." data-en="When the trial ends, you'll see a plan selection screen when logging in. Start your subscription by purchasing an activation code or contacting us. Your data is preserved.">Deneme süresi bittiğinde bir paket seçerek devam edebilirsiniz. Verileriniz korunur, hiçbir şey kaybolmaz.</div>
+    </div>
+
+    <div style="margin-top:48px; padding:28px; background:var(--card); border:1px solid var(--border); border-radius:20px; text-align:center;">
+      <div style="font-size:20px; margin-bottom:8px;">🤔</div>
+      <div style="font-size:15px; font-weight:800; margin-bottom:8px;" data-tr="Başka sorunuz mu var?" data-en="Have more questions?">Başka sorunuz mu var?</div>
+      <div style="font-size:13px; color:var(--sec); margin-bottom:16px;" data-tr="Canlı demo talep edin veya bize doğrudan yazın." data-en="Request a live demo or write to us directly.">Canlı demo talep edin veya bize doğrudan yazın.</div>
+      <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+        
+        <button class="btn-secondary" onclick="showPage('contact')" data-tr="✉️ Bize Yazın" data-en="✉️ Contact Us">✉️ Bize Yazın</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: ABOUT -->
+<!-- ══════════════════════════════════════ -->
+<div class="page" id="page-about">
+  <section>
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="section-label" data-tr="HAKKIMIZDA" data-en="ABOUT US">HAKKIMIZDA</div>
+        <h2 data-tr="Restoranların Gerçek Sorunlarını Çözüyoruz" data-en="We Solve Real Restaurant Problems">Restoranların Gerçek Sorunlarını Çözüyoruz</h2>
+        <p data-tr="Sofrım, restoranların her gün yaşadığı sorunları — kağıt siparişler, unutulan stoklar, maaş hesapları, kurye takibi — tek bir platformda çözme vizyonuyla doğdu." data-en="Sofrım was born with the vision of solving the problems restaurants face every day — paper orders, forgotten stock, salary calculations, delivery tracking — all in one platform.">Sofrım, restoranların her gün yaşadığı sorunları — kağıt siparişler, unutulan stoklar, maaş hesapları, kurye takibi — tek bir platformda çözme vizyonuyla doğdu.</p>
+        <p data-tr="Türkiye'deki restoran sahipleri ortalama 4-5 farklı uygulama kullanıyor. Her biri ayrı abonelik, ayrı öğrenme süreci, ayrı destek hattı. Sofrım bunu sona erdiriyor." data-en="Restaurant owners in Turkey use an average of 4-5 different apps. Each with a separate subscription, learning curve, and support line. Sofrım ends this.">Türkiye'deki restoran sahipleri ortalama 4-5 farklı uygulama kullanıyor. Her biri ayrı abonelik, ayrı öğrenme süreci, ayrı destek hattı. Sofrım bunu sona erdiriyor.</p>
+        <div class="about-values">
+          <div class="value-item">
+            <div class="value-icon">🎯</div>
+            <div class="value-title" data-tr="Odaklı" data-en="Focused">Odaklı</div>
+            <div class="value-desc" data-tr="Sadece restoran sektörü, başka hiçbir şey." data-en="Only the restaurant sector, nothing else.">Sadece restoran sektörü.</div>
+          </div>
+          <div class="value-item">
+            <div class="value-icon">⚡</div>
+            <div class="value-title" data-tr="Hızlı" data-en="Fast">Hızlı</div>
+            <div class="value-desc" data-tr="Başvurudan 1 iş günü içinde kullanıma hazır." data-en="Ready to use within 1 business day of application.">1 iş günü içinde hazır.</div>
+          </div>
+          <div class="value-item">
+            <div class="value-icon">🔒</div>
+            <div class="value-title" data-tr="Güvenli" data-en="Secure">Güvenli</div>
+            <div class="value-desc" data-tr="Her restoran sadece kendi verisini görür." data-en="Each restaurant sees only their own data.">Verileriniz tamamen güvende.</div>
+          </div>
+          <div class="value-item">
+            <div class="value-icon">📞</div>
+            <div class="value-title" data-tr="Destekli" data-en="Supported">Destekli</div>
+            <div class="value-desc" data-tr="Teknik destek ekibi her zaman yanınızda." data-en="Technical support team always by your side.">Her zaman yanınızdayız.</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-visual">
+        <div style="font-size:13px; color:var(--sec); margin-bottom:8px;" data-tr="📊 Canlı Sistem Durumu" data-en="📊 Live System Status">📊 Canlı Sistem Durumu</div>
+        <div class="mock-stat">
+          <div class="mock-stat-label" data-tr="Bugünkü Siparişler" data-en="Today's Orders">Bugünkü Siparişler</div>
+          <div class="mock-stat-val">247</div>
+        </div>
+        <div class="mock-stat">
+          <div class="mock-stat-label" data-tr="Aktif Restoranlar" data-en="Active Restaurants">Aktif Restoranlar</div>
+          <div class="mock-stat-val" style="color:var(--teal)">38</div>
+        </div>
+        <div class="mock-stat">
+          <div class="mock-stat-label" data-tr="Ortalama Hazırlık Süresi" data-en="Avg Prep Time">Ortalama Hazırlık Süresi</div>
+          <div class="mock-stat-val" style="color:#fff">12 dk</div>
+        </div>
+        <div class="mock-stat">
+          <div class="mock-stat-label" data-tr="Memnuniyet Oranı" data-en="Satisfaction Rate">Memnuniyet Oranı</div>
+          <div class="mock-stat-val" style="color:var(--teal)">%98</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: CONTACT -->
+<!-- ══════════════════════════════════════ -->
+<div class="page" id="page-contact">
+  <section>
+    <div class="section-label" data-tr="BAŞVURU FORMU" data-en="APPLICATION FORM">BAŞVURU FORMU</div>
+    <h2 class="section-title" data-tr="Restoranınızı Dijitale Taşıyın" data-en="Take Your Restaurant Digital">Restoranınızı Dijitale Taşıyın</h2>
+    <p class="section-sub" data-tr="Formu doldurun, en geç 1 iş günü içinde size dönelim. Başvuru onaylandıktan sonra size özel kullanıcı kodunuz iletilir." data-en="Fill out the form, we'll get back to you within 1 business day. After approval, your unique user code will be sent.">Formu doldurun, en geç 1 iş günü içinde size dönelim.</p>
+
+    <!-- ADIM GÖSTERGESİ -->
+    <div style="display:flex; align-items:center; gap:0; margin-bottom:40px; max-width:500px;">
+      <div class="step-indicator active" id="si-1" onclick="goStep(1)">
+        <div class="si-num">1</div>
+        <div class="si-label" data-tr="Kişisel" data-en="Personal">Kişisel</div>
+      </div>
+      <div class="si-line"></div>
+      <div class="step-indicator" id="si-2" onclick="goStep(2)">
+        <div class="si-num">2</div>
+        <div class="si-label" data-tr="İşletme" data-en="Business">İşletme</div>
+      </div>
+      <div class="si-line"></div>
+      <div class="step-indicator" id="si-3" onclick="goStep(3)">
+        <div class="si-num">3</div>
+        <div class="si-label" data-tr="Paket" data-en="Plan">Paket</div>
+      </div>
+    </div>
+
+    <div class="contact-grid">
+      <div>
+        <!-- ADIM 1 -->
+        <div id="step-1" class="form-step">
+          <div style="font-size:16px; font-weight:800; margin-bottom:20px;" data-tr="👤 Kişisel Bilgiler" data-en="👤 Personal Information">👤 Kişisel Bilgiler</div>
+          <div class="contact-form">
+            <div class="form-group">
+              <label data-tr="YETKİLİ ADI SOYADI *" data-en="FULL NAME *">YETKİLİ ADI SOYADI *</label>
+              <input type="text" id="f-name" placeholder="Ahmet Yılmaz">
+            </div>
+            <div class="form-group">
+              <label data-tr="E-POSTA ADRESİ * (giriş için kullanılacak)" data-en="EMAIL * (will be used for login)">E-POSTA ADRESİ * <span style="color:var(--teal); font-size:10px;" data-tr="(giriş için kullanılacak)" data-en="(for login)">(giriş için kullanılacak)</span></label>
+              <input type="email" id="f-email" placeholder="ahmet@restoran.com">
+            </div>
+            <div class="form-group">
+              <label data-tr="TELEFON NUMARASI *" data-en="PHONE *">TELEFON NUMARASI *</label>
+              <input type="tel" id="f-phone" placeholder="0532 xxx xx xx">
+            </div>
+            <div class="form-group">
+              <label data-tr="KİMLİK TÜRÜ *" data-en="ID TYPE *">KİMLİK TÜRÜ *</label>
+              <div style="display:flex; gap:10px;">
+                <button id="id-tc" onclick="setIdType('tc')" style="flex:1; padding:11px; border-radius:10px; border:1.5px solid var(--accent); background:rgba(255,107,26,0.1); color:var(--accent); font-size:13px; font-weight:700; cursor:pointer;" data-tr="TC Kimlik No" data-en="National ID">TC Kimlik No</button>
+                <button id="id-vergi" onclick="setIdType('vergi')" style="flex:1; padding:11px; border-radius:10px; border:1.5px solid var(--border); background:transparent; color:var(--sec); font-size:13px; font-weight:700; cursor:pointer;" data-tr="Vergi No" data-en="Tax No">Vergi No</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label id="id-label" data-tr="TC KİMLİK NUMARASI *" data-en="NATIONAL ID NO *">TC KİMLİK NUMARASI *</label>
+              <input type="text" id="f-idnumber" placeholder="xxxxxxxxxxx" maxlength="11">
+              <div style="font-size:11px; color:var(--sec); margin-top:4px;" data-tr="⚠️ Her kimlik numarası yalnızca 1 kez başvuruda kullanılabilir." data-en="⚠️ Each ID number can only be used once.">⚠️ Her kimlik numarası yalnızca 1 kez başvuruda kullanılabilir.</div>
+            </div>
+            <button class="btn-primary" style="width:100%" onclick="nextStep(1)" data-tr="Devam → İşletme Bilgileri" data-en="Continue → Business Info">Devam → İşletme Bilgileri</button>
+          </div>
+        </div>
+
+        <!-- ADIM 2 -->
+        <div id="step-2" class="form-step" style="display:none;">
+          <div style="font-size:16px; font-weight:800; margin-bottom:20px;" data-tr="🏢 İşletme Bilgileri" data-en="🏢 Business Information">🏢 İşletme Bilgileri</div>
+          <div class="contact-form">
+            <div class="form-group">
+              <label data-tr="İŞLETME ADI *" data-en="BUSINESS NAME *">İŞLETME ADI *</label>
+              <input type="text" id="f-business" placeholder="Lezzet Durağı">
+            </div>
+            <div class="form-group">
+              <label data-tr="İŞLETME TÜRÜ *" data-en="BUSINESS TYPE *">İŞLETME TÜRÜ *</label>
+              <select id="f-type">
+                <option value="" data-tr="Seçiniz..." data-en="Select...">Seçiniz...</option>
+                <option value="restoran" data-tr="Restoran" data-en="Restaurant">Restoran</option>
+                <option value="kafe" data-tr="Kafe" data-en="Cafe">Kafe</option>
+                <option value="fastfood" data-tr="Fast Food" data-en="Fast Food">Fast Food</option>
+                <option value="pastane" data-tr="Pastane" data-en="Bakery">Pastane</option>
+                <option value="bar" data-tr="Bar / Pub" data-en="Bar / Pub">Bar / Pub</option>
+                <option value="diger" data-tr="Diğer" data-en="Other">Diğer</option>
+              </select>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <div class="form-group">
+                <label data-tr="İL *" data-en="CITY *">İL *</label>
+                <input type="text" id="f-city" placeholder="İstanbul">
+              </div>
+              <div class="form-group">
+                <label data-tr="İLÇE *" data-en="DISTRICT *">İLÇE *</label>
+                <input type="text" id="f-district" placeholder="Kadıköy">
+              </div>
+            </div>
+            <div class="form-group">
+              <label data-tr="AÇIK ADRES *" data-en="FULL ADDRESS *">AÇIK ADRES *</label>
+              <textarea id="f-address" rows="2" placeholder="Moda Cad. No:5 Daire:2"></textarea>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <div class="form-group">
+                <label data-tr="VERGİ DAİRESİ" data-en="TAX OFFICE">VERGİ DAİRESİ</label>
+                <input type="text" id="f-taxoffice" placeholder="Kadıköy VD">
+              </div>
+              <div class="form-group">
+                <label data-tr="TAHMİNİ MASA SAYISI" data-en="EST. TABLE COUNT">TAHMİNİ MASA SAYISI</label>
+                <input type="number" id="f-tables" placeholder="10" min="1" max="500">
+              </div>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <button class="btn-secondary" style="flex:1" onclick="goStep(1)" data-tr="← Geri" data-en="← Back">← Geri</button>
+              <button class="btn-primary" style="flex:2" onclick="nextStep(2)" data-tr="Devam → Paket Seçimi" data-en="Continue → Plan Selection">Devam → Paket Seçimi</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ADIM 3 -->
+        <div id="step-3" class="form-step" style="display:none;">
+          <div style="font-size:16px; font-weight:800; margin-bottom:20px;" data-tr="📦 Paket Seçimi" data-en="📦 Plan Selection">📦 Paket Seçimi</div>
+          <div class="contact-form">
+
+            <!-- ÖDEME PERİYODU -->
+            <div style="display:flex; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:4px; gap:4px; margin-bottom:16px;">
+              <button id="form-toggle-monthly" onclick="setFormBilling('monthly')" style="flex:1; padding:10px; border-radius:9px; border:none; background:var(--accent); color:#fff; font-size:12px; font-weight:700; cursor:pointer;" data-tr="Aylık" data-en="Monthly">Aylık</button>
+              <button id="form-toggle-yearly" onclick="setFormBilling('yearly')" style="flex:1; padding:10px; border-radius:9px; border:none; background:transparent; color:var(--sec); font-size:12px; font-weight:700; cursor:pointer;" data-tr="Yıllık — 2 ay ücretsiz 🎁" data-en="Yearly — 2 months free 🎁">Yıllık — 2 ay ücretsiz 🎁</button>
+            </div>
+            <div id="plan-options" style="display:flex; flex-direction:column; gap:10px; margin-bottom:16px;">
+              <label class="plan-option" onclick="selectPlan('trial')">
+                <input type="radio" name="plan" value="trial" checked style="display:none;">
+                <div id="po-trial" style="padding:14px 16px; border-radius:12px; border:1.5px solid var(--accent); background:rgba(255,107,26,0.08); cursor:pointer; display:flex; justify-content:space-between; align-items:center;">
+                  <div>
+                    <div style="font-size:13px; font-weight:800;" data-tr="🆓 14 Gün Ücretsiz Dene" data-en="🆓 14-Day Free Trial">🆓 14 Gün Ücretsiz Dene</div>
+                    <div style="font-size:11px; color:var(--sec); margin-top:2px;" data-tr="Sonra karar veririm, tüm özellikler açık" data-en="Decide later, all features open">Sonra karar veririm, tüm özellikler açık</div>
+                  </div>
+                  <div style="font-size:14px; font-weight:900; color:var(--teal);" data-tr="Ücretsiz" data-en="Free">Ücretsiz</div>
+                </div>
+              </label>
+              <label class="plan-option" onclick="selectPlan('lite')">
+                <input type="radio" name="plan" value="lite" style="display:none;">
+                <div id="po-lite" style="padding:14px 16px; border-radius:12px; border:1.5px solid var(--border); background:transparent; cursor:pointer; display:flex; justify-content:space-between; align-items:center;">
+                  <div>
+                    <div style="font-size:13px; font-weight:800;">Lite</div>
+                    <div style="font-size:11px; color:var(--sec); margin-top:2px;" data-tr="3 personel, temel özellikler" data-en="3 staff, basic features">3 personel, temel özellikler</div>
+                  </div>
+                  <div style="text-align:right;">
+                    <div id="form-price-lite" style="font-size:14px; font-weight:900;">799₺/ay</div>
+                    <div id="form-price-lite-y" style="display:none; font-size:10px; color:var(--teal); font-weight:700;">7.990₺/yıl</div>
+                  </div>
+                </div>
+              </label>
+              <label class="plan-option" onclick="selectPlan('standart')">
+                <input type="radio" name="plan" value="standart" style="display:none;">
+                <div id="po-standart" style="padding:14px 16px; border-radius:12px; border:1.5px solid var(--border); background:transparent; cursor:pointer; display:flex; justify-content:space-between; align-items:center;">
+                  <div>
+                    <div style="font-size:13px; font-weight:800;">Standart <span style="font-size:10px; color:var(--accent); background:rgba(255,107,26,0.1); padding:2px 7px; border-radius:6px; margin-left:4px;" data-tr="Popüler" data-en="Popular">Popüler</span></div>
+                    <div style="font-size:11px; color:var(--sec); margin-top:2px;" data-tr="7 personel, stok & vardiya dahil" data-en="7 staff, stock & shift included">7 personel, stok & vardiya dahil</div>
+                  </div>
+                  <div style="text-align:right;">
+                    <div id="form-price-standart" style="font-size:14px; font-weight:900;">1.499₺/ay</div>
+                    <div id="form-price-standart-y" style="display:none; font-size:10px; color:var(--teal); font-weight:700;">14.990₺/yıl</div>
+                  </div>
+                </div>
+              </label>
+              <label class="plan-option" onclick="selectPlan('pro')">
+                <input type="radio" name="plan" value="pro" style="display:none;">
+                <div id="po-pro" style="padding:14px 16px; border-radius:12px; border:1.5px solid var(--border); background:transparent; cursor:pointer; display:flex; justify-content:space-between; align-items:center;">
+                  <div>
+                    <div style="font-size:13px; font-weight:800;">Pro</div>
+                    <div style="font-size:11px; color:var(--sec); margin-top:2px;" data-tr="Sınırsız personel, kurye dahil" data-en="Unlimited staff, delivery included">Sınırsız personel, kurye dahil</div>
+                  </div>
+                  <div style="text-align:right;">
+                    <div id="form-price-pro" style="font-size:14px; font-weight:900;">2.499₺/ay</div>
+                    <div id="form-price-pro-y" style="display:none; font-size:10px; color:var(--teal); font-weight:700;">24.990₺/yıl</div>
+                  </div>
+                </div>
+              </label>
+              <label class="plan-option" onclick="selectPlan('subeli')">
+                <input type="radio" name="plan" value="subeli" style="display:none;">
+                <div id="po-subeli" style="padding:14px 16px; border-radius:12px; border:1.5px solid var(--border); background:transparent; cursor:pointer; display:flex; justify-content:space-between; align-items:center;">
+                  <div>
+                    <div style="font-size:13px; font-weight:800;" data-tr="Şubeli Plan" data-en="Multi-Branch">Şubeli Plan</div>
+                    <div style="font-size:11px; color:var(--sec); margin-top:2px;" data-tr="Birden fazla şube" data-en="Multiple branches">Birden fazla şube</div>
+                  </div>
+                  <div style="font-size:14px; font-weight:900; color:var(--teal);" data-tr="Görüşelim" data-en="Let's Talk">Görüşelim</div>
+                </div>
+              </label>
+            </div>
+
+            <div class="form-group">
+              <label data-tr="EKLEMEK İSTEDİĞİNİZ BİR ŞEY (OPSİYONEL)" data-en="ANYTHING TO ADD (OPTIONAL)">EKLEMEK İSTEDİĞİNİZ BİR ŞEY</label>
+              <textarea id="f-msg" rows="2" placeholder="Soru veya notlarınız..."></textarea>
+            </div>
+
+            <div style="display:flex; align-items:flex-start; gap:10px; margin-bottom:16px; padding:14px; background:var(--card); border-radius:12px; border:1px solid var(--border);">
+              <input type="checkbox" id="f-terms" style="margin-top:2px; flex-shrink:0;">
+              <label for="f-terms" style="font-size:12px; color:var(--sec); cursor:pointer;" data-tr="Kullanım Şartlarını ve Gizlilik Politikasını okudum, kabul ediyorum. Başvurumun onaylanması halinde tarafıma iletilecek kullanıcı kodu ve şifresiyle sisteme giriş yapacağımı anlıyorum." data-en="I have read and accept the Terms of Use and Privacy Policy.">Kullanım Şartlarını ve Gizlilik Politikasını okudum, kabul ediyorum.</label>
+            </div>
+
+            <div style="display:flex; gap:8px;">
+              <button class="btn-secondary" style="flex:1" onclick="goStep(2)" data-tr="← Geri" data-en="← Back">← Geri</button>
+              <button class="btn-primary" style="flex:2" onclick="submitForm()" data-tr="Başvuruyu Gönder ✓" data-en="Submit Application ✓">Başvuruyu Gönder ✓</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- BAŞARI -->
+        <div id="step-success" style="display:none; text-align:center; padding:60px 20px;">
+          <div style="font-size:64px; margin-bottom:20px;">✅</div>
+          <h3 style="font-size:22px; font-weight:900; margin-bottom:12px;" data-tr="Başvurunuz Alındı!" data-en="Application Received!">Başvurunuz Alındı!</h3>
+          <p style="color:var(--sec); font-size:14px; line-height:1.8; max-width:360px; margin:0 auto 28px;" data-tr="En geç 1 iş günü içinde e-posta adresinize dönüş yapacağız. Onay sonrası kullanıcı kodunuz ve şifreniz iletilecektir." data-en="We will get back to you within 1 business day. After approval, your user code and password will be sent.">En geç 1 iş günü içinde size dönüş yapacağız.</p>
+          <button class="btn-primary" onclick="resetForm()" data-tr="Ana Sayfaya Dön" data-en="Back to Home">Ana Sayfaya Dön</button>
+        </div>
+      </div>
+
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-item-icon">⏱️</div>
+          <div>
+            <div class="contact-item-title" data-tr="Hızlı Yanıt" data-en="Quick Response">Hızlı Yanıt</div>
+            <div class="contact-item-val" data-tr="En geç 1 iş günü içinde dönüş yapıyoruz." data-en="We respond within 1 business day.">En geç 1 iş günü içinde dönüş yapıyoruz.</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📞</div>
+          <div>
+            <div class="contact-item-title" data-tr="Telefon & WhatsApp" data-en="Phone & WhatsApp">Telefon & WhatsApp</div>
+            <div style="display:flex; flex-direction:column; gap:6px; margin-top:4px;">
+              <a href="tel:+903128201013" style="color:var(--accent); text-decoration:none; font-size:14px; font-weight:700;">0312 820 10 13</a>
+              <a href="https://wa.me/903128201013" target="_blank" style="color:var(--teal); text-decoration:none; font-size:13px; font-weight:600;" data-tr="💬 WhatsApp'tan Yaz" data-en="💬 Write on WhatsApp">💬 WhatsApp'tan Yaz</a>
+            </div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📸</div>
+          <div>
+            <div class="contact-item-title">Instagram</div>
+            <a href="https://www.instagram.com/sofrimapp/" target="_blank" style="color:var(--accent); text-decoration:none; font-size:14px; font-weight:700;">@sofrimapp</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">🎁</div>
+          <div>
+            <div class="contact-item-title" data-tr="14 Gün Ücretsiz" data-en="14 Days Free">14 Gün Ücretsiz</div>
+            <div class="contact-item-val" data-tr="Tüm özellikler açık, kredi kartı gerekmez." data-en="All features open, no credit card needed.">Tüm özellikler açık, kredi kartı gerekmez.</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">🔑</div>
+          <div>
+            <div class="contact-item-title" data-tr="Özel Erişim Kodu" data-en="Unique Access Code">Özel Erişim Kodu</div>
+            <div class="contact-item-val" data-tr="Onay sonrası size özel 6 haneli kullanıcı kodu ve şifre iletilir." data-en="After approval, a unique 6-digit user code and password will be sent.">Onay sonrası 6 haneli özel kodunuz iletilir.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Sofrım</div>
+  <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap; justify-content:center;">
+    <a href="tel:+903128201013" style="color:var(--sec); text-decoration:none; font-size:13px; font-weight:600; display:flex; align-items:center; gap:6px;">📞 0312 820 10 13</a>
+    <a href="https://wa.me/903128201013" target="_blank" style="color:var(--sec); text-decoration:none; font-size:13px; font-weight:600; display:flex; align-items:center; gap:6px;">💬 WhatsApp</a>
+    <a href="https://www.instagram.com/sofrimapp/" target="_blank" style="color:var(--sec); text-decoration:none; font-size:13px; font-weight:600; display:flex; align-items:center; gap:6px;">📸 @sofrimapp</a>
+  </div>
+  <div class="footer-copy" data-tr="© 2026 Sofrım. Tüm hakları saklıdır." data-en="© 2026 Sofrım. All rights reserved.">© 2026 Sofrım. Tüm hakları saklıdır.</div>
+</footer>
+
+<script>
+var currentLang = 'tr';
+var currentStep = 1;
+var selectedIdType = 'tc';
+var selectedPlan = 'trial';
+var currentBilling = 'monthly';
+var currentBranches = 2;
+var formBilling = 'monthly';
+
+function showPage(name) {
+  var pages = document.querySelectorAll('.page');
+  for (var i = 0; i < pages.length; i++) pages[i].classList.remove('active');
+  var links = document.querySelectorAll('.nav-links a');
+  for (var i = 0; i < links.length; i++) links[i].classList.remove('active');
+  var page = document.getElementById('page-' + name);
+  if (page) page.classList.add('active');
+  var navEl = document.getElementById('nav-' + name);
+  if (navEl) navEl.classList.add('active');
+  var mm = document.getElementById('mobile-menu');
+  if (mm) mm.style.display = 'none';
+  window.scrollTo(0, 0);
+}
+
+function setLang(lang) {
+  currentLang = lang;
+  var btns = document.querySelectorAll('.lang-btn');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.remove('active');
+    if (btns[i].textContent === lang.toUpperCase()) btns[i].classList.add('active');
+  }
+  var els = document.querySelectorAll('[data-tr]');
+  for (var i = 0; i < els.length; i++) {
+    var val = els[i].getAttribute('data-' + lang);
+    if (val) {
+      if (els[i].tagName === 'INPUT' || els[i].tagName === 'TEXTAREA') els[i].placeholder = val;
+      else els[i].innerHTML = val;
+    }
+  }
+}
+
+function toggleMobileMenu() {
+  var mm = document.getElementById('mobile-menu');
+  if (mm) mm.style.display = mm.style.display === 'flex' ? 'none' : 'flex';
+}
+
+function setBilling(type) {
+  currentBilling = type;
+  var mBtn = document.getElementById('toggle-monthly');
+  var yBtn = document.getElementById('toggle-yearly');
+  if (!mBtn || !yBtn) return;
+  if (type === 'monthly') {
+    mBtn.style.background = 'var(--accent)'; mBtn.style.color = '#fff';
+    yBtn.style.background = 'transparent'; yBtn.style.color = 'var(--sec)';
+    document.getElementById('price-lite').innerHTML = '799\u20ba <span>/ay</span>';
+    document.getElementById('price-standart').innerHTML = '1.499\u20ba <span>/ay</span>';
+    document.getElementById('price-pro').innerHTML = '2.499\u20ba <span>/ay</span>';
+    document.getElementById('price-lite-yearly').style.display = 'none';
+    document.getElementById('price-standart-yearly').style.display = 'none';
+    document.getElementById('price-pro-yearly').style.display = 'none';
+    document.getElementById('price-subeli-yearly').style.display = 'none';
+  } else {
+    yBtn.style.background = 'var(--accent)'; yBtn.style.color = '#fff';
+    mBtn.style.background = 'transparent'; mBtn.style.color = 'var(--sec)';
+    document.getElementById('price-lite').innerHTML = '665\u20ba <span>/ay</span>';
+    document.getElementById('price-standart').innerHTML = '1.249\u20ba <span>/ay</span>';
+    document.getElementById('price-pro').innerHTML = '2.082\u20ba <span>/ay</span>';
+    document.getElementById('price-lite-yearly').style.display = 'block';
+    document.getElementById('price-lite-yearly').textContent = '7.990\u20ba/y\u0131l \u2014 2 ay \u00fccretsiz';
+    document.getElementById('price-standart-yearly').style.display = 'block';
+    document.getElementById('price-standart-yearly').textContent = '14.990\u20ba/y\u0131l \u2014 2 ay \u00fccretsiz';
+    document.getElementById('price-pro-yearly').style.display = 'block';
+    document.getElementById('price-pro-yearly').textContent = '24.990\u20ba/y\u0131l \u2014 2 ay \u00fccretsiz';
+    document.getElementById('price-subeli-yearly').style.display = 'block';
+    document.getElementById('price-subeli-yearly').textContent = 'Y\u0131ll\u0131k \u00f6demede 2 ay \u00fccretsiz';
+  }
+  updateBranchPrice();
+}
+
+function setFormBilling(type) {
+  formBilling = type;
+  var mBtn = document.getElementById('form-toggle-monthly');
+  var yBtn = document.getElementById('form-toggle-yearly');
+  if (!mBtn || !yBtn) return;
+  if (type === 'monthly') {
+    mBtn.style.background = 'var(--accent)'; mBtn.style.color = '#fff';
+    yBtn.style.background = 'transparent'; yBtn.style.color = 'var(--sec)';
+    document.getElementById('form-price-lite').textContent = '799\u20ba/ay';
+    document.getElementById('form-price-standart').textContent = '1.499\u20ba/ay';
+    document.getElementById('form-price-pro').textContent = '2.499\u20ba/ay';
+    document.getElementById('form-price-lite-y').style.display = 'none';
+    document.getElementById('form-price-standart-y').style.display = 'none';
+    document.getElementById('form-price-pro-y').style.display = 'none';
+  } else {
+    yBtn.style.background = 'var(--accent)'; yBtn.style.color = '#fff';
+    mBtn.style.background = 'transparent'; mBtn.style.color = 'var(--sec)';
+    document.getElementById('form-price-lite').textContent = '665\u20ba/ay';
+    document.getElementById('form-price-standart').textContent = '1.249\u20ba/ay';
+    document.getElementById('form-price-pro').textContent = '2.082\u20ba/ay';
+    document.getElementById('form-price-lite-y').style.display = 'block';
+    document.getElementById('form-price-standart-y').style.display = 'block';
+    document.getElementById('form-price-pro-y').style.display = 'block';
+  }
+}
+
+function setBranch(n) {
+  currentBranches = n;
+  var branchBtns = document.querySelectorAll('.branch-btn');
+  for (var i = 0; i < branchBtns.length; i++) {
+    branchBtns[i].style.borderColor = 'var(--border)';
+    branchBtns[i].style.background = 'transparent';
+    branchBtns[i].style.color = 'var(--sec)';
+  }
+  var btn = document.getElementById('branch-' + n);
+  if (btn) {
+    btn.style.borderColor = 'var(--accent)';
+    btn.style.background = 'rgba(255,107,26,0.1)';
+    btn.style.color = 'var(--accent)';
+  }
+  updateBranchPrice();
+}
+
+function updateBranchPrice() {
+  var priceEl = document.getElementById('branch-price');
+  var savingEl = document.getElementById('branch-saving');
+  if (!priceEl) return;
+  if (currentBranches === 99) {
+    priceEl.textContent = currentLang === 'tr' ? 'Bizimle ileti\u015fime ge\u00e7in' : 'Contact us';
+    if (savingEl) savingEl.textContent = '';
+    return;
+  }
+  var base = 2499;
+  var extra = 0;
+  for (var i = 2; i <= currentBranches; i++) {
+    extra += i <= 5 ? 1500 : 1000;
+  }
+  var monthly = base + extra;
+  if (currentBilling === 'yearly') {
+    monthly = Math.round(monthly * 10 / 12);
+    if (savingEl) savingEl.textContent = 'Y\u0131ll\u0131k: ' + (monthly * 12).toLocaleString('tr-TR') + '\u20ba \u2014 2 ay \u00fccretsiz';
+  } else {
+    if (savingEl) savingEl.textContent = '';
+  }
+  priceEl.textContent = monthly.toLocaleString('tr-TR') + '\u20ba/ay';
+}
+
+function setIdType(type) {
+  selectedIdType = type;
+  var tcBtn = document.getElementById('id-tc');
+  var vergiBtn = document.getElementById('id-vergi');
+  var label = document.getElementById('id-label');
+  if (!tcBtn || !vergiBtn) return;
+  if (type === 'tc') {
+    tcBtn.style.borderColor = 'var(--accent)'; tcBtn.style.background = 'rgba(255,107,26,0.1)'; tcBtn.style.color = 'var(--accent)';
+    vergiBtn.style.borderColor = 'var(--border)'; vergiBtn.style.background = 'transparent'; vergiBtn.style.color = 'var(--sec)';
+    if (label) label.textContent = 'TC K\u0130ML\u0130K NUMARASI *';
+    var inp = document.getElementById('f-idnumber');
+    if (inp) { inp.maxLength = 11; inp.placeholder = 'xxxxxxxxxxx'; }
+  } else {
+    vergiBtn.style.borderColor = 'var(--accent)'; vergiBtn.style.background = 'rgba(255,107,26,0.1)'; vergiBtn.style.color = 'var(--accent)';
+    tcBtn.style.borderColor = 'var(--border)'; tcBtn.style.background = 'transparent'; tcBtn.style.color = 'var(--sec)';
+    if (label) label.textContent = 'VERG\u0130 NUMARASI *';
+    var inp = document.getElementById('f-idnumber');
+    if (inp) { inp.maxLength = 10; inp.placeholder = 'xxxxxxxxxx'; }
+  }
+}
+
+function selectPlan(plan) {
+  selectedPlan = plan;
+  var plans = ['trial','lite','standart','pro','subeli'];
+  for (var i = 0; i < plans.length; i++) {
+    var el = document.getElementById('po-' + plans[i]);
+    if (!el) continue;
+    if (plans[i] === plan) {
+      el.style.borderColor = 'var(--accent)';
+      el.style.background = 'rgba(255,107,26,0.08)';
+    } else {
+      el.style.borderColor = 'var(--border)';
+      el.style.background = 'transparent';
+    }
+  }
+}
+
+function goStep(n) {
+  var steps = document.querySelectorAll('.form-step');
+  for (var i = 0; i < steps.length; i++) steps[i].style.display = 'none';
+  var succ = document.getElementById('step-success');
+  if (succ) succ.style.display = 'none';
+  var el = document.getElementById('step-' + n);
+  if (el) el.style.display = 'block';
+  currentStep = n;
+  var indicators = document.querySelectorAll('.step-indicator');
+  for (var i = 0; i < indicators.length; i++) {
+    if (i + 1 <= n) indicators[i].classList.add('active');
+    else indicators[i].classList.remove('active');
+  }
+}
+
+function nextStep(from) {
+  if (from === 1) {
+    if (!document.getElementById('f-name').value.trim()) { alert('Ad Soyad zorunludur.'); return; }
+    if (!document.getElementById('f-email').value.trim()) { alert('E-posta zorunludur.'); return; }
+    if (!document.getElementById('f-phone').value.trim()) { alert('Telefon zorunludur.'); return; }
+    if (!document.getElementById('f-idnumber').value.trim()) { alert('Kimlik numaras\u0131 zorunludur.'); return; }
+  }
+  if (from === 2) {
+    if (!document.getElementById('f-business').value.trim()) { alert('\u0130\u015fletme ad\u0131 zorunludur.'); return; }
+    if (!document.getElementById('f-type').value) { alert('\u0130\u015fletme t\u00fcr\u00fc se\u00e7iniz.'); return; }
+    if (!document.getElementById('f-city').value.trim()) { alert('\u0130l zorunludur.'); return; }
+    if (!document.getElementById('f-district').value.trim()) { alert('\u0130l\u00e7e zorunludur.'); return; }
+    if (!document.getElementById('f-address').value.trim()) { alert('Adres zorunludur.'); return; }
+  }
+  goStep(from + 1);
+  window.scrollTo(0, 0);
+}
+
+function submitForm() {
+  var terms = document.getElementById('f-terms');
+  if (!terms || !terms.checked) { alert('Kullan\u0131m \u015fartlar\u0131n\u0131 kabul etmeniz gerekiyor.'); return; }
+  var steps = document.querySelectorAll('.form-step');
+  for (var i = 0; i < steps.length; i++) steps[i].style.display = 'none';
+  var succ = document.getElementById('step-success');
+  if (succ) succ.style.display = 'block';
+  var indicators = document.querySelectorAll('.step-indicator');
+  for (var i = 0; i < indicators.length; i++) indicators[i].classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function resetForm() {
+  goStep(1);
+  showPage('home');
+}
+
+function openDemoModal() {
+  var el = document.getElementById('demo-overlay');
+  if (el) el.style.display = 'flex';
+}
+
+function closeDemoModal() {
+  var el = document.getElementById('demo-overlay');
+  if (el) el.style.display = 'none';
+}
+
+function submitDemo() {
+  var name = document.getElementById('demo-name').value;
+  var phone = document.getElementById('demo-phone').value;
+  if (!name || !phone) { alert('Ad ve telefon zorunludur.'); return; }
+  closeDemoModal();
+  var toast = document.getElementById('toast');
+  if (toast) {
+    toast.textContent = '\u2713 Demo talebiniz al\u0131nd\u0131! En k\u0131sa s\u00fcrede arayaca\u011f\u0131z.';
+    toast.classList.add('show');
+    setTimeout(function() { toast.classList.remove('show'); }, 3500);
+  }
+  document.getElementById('demo-name').value = '';
+  document.getElementById('demo-phone').value = '';
+}
+
+function toggleFaq(el) {
+  var answer = el.nextElementSibling;
+  var arrow = el.querySelector('.faq-arrow');
+  var isOpen = answer.classList.contains('open');
+  var allAnswers = document.querySelectorAll('.faq-a');
+  var allArrows = document.querySelectorAll('.faq-arrow');
+  for (var i = 0; i < allAnswers.length; i++) allAnswers[i].classList.remove('open');
+  for (var i = 0; i < allArrows.length; i++) allArrows[i].classList.remove('open');
+  if (!isOpen) {
+    answer.classList.add('open');
+    if (arrow) arrow.classList.add('open');
+  }
+}
+
+// Adım göstergesi stilleri
+var siStyle = document.createElement('style');
+siStyle.innerHTML = '.step-indicator{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;flex-shrink:0}.si-num{width:36px;height:36px;border-radius:50%;background:var(--card);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--sec);transition:all .3s}.si-label{font-size:11px;color:var(--sec);font-weight:600}.step-indicator.active .si-num{background:linear-gradient(135deg,var(--accent),var(--accent2));border-color:var(--accent);color:#fff;box-shadow:0 4px 14px rgba(255,107,26,0.4)}.step-indicator.active .si-label{color:var(--accent)}.si-line{flex:1;height:2px;background:var(--border);margin:0 4px;margin-bottom:20px}';
+document.head.appendChild(siStyle);
+
+// Init
+document.addEventListener('DOMContentLoaded', function() {
+  setBranch(2);
+  showPage('home');
+});
+</script>
+</body>
+</html>
