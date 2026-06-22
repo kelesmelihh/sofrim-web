@@ -2150,14 +2150,57 @@ function nextStep(from) {
 
 function submitForm() {
   var terms = document.getElementById('f-terms');
-  if (!terms || !terms.checked) { alert('Kullan\u0131m \u015fartlar\u0131n\u0131 kabul etmeniz gerekiyor.'); return; }
-  var steps = document.querySelectorAll('.form-step');
-  for (var i = 0; i < steps.length; i++) steps[i].style.display = 'none';
-  var succ = document.getElementById('step-success');
-  if (succ) succ.style.display = 'block';
-  var indicators = document.querySelectorAll('.step-indicator');
-  for (var i = 0; i < indicators.length; i++) indicators[i].classList.add('active');
-  window.scrollTo(0, 0);
+  if (!terms || !terms.checked) { alert('Kullanım şartlarını kabul etmeniz gerekiyor.'); return; }
+
+  var btn = document.querySelector('#step-3 .btn-primary');
+  if (btn) { btn.disabled = true; btn.textContent = 'Gönderiliyor...'; }
+
+  var payload = {
+    p_owner_name:      document.getElementById('f-name').value.trim(),
+    p_email:           document.getElementById('f-email').value.trim(),
+    p_phone:           document.getElementById('f-phone').value.trim(),
+    p_id_type:         selectedIdType,
+    p_id_number:       document.getElementById('f-idnumber').value.trim(),
+    p_business_name:   document.getElementById('f-business').value.trim(),
+    p_business_type:   document.getElementById('f-type').value,
+    p_city:            document.getElementById('f-city').value.trim(),
+    p_district:        document.getElementById('f-district').value.trim(),
+    p_address:         document.getElementById('f-address').value.trim(),
+    p_tax_office:      document.getElementById('f-taxoffice').value.trim(),
+    p_table_count:     parseInt(document.getElementById('f-tables').value) || null,
+    p_plan_preference: selectedPlan,
+    p_branch_count:    currentBranches === 99 ? 11 : currentBranches
+  };
+
+  fetch('https://hvmjkayittkivmfwdmhv.supabase.co/rest/v1/rpc/submit_application', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2bWprYXlpdHRraXZtZndkbWh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE4MjMxNDUsImV4cCI6MjA5NzM5OTE0NX0.Y-KaZIS-5jD66-MD6EnxuLb6jyT4ZCoIa2PdVFnurYE',
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2bWprYXlpdHRraXZtZndkbWh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE4MjMxNDUsImV4cCI6MjA5NzM5OTE0NX0.Y-KaZIS-5jD66-MD6EnxuLb6jyT4ZCoIa2PdVFnurYE'
+    },
+    body: JSON.stringify(payload)
+  })
+  .then(function(res) { return res.json(); })
+  .then(function(data) {
+    if (btn) { btn.disabled = false; btn.textContent = 'Başvuruyu Gönder ✓'; }
+    if (data && data.success === false) {
+      alert(data.error || 'Bir hata oluştu, lütfen tekrar deneyin.');
+      return;
+    }
+    var steps = document.querySelectorAll('.form-step');
+    for (var i = 0; i < steps.length; i++) steps[i].style.display = 'none';
+    var succ = document.getElementById('step-success');
+    if (succ) succ.style.display = 'block';
+    var indicators = document.querySelectorAll('.step-indicator');
+    for (var i = 0; i < indicators.length; i++) indicators[i].classList.add('active');
+    window.scrollTo(0, 0);
+  })
+  .catch(function(err) {
+    if (btn) { btn.disabled = false; btn.textContent = 'Başvuruyu Gönder ✓'; }
+    alert('Bağlantı hatası. Lütfen internet bağlantınızı kontrol edip tekrar deneyin.');
+    console.error(err);
+  });
 }
 
 function resetForm() {
