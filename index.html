@@ -29,6 +29,68 @@
     overflow-x: hidden;
   }
 
+  /* ─── AÇILIŞ ANİMASYONU ─── */
+  #intro-overlay {
+    position: fixed; inset: 0; z-index: 9999;
+    background: #07070F;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+  }
+  #intro-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+  .intro-logo {
+    width: 80px; height: 80px;
+    background: linear-gradient(135deg, #FF6B1A, #E63900);
+    border-radius: 24px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 40px;
+    animation: introPop 0.7s cubic-bezier(0.34,1.56,0.64,1) both;
+    box-shadow: 0 0 60px rgba(255,107,26,0.4);
+  }
+
+  .intro-title {
+    font-size: 36px; font-weight: 900; margin-top: 20px;
+    background: linear-gradient(135deg, #FF6B1A, #FFD166);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    animation: introSlideUp 0.6s 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+
+  .intro-sub {
+    font-size: 13px; color: #8888AA; margin-top: 8px;
+    animation: introSlideUp 0.6s 0.5s ease both;
+  }
+
+  .intro-bar {
+    width: 200px; height: 3px; background: #1E1E2E; border-radius: 99px;
+    margin-top: 32px; overflow: hidden;
+    animation: introSlideUp 0.4s 0.6s ease both;
+  }
+  .intro-bar-fill {
+    height: 100%; background: linear-gradient(90deg, #FF6B1A, #FFD166);
+    border-radius: 99px;
+    animation: introBarFill 1.2s 0.7s ease both;
+    width: 0;
+  }
+
+  .intro-mk {
+    font-size: 11px; color: #444466; margin-top: 16px; letter-spacing: 2px;
+    text-transform: uppercase;
+    animation: introSlideUp 0.4s 0.8s ease both;
+  }
+
+  @keyframes introPop {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  @keyframes introSlideUp {
+    0% { transform: translateY(20px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+  @keyframes introBarFill {
+    0% { width: 0; }
+    100% { width: 100%; }
+  }
+
   /* ─── NAV ─────────────────────────────── */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -48,6 +110,7 @@
   .nav-logo-icon {
     width: 36px; height: 36px;
     background: linear-gradient(135deg, var(--accent), var(--accent2));
+[2271 lines total]
     border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
     font-size: 18px; font-weight: 900; color: #fff;
@@ -580,6 +643,15 @@
 </style>
 </head>
 <body>
+
+<!-- Açılış Animasyonu -->
+<div id="intro-overlay">
+  <div class="intro-logo">🍽️</div>
+  <div class="intro-title">Sofrım</div>
+  <div class="intro-sub">Restoran Yönetim Sistemi</div>
+  <div class="intro-bar"><div class="intro-bar-fill"></div></div>
+  <div class="intro-mk">by MK Software</div>
+</div>
 
 <!-- NAV -->
 <nav>
@@ -1426,6 +1498,20 @@
   </div>
 </div>
 
+<!-- Hukuki Metin Modalı -->
+<div id="legal-overlay" onclick="if(event.target===this)closeLegal()" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:1000; align-items:center; justify-content:center; padding:16px;">
+  <div style="background:#141420; border:1px solid #1E1E2E; border-radius:20px; width:100%; max-width:720px; max-height:85vh; display:flex; flex-direction:column;">
+    <div style="padding:20px 24px; border-bottom:1px solid #1E1E2E; display:flex; justify-content:space-between; align-items:center;">
+      <div id="legal-title" style="font-size:16px; font-weight:900;"></div>
+      <button onclick="closeLegal()" style="background:transparent; border:none; color:#8888AA; font-size:22px; cursor:pointer; line-height:1;">×</button>
+    </div>
+    <div id="legal-content" style="padding:24px; overflow-y:auto; font-size:13px; line-height:1.9; color:#C0C0D8;"></div>
+    <div style="padding:16px 24px; border-top:1px solid #1E1E2E; text-align:center;">
+      <button onclick="closeLegal()" style="padding:10px 32px; border-radius:10px; border:none; background:linear-gradient(135deg,#FF6B1A,#E63900); color:#fff; font-size:13px; font-weight:700; cursor:pointer;">Anladım, Kapat</button>
+    </div>
+  </div>
+</div>
+
 <!-- ══════════════════════════════════════ -->
 <!-- PAGE: HOW IT WORKS -->
 <!-- ══════════════════════════════════════ -->
@@ -1700,6 +1786,19 @@
         <!-- ADIM 1 -->
         <div id="step-1" class="form-step">
           <div style="font-size:16px; font-weight:800; margin-bottom:20px;" data-tr="👤 Kişisel Bilgiler" data-en="👤 Personal Information">👤 Kişisel Bilgiler</div>
+
+          <!-- Davet bildirimi -->
+          <div id="referral-notice" style="display:none; align-items:center; gap:12px; padding:12px 16px; background:rgba(255,107,26,0.1); border:1.5px solid rgba(255,107,26,0.3); border-radius:12px; margin-bottom:16px;">
+            <span style="font-size:24px;">🎁</span>
+            <div>
+              <div style="font-size:13px; font-weight:800; color:var(--accent);">Davet Linki ile Geldiniz!</div>
+              <div style="font-size:11px; color:var(--sec); margin-top:2px;">Davet kodu: <strong class="ref-code-display" style="color:var(--accent); letter-spacing:2px;"></strong> · Başvurunuz onaylanınca sisteme dahil edileceksiniz.</div>
+            </div>
+          </div>
+
+          <!-- Gizli ref kodu alanı -->
+          <input type="hidden" id="f-ref-code" value="">
+
           <div class="contact-form">
             <div class="form-group">
               <label data-tr="YETKİLİ ADI SOYADI *" data-en="FULL NAME *">YETKİLİ ADI SOYADI *</label>
@@ -1859,7 +1958,13 @@
 
             <div style="display:flex; align-items:flex-start; gap:10px; margin-bottom:16px; padding:14px; background:var(--card); border-radius:12px; border:1px solid var(--border);">
               <input type="checkbox" id="f-terms" style="margin-top:2px; flex-shrink:0;">
-              <label for="f-terms" style="font-size:12px; color:var(--sec); cursor:pointer;" data-tr="Kullanım Şartlarını ve Gizlilik Politikasını okudum, kabul ediyorum. Başvurumun onaylanması halinde tarafıma iletilecek kullanıcı kodu ve şifresiyle sisteme giriş yapacağımı anlıyorum." data-en="I have read and accept the Terms of Use and Privacy Policy.">Kullanım Şartlarını ve Gizlilik Politikasını okudum, kabul ediyorum.</label>
+              <label for="f-terms" style="font-size:12px; color:var(--sec); cursor:pointer; line-height:1.7;">
+                <a onclick="showLegal('kullanim')" style="color:var(--accent); font-weight:700; cursor:pointer; text-decoration:underline;">Kullanım Koşulları</a>'nı, 
+                <a onclick="showLegal('gizlilik')" style="color:var(--accent); font-weight:700; cursor:pointer; text-decoration:underline;">Gizlilik Politikası</a>'nı ve 
+                <a onclick="showLegal('kvkk')" style="color:var(--accent); font-weight:700; cursor:pointer; text-decoration:underline;">KVKK Aydınlatma Metni</a>'ni okudum, kabul ediyorum.
+                Başvurumun onaylanması halinde tarafıma iletilecek 6 haneli kullanıcı kodu ve şifresiyle sisteme giriş yapacağımı, 
+                <a onclick="showLegal('mesafeli')" style="color:var(--teal); font-weight:700; cursor:pointer; text-decoration:underline;">Mesafeli Hizmet Sözleşmesi</a>'ni kabul ettiğimi onaylıyorum.
+              </label>
             </div>
 
             <div style="display:flex; gap:8px;">
@@ -1938,7 +2043,7 @@
     <a href="https://t.me/Sofrim_bildirim_bot" target="_blank" style="color:var(--sec); text-decoration:none; font-size:13px; font-weight:600; display:flex; align-items:center; gap:6px;">✈️ Telegram</a>
     <a href="https://www.instagram.com/sofrimapp/" target="_blank" style="color:var(--sec); text-decoration:none; font-size:13px; font-weight:600; display:flex; align-items:center; gap:6px;">📸 @sofrimapp</a>
   </div>
-  <div class="footer-copy" data-tr="© 2026 Sofrım. Tüm hakları saklıdır." data-en="© 2026 Sofrım. All rights reserved.">© 2026 Sofrım. Tüm hakları saklıdır.</div>
+  <div class="footer-copy" data-tr="© 2026 Sofrım. MK Software tarafından geliştirilmiştir." data-en="© 2026 Sofrım. Developed by MK Software.">© 2026 Sofrım. MK Software tarafından geliştirilmiştir.</div>
 </footer>
 
 <script>
@@ -2196,6 +2301,21 @@ function submitForm() {
       alert(data.error || 'Bir hata oluştu, lütfen tekrar deneyin.');
       return;
     }
+
+    // Ref kodu varsa davet bağlantısı kur
+    var refCode = document.getElementById('f-ref-code').value;
+    if (refCode && data && data.application_id) {
+      fetch('https://hvmjkayittkivmfwdmhv.supabase.co/rest/v1/rpc/link_referral_to_application', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2bWprYXlpdHRraXZtZndkbWh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE4MjMxNDUsImV4cCI6MjA5NzM5OTE0NX0.Y-KaZIS-5jD66-MD6EnxuLb6jyT4ZCoIa2PdVFnurYE',
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2bWprYXlpdHRraXZtZndkbWh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE4MjMxNDUsImV4cCI6MjA5NzM5OTE0NX0.Y-KaZIS-5jD66-MD6EnxuLb6jyT4ZCoIa2PdVFnurYE'
+        },
+        body: JSON.stringify({ p_application_id: data.application_id, p_ref_code: refCode })
+      }).catch(function() {});
+    }
+
     var steps = document.querySelectorAll('.form-step');
     for (var i = 0; i < steps.length; i++) steps[i].style.display = 'none';
     var succ = document.getElementById('step-success');
@@ -2263,8 +2383,273 @@ document.head.appendChild(siStyle);
 // Init
 document.addEventListener('DOMContentLoaded', function() {
   setBranch(2);
-  showPage('home');
+
+  // URL'den ref kodunu yakala
+  var urlParams = new URLSearchParams(window.location.search);
+  var refCode = urlParams.get('ref');
+  if (refCode) {
+    window._referralCode = refCode.toUpperCase();
+    // Başvuru formuna gizli alan ekle
+    var refInput = document.getElementById('f-ref-code');
+    if (refInput) refInput.value = window._referralCode;
+    // Başvuru sayfasına yönlendir
+    showPage('contact');
+    // Davet bildirimi göster
+    setTimeout(function() {
+      var notice = document.getElementById('referral-notice');
+      if (notice) {
+        notice.style.display = 'flex';
+        notice.querySelector('.ref-code-display').textContent = window._referralCode;
+      }
+    }, 300);
+  } else {
+    showPage('home');
+  }
+
+  // Açılış animasyonu
+  setTimeout(function() {
+    var overlay = document.getElementById('intro-overlay');
+    if (overlay) overlay.classList.add('hidden');
+  }, 2200);
 });
+
+// ─── HUKUKİ METİNLER ───────────────────────────────────────
+var LEGAL_TEXTS = {
+  kullanim: {
+    title: '📋 Kullanım Koşulları',
+    content: `
+      <h3 style="color:#FF6B1A; margin-bottom:12px;">SOFRIM RESTORAN YÖNETİM SİSTEMİ KULLANIM KOŞULLARI</h3>
+      <p style="color:#8888AA; margin-bottom:20px;">Son Güncelleme: Haziran 2026</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">1. Taraflar ve Kapsam</h4>
+      <p>Bu Kullanım Koşulları, Sofrım Restoran Yönetim Sistemi'ni ("Platform") kullanan bireysel veya kurumsal kullanıcılar ("Kullanıcı") ile Sofrım arasındaki hak ve yükümlülükleri düzenlemektedir. Platforma erişim sağlayan veya kullanan her kişi bu koşulları kabul etmiş sayılır.</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">2. Hizmet Tanımı</h4>
+      <p>Sofrım; restoran, kafe, bistro ve benzeri yeme-içme işletmelerine yönelik bulut tabanlı bir yönetim sistemidir. Platform; sipariş yönetimi, masa takibi, personel yönetimi, stok kontrolü, maaş ve vardiya planlaması, teslimat yönetimi ile raporlama gibi modüller sunmaktadır.</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">3. Hesap Oluşturma ve Erişim</h4>
+      <p>3.1. Platforma erişim, yalnızca Sofrım tarafından onaylanan başvurular aracılığıyla sağlanır. Açık kayıt kabul edilmemektedir.</p>
+      <p>3.2. Kullanıcıya özel 6 haneli kullanıcı kodu ve şifre ile sisteme giriş yapılır. Bu bilgilerin güvenliğinden Kullanıcı sorumludur.</p>
+      <p>3.3. Kullanıcı, hesap bilgilerini üçüncü şahıslarla paylaşamaz. Aksi durumda Sofrım hesabı askıya alma veya sonlandırma hakkını saklı tutar.</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">4. Abonelik ve Ödeme</h4>
+      <p>4.1. Sofrım, aylık veya yıllık abonelik modeliyle sunulmaktadır. Geçerli paket fiyatları web sitesinde ilan edilmektedir.</p>
+      <p>4.2. 14 günlük ücretsiz deneme süresi sonunda ödeme yapılmadığı takdirde sistem erişimi askıya alınır.</p>
+      <p>4.3. Ödemeler, fatura döneminin başında peşin tahsil edilir. İptal durumunda kalan süre için geri ödeme yapılmaz.</p>
+      <p>4.4. Sofrım, fiyat değişikliklerini 30 gün önceden kullanıcıya bildirerek güncelleme hakkını saklı tutar.</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">5. Kullanıcı Yükümlülükleri</h4>
+      <p>5.1. Kullanıcı, Platform'u yalnızca yasal amaçlar için kullanmakla yükümlüdür.</p>
+      <p>5.2. Platform altyapısına zarar verebilecek, aşırı yük oluşturabilecek veya güvenliği tehdit edebilecek eylemler yasaktır.</p>
+      <p>5.3. Kullanıcı, işletmesine ait verilerin doğruluğundan ve güncelliğinden sorumludur.</p>
+      <p>5.4. Platform üzerinden işlenen müşteri verilerinin 6698 sayılı KVKK kapsamında korunması Kullanıcı'nın sorumluluğundadır.</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">6. Sofrım'ın Hakları ve Sorumlulukları</h4>
+      <p>6.1. Sofrım, Platform'u kesintisiz sunmak için azami çabayı gösterir; ancak bakım, teknik sorun veya mücbir sebeplerden kaynaklanan kesintilerden sorumlu tutulamaz.</p>
+      <p>6.2. Sofrım, önceden bildirerek Platform'a yeni özellikler ekleyebilir, mevcut özellikleri değiştirebilir veya kaldırabilir.</p>
+      <p>6.3. Kullanım Koşulları'nı ihlal eden hesaplar bildirim yapılmaksızın askıya alınabilir veya sonlandırılabilir.</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">7. Fikri Mülkiyet</h4>
+      <p>Platform'un yazılımı, tasarımı, logosu ve tüm içeriği Sofrım'a aittir. Platform, MK Software tarafından geliştirilmektedir. Kullanıcı, Platform içeriğini kopyalayamaz, çoğaltamaz, dağıtamaz veya türev çalışmalar oluşturamaz.</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">8. Sorumluluk Sınırlaması</h4>
+      <p>Sofrım; veri kaybı, gelir kaybı veya dolaylı zararlar dahil olmak üzere Platform kullanımından doğan zararlardan sorumlu tutulamaz. Sorumluluk, her halükarda ödenen aylık abonelik ücreti ile sınırlıdır.</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">9. Fesih</h4>
+      <p>Kullanıcı, istediği zaman hesabını kapatabilir. Hesap kapatma taleplerinde mevcut fatura döneminin sonuna kadar erişim sürer. Ödeme gecikmeleri veya ihlaller durumunda Sofrım derhal fesih hakkını kullanabilir.</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">10. Uygulanacak Hukuk</h4>
+      <p>Bu Kullanım Koşulları Türk hukukuna tabidir. Uyuşmazlıklarda Ankara Mahkemeleri ve İcra Daireleri yetkilidir.</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">11. İletişim</h4>
+      <p>Sofrım · Telefon: 0312 820 10 13 · E-posta: info@sofrim.app · Instagram: @sofrimapp</p>
+    `
+  },
+  gizlilik: {
+    title: '🔒 Gizlilik Politikası',
+    content: `
+      <h3 style="color:#FF6B1A; margin-bottom:12px;">SOFRIM GİZLİLİK POLİTİKASI</h3>
+      <p style="color:#8888AA; margin-bottom:20px;">Son Güncelleme: Haziran 2026</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">1. Giriş</h4>
+      <p>Sofrım olarak, platformumuzu kullanan tüm kullanıcılarımızın ve bu kullanıcıların işletmelerine ait verilerin gizliliğini ve güvenliğini ön planda tutuyoruz. Bu Gizlilik Politikası, hangi verileri topladığımızı, nasıl kullandığımızı ve koruduğumuzu açıklamaktadır.</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">2. Toplanan Veriler</h4>
+      <p><strong style="color:#2DD4BF;">2.1. Hesap Bilgileri:</strong> Ad soyad, e-posta adresi, telefon numarası, TC kimlik numarası veya vergi numarası, işletme adı ve adresi.</p>
+      <p><strong style="color:#2DD4BF;">2.2. İşletme Verileri:</strong> Menü içerikleri, sipariş kayıtları, masa düzeni, personel bilgileri, stok verileri, maaş ve avans kayıtları, vardiya planları.</p>
+      <p><strong style="color:#2DD4BF;">2.3. Teknik Veriler:</strong> IP adresi, tarayıcı bilgisi, oturum süreleri, kullanılan cihaz türü, konum verileri (yalnızca kurye modülü için ve kullanıcı izniyle).</p>
+      <p><strong style="color:#2DD4BF;">2.4. Finansal Veriler:</strong> Abonelik ödeme kayıtları (kart bilgileri Sofrım sisteminde saklanmaz; ödeme altyapısı üçüncü taraf sağlayıcı tarafından işlenir).</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">3. Verilerin Kullanım Amacı</h4>
+      <p>• Platform hizmetlerinin sunulması ve sürdürülmesi</p>
+      <p>• Kullanıcı hesabının yönetimi ve kimlik doğrulama</p>
+      <p>• Teknik destek ve müşteri hizmetleri</p>
+      <p>• Platform güvenliğinin sağlanması ve dolandırıcılık önleme</p>
+      <p>• Hizmet kalitesinin iyileştirilmesi ve yeni özellik geliştirme</p>
+      <p>• Yasal yükümlülüklerin yerine getirilmesi</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">4. Veri Paylaşımı</h4>
+      <p>Kullanıcı verileri hiçbir koşulda üçüncü taraflara satılmaz veya kiralanmaz. Veriler yalnızca şu durumlarda paylaşılır:</p>
+      <p>• Hizmet sunumu için zorunlu olan teknik altyapı sağlayıcıları (Supabase, Vercel, Resend) ile</p>
+      <p>• Yasal zorunluluk durumlarında yetkili kamu kurumları ile</p>
+      <p>• Kullanıcının açık rızası dahilinde</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">5. Veri Güvenliği</h4>
+      <p>Tüm veriler SSL/TLS şifrelemesi ile iletilmektedir. Veritabanı erişimleri Row Level Security (RLS) politikalarıyla korunmakta; her restoran yalnızca kendi verilerine erişebilmektedir. Parolalar bcrypt algoritmasıyla hash'lenerek saklanmakta, düz metin olarak hiçbir yerde tutulmamaktadır.</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">6. Çerezler</h4>
+      <p>Sofrım, oturum yönetimi için zorunlu çerezler kullanmaktadır. Analitik veya reklam amaçlı çerez kullanılmamaktadır.</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">7. Veri Saklama Süresi</h4>
+      <p>Hesap verileri, abonelik sona erdikten sonra 90 gün süreyle saklanır ve ardından kalıcı olarak silinir. Kullanıcı, hesap silme talebini destek kanallarımız aracılığıyla iletebilir.</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">8. Kullanıcı Hakları</h4>
+      <p>Kullanıcılar aşağıdaki haklarını kullanabilir:</p>
+      <p>• Kişisel verilerine erişim ve kopyasını talep etme</p>
+      <p>• Hatalı verilerin düzeltilmesini isteme</p>
+      <p>• Verilerinin silinmesini talep etme ("unutulma hakkı")</p>
+      <p>• Veri işlemeye itiraz etme</p>
+      <p>Bu hakları kullanmak için: info@sofrim.app veya 0312 820 10 13</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">9. Değişiklikler</h4>
+      <p>Bu Gizlilik Politikası güncellendiğinde, kullanıcılara e-posta ile bildirim yapılacaktır. Önemli değişiklikler için platformda bildirim gösterilecektir.</p>
+    `
+  },
+  kvkk: {
+    title: '🛡️ KVKK Aydınlatma Metni',
+    content: `
+      <h3 style="color:#FF6B1A; margin-bottom:12px;">KİŞİSEL VERİLERİN KORUNMASI KANUNU (KVKK) KAPSAMINDA AYDINLATMA METNİ</h3>
+      <p style="color:#8888AA; margin-bottom:20px;">6698 Sayılı Kişisel Verilerin Korunması Kanunu</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">Veri Sorumlusu</h4>
+      <p>6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") uyarınca kişisel verileriniz; veri sorumlusu sıfatıyla Sofrım tarafından aşağıda açıklanan kapsamda işlenecektir.</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">1. İşlenen Kişisel Veriler</h4>
+      <p><strong style="color:#2DD4BF;">Kimlik Verileri:</strong> Ad, soyad, TC kimlik numarası / vergi kimlik numarası.</p>
+      <p><strong style="color:#2DD4BF;">İletişim Verileri:</strong> E-posta adresi, telefon numarası, adres bilgileri.</p>
+      <p><strong style="color:#2DD4BF;">İşletme Verileri:</strong> Ticaret unvanı, vergi dairesi, faaliyet alanı, işletme adresi.</p>
+      <p><strong style="color:#2DD4BF;">Çalışan Verileri:</strong> Sisteme eklenen personelin adı, rolü, çalışma saatleri, maaş ve avans bilgileri (yalnızca ilgili restoran yöneticisinin erişimine açıktır).</p>
+      <p><strong style="color:#2DD4BF;">Finansal Veriler:</strong> Abonelik ödeme geçmişi.</p>
+      <p><strong style="color:#2DD4BF;">İşlem Güvenliği Verileri:</strong> Giriş logları, IP adresi, oturum bilgileri.</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">2. Kişisel Verilerin İşlenme Amaçları</h4>
+      <p>Kişisel verileriniz aşağıdaki amaçlarla işlenmektedir:</p>
+      <p>• Başvuru sürecinin yürütülmesi ve kimlik doğrulama</p>
+      <p>• Müşteri hesabının oluşturulması ve yönetilmesi</p>
+      <p>• Platform hizmetlerinin sunulması</p>
+      <p>• Abonelik ve fatura işlemlerinin gerçekleştirilmesi</p>
+      <p>• Yasal yükümlülüklerin yerine getirilmesi</p>
+      <p>• Dolandırıcılık ve güvenlik ihlallerinin önlenmesi</p>
+      <p>• Şikayet ve taleplerin yönetilmesi</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">3. Kişisel Verilerin İşlenme Hukuki Sebepleri</h4>
+      <p>Kişisel verileriniz KVKK'nın 5. maddesi kapsamında aşağıdaki hukuki sebeplere dayanılarak işlenmektedir:</p>
+      <p>• Sözleşmenin kurulması veya ifası için zorunlu olması (md.5/2-c)</p>
+      <p>• Kanuni yükümlülüğün yerine getirilmesi (md.5/2-ç)</p>
+      <p>• Meşru menfaat kapsamında işlenmesi (md.5/2-f)</p>
+      <p>• Açık rızanıza dayalı işleme (md.5/1) — pazarlama ve analiz amaçlı işlemlerde</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">4. Kişisel Verilerin Aktarılması</h4>
+      <p>Kişisel verileriniz; Platform altyapısının sağlanması amacıyla yurt içi ve yurt dışı teknik hizmet sağlayıcılarıyla (sunucu, e-posta, bildirim altyapısı) paylaşılabilmektedir. Bu aktarımlar KVKK'nın 8. ve 9. maddeleri çerçevesinde gerçekleştirilmektedir.</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">5. Kişisel Verilerin Saklanma Süresi</h4>
+      <p>Kişisel verileriniz, hizmet sözleşmesinin sona erdiği tarihten itibaren 90 gün süreyle saklanacak; akabinde KVKK'ya uygun şekilde imha edilecektir. Yasal yükümlülükler kapsamında daha uzun süreli saklama gerektiren veriler için ilgili mevzuat hükümleri esas alınacaktır.</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">6. KVKK Kapsamındaki Haklarınız</h4>
+      <p>KVKK'nın 11. maddesi uyarınca aşağıdaki haklara sahipsiniz:</p>
+      <p>a) Kişisel verilerinizin işlenip işlenmediğini öğrenme</p>
+      <p>b) İşlenmişse buna ilişkin bilgi talep etme</p>
+      <p>c) İşlenme amacını ve amacına uygun kullanılıp kullanılmadığını öğrenme</p>
+      <p>d) Yurt içinde veya yurt dışında aktarıldığı üçüncü kişileri bilme</p>
+      <p>e) Eksik veya yanlış işlenmesi halinde bunların düzeltilmesini isteme</p>
+      <p>f) KVKK md. 7'de öngörülen şartlar çerçevesinde silinmesini veya yok edilmesini isteme</p>
+      <p>g) İşlenen verilerin münhasıran otomatik sistemler vasıtasıyla analiz edilmesi suretiyle aleyhinize bir sonucun ortaya çıkmasına itiraz etme</p>
+      <p>h) Kanuna aykırı olarak işlenmesi sebebiyle zarara uğramanız halinde zararın giderilmesini talep etme</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">7. Başvuru Yöntemi</h4>
+      <p>Haklarınıza ilişkin taleplerinizi kimliğinizi tevsik edici belgelerle birlikte aşağıdaki kanallar aracılığıyla iletebilirsiniz:</p>
+      <p>• <strong style="color:#2DD4BF;">E-posta:</strong> info@sofrim.app (konu: KVKK Başvurusu)</p>
+      <p>• <strong style="color:#2DD4BF;">Telefon:</strong> 0312 820 10 13</p>
+      <p>Başvurularınız en geç 30 gün içinde sonuçlandırılacaktır. Talebin reddi, yetersiz bulunması veya süresinde yanıt verilmemesi durumunda Kişisel Verileri Koruma Kurulu'na şikayette bulunma hakkınız saklıdır.</p>
+    `
+  },
+  mesafeli: {
+    title: '📄 Mesafeli Hizmet Sözleşmesi',
+    content: `
+      <h3 style="color:#FF6B1A; margin-bottom:12px;">MESAFELİ HİZMET SÖZLEŞMESİ</h3>
+      <p style="color:#8888AA; margin-bottom:20px;">6502 Sayılı Tüketicinin Korunması Hakkında Kanun ve Mesafeli Sözleşmeler Yönetmeliği Kapsamında</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">MADDE 1 — TARAFLAR</h4>
+      <p><strong style="color:#2DD4BF;">HİZMET SAĞLAYICI (SATICI):</strong></p>
+      <p>Unvan: Sofrım (MK Software)</p>
+      <p>Adres: Ankara, Türkiye</p>
+      <p>Telefon: 0312 820 10 13</p>
+      <p>E-posta: info@sofrim.app</p>
+      <br>
+      <p><strong style="color:#2DD4BF;">ALICI (MÜŞTERİ):</strong></p>
+      <p>Başvuru formunda beyan edilen bilgiler esas alınır.</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">MADDE 2 — SÖZLEŞME KONUSU</h4>
+      <p>Bu sözleşme, Alıcı'nın Sofrım Restoran Yönetim Sistemi'ne ("Platform") abone olması ve Platform'u kullanması karşılığında ödeyeceği abonelik ücretine ilişkin hak ve yükümlülükleri düzenlemektedir.</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">MADDE 3 — HİZMET BEDELİ VE ÖDEME KOŞULLARI</h4>
+      <p>3.1. Hizmet bedeli, Alıcı'nın seçtiği pakete göre belirlenmekte olup güncel fiyatlar sofrim.app web sitesinde ilan edilmektedir.</p>
+      <p>3.2. Abonelik ücreti, her fatura döneminin başında peşin olarak tahsil edilir.</p>
+      <p>3.3. Ödemenin gerçekleşmemesi halinde Platform erişimi otomatik olarak askıya alınır.</p>
+      <p>3.4. Fiyatlar KDV dahil olarak belirtilmiştir.</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">MADDE 4 — 14 GÜNLÜK ÜCRETSİZ DENEME</h4>
+      <p>4.1. Yeni kullanıcılara, başvurunun onaylanmasından itibaren 14 gün süreyle tüm özelliklerin kullanılabildiği ücretsiz deneme hakkı tanınmaktadır.</p>
+      <p>4.2. Deneme süresince kredi kartı veya ödeme bilgisi talep edilmemektedir.</p>
+      <p>4.3. Deneme süresi sonunda abonelik alınmayan hesaplar otomatik olarak pasifleştirilir; veriler 90 gün boyunca saklanır.</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">MADDE 5 — CAYMA HAKKI</h4>
+      <p>5.1. Mesafeli Sözleşmeler Yönetmeliği'nin 15. maddesinin (ğ) bendi uyarınca; elektronik ortamda anında ifa edilen hizmetlere ve tüketiciye anında teslim edilen gayri maddi mallara ilişkin sözleşmeler cayma hakkı kapsamı dışındadır.</p>
+      <p>5.2. Platform'a erişim başladıktan sonra hizmetin tamamı dijital olarak sunulmaya başlandığından, cayma hakkı kullanılamamaktadır. Alıcı, başvurusunu onaylatarak bu koşulu kabul etmiş sayılır.</p>
+      <p>5.3. Ücretsiz deneme süresi içinde Alıcı istediği zaman hizmeti kullanmayı bırakabilir; bu durumda herhangi bir ücret tahsil edilmez.</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">MADDE 6 — HİZMET SÜRESİ VE FESİH</h4>
+      <p>6.1. Abonelik, aylık veya yıllık dönemler halinde otomatik yenilenmez; her dönem başında Alıcı ödeme yaparak devam ettirir.</p>
+      <p>6.2. Alıcı, dilediği zaman aboneliğini sonlandırabilir. Sonlandırma talebinde mevcut dönem sonuna kadar erişim devam eder; kalan süre için ücret iadesi yapılmaz.</p>
+      <p>6.3. Sofrım, Kullanım Koşulları'nı ihlal eden hesapları bildirim yapmaksızın sonlandırma hakkını saklı tutar.</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">MADDE 7 — GARANTİ VE SORUMLULUK</h4>
+      <p>7.1. Sofrım, Platform'un %99 erişilebilirlik oranıyla çalışmasını hedeflemektedir; ancak bu oran için bağlayıcı bir taahhüt verilmemektedir.</p>
+      <p>7.2. Bakım, güncelleme veya mücbir sebeplerden kaynaklanan kesintiler için sorumluluk kabul edilmemektedir.</p>
+      <p>7.3. Platform kullanımından doğabilecek dolaylı, tesadüfi veya sonuçsal zararlar için Sofrım sorumlu tutulamaz.</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">MADDE 8 — VERİ GÜVENLİĞİ</h4>
+      <p>Alıcı'ya ait tüm veriler SSL şifrelemesiyle korunmakta ve güvenli sunucularda saklanmaktadır. Detaylar için Gizlilik Politikası ve KVKK Aydınlatma Metni'ne başvurulabilir.</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">MADDE 9 — UYUŞMAZLIK ÇÖZÜMÜ</h4>
+      <p>9.1. Bu sözleşmeden doğan uyuşmazlıklarda öncelikle Sofrım ile doğrudan iletişime geçilmesi esastır.</p>
+      <p>9.2. Çözüme kavuşturulamazsa Tüketici Hakem Heyeti'ne veya Tüketici Mahkemesi'ne başvurulabilir.</p>
+      <p>9.3. Uygulanacak hukuk Türk Hukuku'dur; yetkili mahkemeler Ankara Mahkemeleri'dir.</p>
+
+      <h4 style="color:#F0F0F8; margin:16px 0 8px;">MADDE 10 — YÜRÜRLÜK</h4>
+      <p>Bu sözleşme, Alıcı'nın başvuru formunu onaylayarak göndermesiyle ve Sofrım'ın başvuruyu onaylamasıyla karşılıklı olarak yürürlüğe girer.</p>
+
+      <div style="margin-top:24px; padding:16px; background:rgba(255,107,26,0.08); border:1px solid rgba(255,107,26,0.2); border-radius:12px; font-size:12px; color:#FF6B1A;">
+        📋 Bu sözleşme 6502 sayılı Tüketicinin Korunması Hakkında Kanun ve Mesafeli Sözleşmeler Yönetmeliği kapsamında düzenlenmiştir.
+      </div>
+    `
+  }
+};
+
+function showLegal(type) {
+  var data = LEGAL_TEXTS[type];
+  if (!data) return;
+  document.getElementById('legal-title').innerHTML = data.title;
+  document.getElementById('legal-content').innerHTML = data.content;
+  var overlay = document.getElementById('legal-overlay');
+  overlay.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLegal() {
+  document.getElementById('legal-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
 </script>
 </body>
 </html>
