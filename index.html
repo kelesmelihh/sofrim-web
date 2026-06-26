@@ -2485,13 +2485,6 @@ document.head.appendChild(siStyle);
         body: JSON.stringify({})
       });
       var data = await resp.json();
-      var count = data || 0;
-      var els = document.querySelectorAll('.social-proof-count');
-      els.forEach(function(el) { el.textContent = count + '+'; });
-    } catch(e) {}
-  }
-  loadSocialProof();
-
   // ═══════════════ v1.1 SONU ═══════════════
   setBranch(2);
 
@@ -2500,12 +2493,9 @@ document.head.appendChild(siStyle);
   var refCode = urlParams.get('ref');
   if (refCode) {
     window._referralCode = refCode.toUpperCase();
-    // Başvuru formuna gizli alan ekle
     var refInput = document.getElementById('f-ref-code');
     if (refInput) refInput.value = window._referralCode;
-    // Başvuru sayfasına yönlendir
     showPage('contact');
-    // Davet bildirimi göster
     setTimeout(function() {
       var notice = document.getElementById('referral-notice');
       if (notice) {
@@ -2522,6 +2512,9 @@ document.head.appendChild(siStyle);
     var overlay = document.getElementById('intro-overlay');
     if (overlay) overlay.classList.add('hidden');
   }, 2200);
+
+  // Sosyal kanıt sayacı
+  loadSocialProof();
 });
 
 // ─── HUKUKİ METİNLER ───────────────────────────────────────
