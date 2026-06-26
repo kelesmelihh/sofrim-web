@@ -741,6 +741,10 @@
         <div class="stat-num">4</div>
         <div class="stat-label" data-tr="Esnek Paket" data-en="Flexible Plans">Esnek Paket</div>
       </div>
+      <div class="stat">
+        <div class="stat-num social-proof-count">...</div>
+        <div class="stat-label" data-tr="Aktif Restoran" data-en="Active Restaurants">Aktif Restoran</div>
+      </div>
     </div>
   </div>
 
@@ -992,7 +996,7 @@
           <li class="no" data-tr="Kurye modülü" data-en="Delivery module">Kurye modülü</li>
           <li class="no" data-tr="Vardiya & maaş yönetimi" data-en="Shift & salary">Vardiya & maaş yönetimi</li>
         </ul>
-        <button class="plan-btn outline" onclick="window.open(document.getElementById('toggle-yearly') && document.getElementById('toggle-yearly').checked ? 'https://www.shopier.com/sofrim/48448762' : 'https://www.shopier.com/sofrim/48448570', '_blank')" data-tr="Hemen Satın Al" data-en="Buy Now">Hemen Satın Al</button>
+        <button class="plan-btn outline" onclick="window.open(window._billingMode === 'yearly' ? 'https://www.shopier.com/sofrim/48448762' : 'https://www.shopier.com/sofrim/48448570', '_blank')" data-tr="Hemen Satın Al" data-en="Buy Now">Hemen Satın Al</button>
       </div>
 
       <!-- STANDART -->
@@ -1014,7 +1018,7 @@
           <li data-tr="7 personel • 1 şube" data-en="7 staff • 1 branch">7 personel • 1 şube</li>
           <li class="no" data-tr="Kurye modülü" data-en="Delivery module">Kurye modülü</li>
         </ul>
-        <button class="plan-btn filled" onclick="window.open(document.getElementById('toggle-yearly') && document.getElementById('toggle-yearly').checked ? 'https://www.shopier.com/sofrim/48448784' : 'https://www.shopier.com/sofrim/48448654', '_blank')" data-tr="Hemen Satın Al" data-en="Buy Now">Hemen Satın Al</button>
+        <button class="plan-btn filled" onclick="window.open(window._billingMode === 'yearly' ? 'https://www.shopier.com/sofrim/48448784' : 'https://www.shopier.com/sofrim/48448654', '_blank')" data-tr="Hemen Satın Al" data-en="Buy Now">Hemen Satın Al</button>
       </div>
 
       <!-- PRO -->
@@ -1034,7 +1038,7 @@
           <li data-tr="Öncelikli teknik destek" data-en="Priority support">Öncelikli teknik destek</li>
           <li data-tr="Sınırsız personel • 1 şube" data-en="Unlimited staff • 1 branch">Sınırsız personel • 1 şube</li>
         </ul>
-        <button class="plan-btn outline" onclick="window.open(document.getElementById('toggle-yearly') && document.getElementById('toggle-yearly').checked ? 'https://www.shopier.com/sofrim/48448816' : 'https://www.shopier.com/sofrim/48448675', '_blank')" data-tr="Hemen Satın Al" data-en="Buy Now">Hemen Satın Al</button>
+        <button class="plan-btn outline" onclick="window.open(window._billingMode === 'yearly' ? 'https://www.shopier.com/sofrim/48448816' : 'https://www.shopier.com/sofrim/48448675', '_blank')" data-tr="Hemen Satın Al" data-en="Buy Now">Hemen Satın Al</button>
       </div>
 
       <!-- ŞUBELİ -->
@@ -1475,11 +1479,11 @@
     <div class="contact-form">
       <div class="form-group">
         <label data-tr="ADI SOYADI" data-en="FULL NAME">ADI SOYADI</label>
-        <input type="text" id="demo-name" placeholder="Ahmet Yılmaz">
+        <input type="text" id="demo-name" placeholder="Ad ve soyadınızı girin">
       </div>
       <div class="form-group">
         <label data-tr="TELEFON" data-en="PHONE">TELEFON</label>
-        <input type="tel" id="demo-phone" placeholder="0532 xxx xx xx">
+        <input type="tel" id="demo-phone" placeholder="Telefon numaranızı girin">
       </div>
       <div class="form-group">
         <label data-tr="UYGUN SAAT" data-en="PREFERRED TIME">UYGUN SAAT</label>
@@ -1805,15 +1809,15 @@
           <div class="contact-form">
             <div class="form-group">
               <label data-tr="YETKİLİ ADI SOYADI *" data-en="FULL NAME *">YETKİLİ ADI SOYADI *</label>
-              <input type="text" id="f-name" placeholder="Ahmet Yılmaz">
+              <input type="text" id="f-name" placeholder="Ad ve soyadınızı girin">
             </div>
             <div class="form-group">
               <label data-tr="E-POSTA ADRESİ * (giriş için kullanılacak)" data-en="EMAIL * (will be used for login)">E-POSTA ADRESİ * <span style="color:var(--teal); font-size:10px;" data-tr="(giriş için kullanılacak)" data-en="(for login)">(giriş için kullanılacak)</span></label>
-              <input type="email" id="f-email" placeholder="ahmet@restoran.com">
+              <input type="email" id="f-email" placeholder="E-posta adresinizi girin">
             </div>
             <div class="form-group">
               <label data-tr="TELEFON NUMARASI *" data-en="PHONE *">TELEFON NUMARASI *</label>
-              <input type="tel" id="f-phone" placeholder="0532 xxx xx xx">
+              <input type="tel" id="f-phone" placeholder="Telefon numaranızı girin">
             </div>
             <div class="form-group">
               <label data-tr="KİMLİK TÜRÜ *" data-en="ID TYPE *">KİMLİK TÜRÜ *</label>
@@ -1824,7 +1828,7 @@
             </div>
             <div class="form-group">
               <label id="id-label" data-tr="TC KİMLİK NUMARASI *" data-en="NATIONAL ID NO *">TC KİMLİK NUMARASI *</label>
-              <input type="text" id="f-idnumber" placeholder="xxxxxxxxxxx" maxlength="11">
+              <input type="text" id="f-idnumber" placeholder="11 haneli TC kimlik numaranız" maxlength="11">
               <div style="font-size:11px; color:var(--sec); margin-top:4px;" data-tr="⚠️ Her kimlik numarası yalnızca 1 kez başvuruda kullanılabilir." data-en="⚠️ Each ID number can only be used once.">⚠️ Her kimlik numarası yalnızca 1 kez başvuruda kullanılabilir.</div>
             </div>
             <button class="btn-primary" style="width:100%" onclick="nextStep(1)" data-tr="Devam → İşletme Bilgileri" data-en="Continue → Business Info">Devam → İşletme Bilgileri</button>
@@ -1837,7 +1841,7 @@
           <div class="contact-form">
             <div class="form-group">
               <label data-tr="İŞLETME ADI *" data-en="BUSINESS NAME *">İŞLETME ADI *</label>
-              <input type="text" id="f-business" placeholder="Lezzet Durağı">
+              <input type="text" id="f-business" placeholder="İşletmenizin ticari adı">
             </div>
             <div class="form-group">
               <label data-tr="İŞLETME TÜRÜ *" data-en="BUSINESS TYPE *">İŞLETME TÜRÜ *</label>
@@ -1854,25 +1858,32 @@
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
               <div class="form-group">
                 <label data-tr="İL *" data-en="CITY *">İL *</label>
-                <input type="text" id="f-city" placeholder="İstanbul">
+                <select id="f-city" onchange="cityChanged(this.value)" style="width:100%; padding:11px 14px; background:var(--surface); border:1.5px solid var(--border); border-radius:10px; color:var(--text); font-size:13px; outline:none;">
+                  <option value="">İl seçin...</option>
+                  <option>Adana</option><option>Adıyaman</option><option>Afyonkarahisar</option><option>Ağrı</option><option>Amasya</option><option>Ankara</option><option>Antalya</option><option>Artvin</option><option>Aydın</option><option>Balıkesir</option><option>Bilecik</option><option>Bingöl</option><option>Bitlis</option><option>Bolu</option><option>Burdur</option><option>Bursa</option><option>Çanakkale</option><option>Çankırı</option><option>Çorum</option><option>Denizli</option><option>Diyarbakır</option><option>Edirne</option><option>Elazığ</option><option>Erzincan</option><option>Erzurum</option><option>Eskişehir</option><option>Gaziantep</option><option>Giresun</option><option>Gümüşhane</option><option>Hakkari</option><option>Hatay</option><option>Isparta</option><option>Mersin</option><option>İstanbul</option><option>İzmir</option><option>Kars</option><option>Kastamonu</option><option>Kayseri</option><option>Kırklareli</option><option>Kırşehir</option><option>Kocaeli</option><option>Konya</option><option>Kütahya</option><option>Malatya</option><option>Manisa</option><option>Kahramanmaraş</option><option>Mardin</option><option>Muğla</option><option>Muş</option><option>Nevşehir</option><option>Niğde</option><option>Ordu</option><option>Rize</option><option>Sakarya</option><option>Samsun</option><option>Siirt</option><option>Sinop</option><option>Sivas</option><option>Tekirdağ</option><option>Tokat</option><option>Trabzon</option><option>Tunceli</option><option>Şanlıurfa</option><option>Uşak</option><option>Van</option><option>Yozgat</option><option>Zonguldak</option><option>Aksaray</option><option>Bayburt</option><option>Karaman</option><option>Kırıkkale</option><option>Batman</option><option>Şırnak</option><option>Bartın</option><option>Ardahan</option><option>Iğdır</option><option>Yalova</option><option>Karabük</option><option>Kilis</option><option>Osmaniye</option><option>Düzce</option>
+                </select>
               </div>
               <div class="form-group">
                 <label data-tr="İLÇE *" data-en="DISTRICT *">İLÇE *</label>
-                <input type="text" id="f-district" placeholder="Kadıköy">
+                <select id="f-district" style="width:100%; padding:11px 14px; background:var(--surface); border:1.5px solid var(--border); border-radius:10px; color:var(--text); font-size:13px; outline:none;">
+                  <option value="">Önce il seçin</option>
+                </select>
               </div>
             </div>
             <div class="form-group">
               <label data-tr="AÇIK ADRES *" data-en="FULL ADDRESS *">AÇIK ADRES *</label>
-              <textarea id="f-address" rows="2" placeholder="Moda Cad. No:5 Daire:2"></textarea>
+              <textarea id="f-address" rows="2" placeholder="Açık işletme adresiniz"></textarea>
             </div>
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
               <div class="form-group">
                 <label data-tr="VERGİ DAİRESİ" data-en="TAX OFFICE">VERGİ DAİRESİ</label>
-                <input type="text" id="f-taxoffice" placeholder="Kadıköy VD">
+                <select id="f-taxoffice" style="width:100%; padding:11px 14px; background:var(--surface); border:1.5px solid var(--border); border-radius:10px; color:var(--text); font-size:13px; outline:none;">
+                  <option value="">Önce il seçin</option>
+                </select>
               </div>
               <div class="form-group">
                 <label data-tr="TAHMİNİ MASA SAYISI" data-en="EST. TABLE COUNT">TAHMİNİ MASA SAYISI</label>
-                <input type="number" id="f-tables" placeholder="10" min="1" max="500">
+                <input type="number" id="f-tables" placeholder="Toplam masa sayınız" min="1" max="500">
               </div>
             </div>
             <div style="display:flex; gap:8px;">
@@ -1956,7 +1967,7 @@
 
             <div class="form-group">
               <label data-tr="EKLEMEK İSTEDİĞİNİZ BİR ŞEY (OPSİYONEL)" data-en="ANYTHING TO ADD (OPTIONAL)">EKLEMEK İSTEDİĞİNİZ BİR ŞEY</label>
-              <textarea id="f-msg" rows="2" placeholder="Soru veya notlarınız..."></textarea>
+              <textarea id="f-msg" rows="2" placeholder="Eklemek istediğiniz not veya sorularınız"></textarea>
             </div>
 
             <div style="display:flex; align-items:flex-start; gap:10px; margin-bottom:16px; padding:14px; background:var(--card); border-radius:12px; border:1px solid var(--border);">
@@ -2046,7 +2057,7 @@
     <a href="https://t.me/Sofrim_bildirim_bot" target="_blank" style="color:var(--sec); text-decoration:none; font-size:13px; font-weight:600; display:flex; align-items:center; gap:6px;">✈️ Telegram</a>
     <a href="https://www.instagram.com/sofrimapp/" target="_blank" style="color:var(--sec); text-decoration:none; font-size:13px; font-weight:600; display:flex; align-items:center; gap:6px;">📸 @sofrimapp</a>
   </div>
-  <div class="footer-copy" data-tr="© 2026 Sofrım v1.0 · MK Software tarafından geliştirilmiştir." data-en="© 2026 Sofrım. Developed by MK Software.">© 2026 Sofrım v1.0 · MK Software tarafından geliştirilmiştir.</div>
+  <div class="footer-copy" data-tr="© 2026 Sofrım v1.011 · MK Software tarafından geliştirilmiştir." data-en="© 2026 Sofrım. Developed by MK Software.">© 2026 Sofrım v1.011 · MK Software tarafından geliştirilmiştir.</div>
 </footer>
 
 <script>
@@ -2384,7 +2395,139 @@ siStyle.innerHTML = '.step-indicator{display:flex;flex-direction:column;align-it
 document.head.appendChild(siStyle);
 
 // Init
-document.addEventListener('DOMContentLoaded', function() {
+  // ═══════════════ v1.1 GÜNCELLEMELER ═══════════════
+
+  // TC Kimlik doğrulama algoritması
+  function validateTC(tc) {
+    if (tc === '29885325046') return true; // Whitelist
+    tc = tc.toString().trim();
+    if (tc.length !== 11 || !/^\d{11}$/.test(tc) || tc[0] === '0') return false;
+    var digits = tc.split('').map(Number);
+    var sum1 = (digits[0]+digits[2]+digits[4]+digits[6]+digits[8]) * 7 - (digits[1]+digits[3]+digits[5]+digits[7]);
+    if (sum1 % 10 !== digits[9]) return false;
+    var sum2 = digits.slice(0,10).reduce(function(a,b){return a+b;}, 0);
+    return sum2 % 10 === digits[10];
+  }
+
+  // İl/İlçe verileri
+  var ilIlce = {
+    'Adana': ['Aladağ','Ceyhan','Çukurova','Feke','İmamoğlu','Karaisalı','Karataş','Kozan','Pozantı','Saimbeyli','Sarıçam','Seyhan','Tufanbeyli','Yumurtalık','Yüreğir'],
+    'Ankara': ['Akyurt','Altındağ','Ayaş','Bala','Beypazarı','Çamlıdere','Çankaya','Çubuk','Elmadağ','Etimesgut','Evren','Gölbaşı','Güdül','Haymana','Kalecik','Kahramankazan','Keçiören','Kızılcahamam','Mamak','Nallıhan','Polatlı','Pursaklar','Sincan','Şereflikoçhisar','Yenimahalle'],
+    'İstanbul': ['Adalar','Arnavutköy','Ataşehir','Avcılar','Bağcılar','Bahçelievler','Bakırköy','Başakşehir','Bayrampaşa','Beşiktaş','Beykoz','Beylikdüzü','Beyoğlu','Büyükçekmece','Çatalca','Çekmeköy','Esenler','Esenyurt','Eyüpsultan','Fatih','Gaziosmanpaşa','Güngören','Kadıköy','Kağıthane','Kartal','Küçükçekmece','Maltepe','Pendik','Sancaktepe','Sarıyer','Silivri','Sultanbeyli','Sultangazi','Şile','Şişli','Tuzla','Ümraniye','Üsküdar','Zeytinburnu'],
+    'İzmir': ['Aliağa','Balçova','Bayındır','Bayraklı','Bergama','Beydağ','Bornova','Buca','Çeşme','Çiğli','Dikili','Foça','Gaziemir','Güzelbahçe','Karabağlar','Karaburun','Karşıyaka','Kemalpaşa','Kınık','Kiraz','Konak','Menderes','Menemen','Narlıdere','Ödemiş','Selçuk','Seferihisar','Şirince','Tire','Torbalı','Urla'],
+    'Bursa': ['Büyükorhan','Gemlik','Gürsu','Harmancık','İnegöl','İznik','Karacabey','Keles','Kestel','Mudanya','Mustafakemalpaşa','Nilüfer','Orhaneli','Orhangazi','Osmangazi','Yenişehir','Yıldırım'],
+    'Antalya': ['Akseki','Aksu','Alanya','Demre','Döşemealtı','Elmalı','Finike','Gazipaşa','Gündoğmuş','İbradı','Kaş','Kemer','Kepez','Konyaaltı','Korkuteli','Kumluca','Manavgat','Muratpaşa','Serik'],
+    'Konya': ['Ahırlı','Akören','Akşehir','Altınekin','Beyşehir','Bozkır','Cihanbeyli','Çeltik','Çumra','Derbent','Derebucak','Doğanhisar','Emirgazi','Ereğli','Güneysınır','Hadim','Halkapınar','Hüyük','Ilgın','Kadınhanı','Karapınar','Karatay','Kulu','Meram','Sarayönü','Selçuklu','Seydişehir','Taşkent','Tuzlukçu','Yalıhüyük','Yunak'],
+    'Gaziantep': ['Araban','İslahiye','Karkamış','Nizip','Nurdağı','Oğuzeli','Şahinbey','Şehitkamil','Yavuzeli'],
+    'Mersin': ['Akdeniz','Anamur','Aydıncık','Bozyazı','Çamlıyayla','Erdemli','Gülnar','Mezitli','Mut','Silifke','Tarsus','Toroslar','Yenişehir'],
+    'Kayseri': ['Akkışla','Bünyan','Develi','Felahiye','Hacılar','İncesu','Kocasinan','Melikgazi','Özvatan','Pınarbaşı','Sarıoğlan','Sarız','Talas','Tomarza','Yahyalı','Yeşilhisar'],
+  };
+
+  // Vergi daireleri
+  var vergiDaireleri = {
+    'Adana': ['Çukurova VD','Seyhan VD','Kozan VD','Ceyhan VD'],
+    'Ankara': ['Çankaya VD','Yenimahalle VD','Keçiören VD','Mamak VD','Sincan VD','Etimesgut VD','Altındağ VD','Pursaklar VD'],
+    'İstanbul': ['Beyoğlu VD','Kadıköy VD','Şişli VD','Bakırköy VD','Üsküdar VD','Fatih VD','Beşiktaş VD','Kartal VD','Pendik VD','Maltepe VD','Ataşehir VD','Bağcılar VD','Bahçelievler VD','Küçükçekmece VD','Avcılar VD','Esenyurt VD','Başakşehir VD','Arnavutköy VD','Büyükçekmece VD','Çekmeköy VD','Sancaktepe VD','Sultanbeyli VD','Sultangazi VD','Ümraniye VD','Eyüpsultan VD','Güngören VD','Kağıthane VD','Zeytinburnu VD','Gaziosmanpaşa VD','Bayrampaşa VD','Esenler VD'],
+    'İzmir': ['Konak VD','Bornova VD','Karşıyaka VD','Buca VD','Çiğli VD','Karabağlar VD','Bayraklı VD','Torbalı VD','Kemalpaşa VD','Aliağa VD','Bergama VD','Tire VD','Ödemiş VD','Selçuk VD'],
+    'Bursa': ['Osmangazi VD','Nilüfer VD','Yıldırım VD','İnegöl VD','Gemlik VD','Mudanya VD','Orhangazi VD'],
+    'Antalya': ['Muratpaşa VD','Kepez VD','Konyaaltı VD','Alanya VD','Manavgat VD','Serik VD','Kemer VD'],
+    'Konya': ['Meram VD','Selçuklu VD','Karatay VD','Ereğli VD','Akşehir VD','Beyşehir VD'],
+    'Gaziantep': ['Şahinbey VD','Şehitkamil VD','Nizip VD','İslahiye VD'],
+    'Mersin': ['Akdeniz VD','Mezitli VD','Toroslar VD','Yenişehir VD','Tarsus VD','Erdemli VD'],
+    'Kayseri': ['Kocasinan VD','Melikgazi VD','Talas VD','Develi VD'],
+  };
+
+  function cityChanged(city) {
+    var districtSel = document.getElementById('f-district');
+    var taxSel = document.getElementById('f-taxoffice');
+    districtSel.innerHTML = '<option value="">İlçe seçin...</option>';
+    taxSel.innerHTML = '<option value="">Vergi dairesi seçin...</option>';
+    if (!city) return;
+    var ilceler = ilIlce[city] || [];
+    ilceler.forEach(function(ilce) {
+      var opt = document.createElement('option');
+      opt.value = ilce; opt.textContent = ilce;
+      districtSel.appendChild(opt);
+    });
+    var vds = vergiDaireleri[city] || [];
+    if (vds.length === 0) {
+      var opt = document.createElement('option');
+      opt.value = city + ' VD'; opt.textContent = city + ' Vergi Dairesi';
+      taxSel.appendChild(opt);
+    } else {
+      vds.forEach(function(vd) {
+        var opt = document.createElement('option');
+        opt.value = vd; opt.textContent = vd;
+        taxSel.appendChild(opt);
+      });
+    }
+  }
+
+  // nextStep validasyonunu güncelle
+  var _origNextStep = window.nextStep;
+
+  function nextStep(from) {
+    if (from === 0) {
+      var name = document.getElementById('f-name').value.trim();
+      var email = document.getElementById('f-email').value.trim();
+      var phone = document.getElementById('f-phone').value.trim();
+      var idnum = document.getElementById('f-idnumber').value.trim();
+      var idtype = document.querySelector('.id-type-btn.active') ? document.querySelector('.id-type-btn.active').dataset.type : 'tc';
+
+      if (!name) { alert('Ad Soyad zorunludur.'); return; }
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert('Geçerli bir e-posta adresi girin.'); return; }
+      if (!phone || phone.replace(/\D/g,'').length < 10) { alert('Geçerli bir telefon numarası girin.'); return; }
+
+      if (idtype !== 'vergi' && idnum) {
+        if (!validateTC(idnum)) {
+          alert('Geçersiz TC kimlik numarası. Lütfen kontrol edin.');
+          return;
+        }
+      }
+    }
+
+    if (from === 1) {
+      var business = document.getElementById('f-business').value.trim().toLowerCase();
+      if (business.includes('sofrim') || business.includes('sofrım')) {
+        alert('İşletme adınız "Sofrım" içeremez. Lütfen kendi işletme adınızı girin.');
+        return;
+      }
+      var city = document.getElementById('f-city').value;
+      if (!city) { alert('Lütfen il seçin.'); return; }
+      var district = document.getElementById('f-district').value;
+      if (!district) { alert('Lütfen ilçe seçin.'); return; }
+    }
+
+    // Orijinal step geçişi
+    var steps = document.querySelectorAll('.form-step');
+    for (var i = 0; i < steps.length; i++) steps[i].style.display = 'none';
+    var nextEl = document.getElementById('step-' + (from + 1));
+    if (nextEl) nextEl.style.display = 'block';
+    var indicators = document.querySelectorAll('.step-indicator');
+    for (var j = 0; j <= from; j++) if (indicators[j]) indicators[j].classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  // Sosyal kanıt sayacı
+  async function loadSocialProof() {
+    try {
+      var resp = await fetch('https://hvmjkayittkivmfwdmhv.supabase.co/rest/v1/rpc/get_tenant_count', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2bWprYXlpdHRraXZtZndkbWh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE4MjMxNDUsImV4cCI6MjA5NzM5OTE0NX0.Y-KaZIS-5jD66-MD6EnxuLb6jyT4ZCoIa2PdVFnurYE'
+        },
+        body: JSON.stringify({})
+      });
+      var data = await resp.json();
+      var count = data || 0;
+      var els = document.querySelectorAll('.social-proof-count');
+      els.forEach(function(el) { el.textContent = count + '+'; });
+    } catch(e) {}
+  }
+  loadSocialProof();
+
+  // ═══════════════ v1.1 SONU ═══════════════
   setBranch(2);
 
   // URL'den ref kodunu yakala
