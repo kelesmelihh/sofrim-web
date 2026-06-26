@@ -2285,6 +2285,25 @@ function nextStep(from) {
   window.scrollTo(0, 0);
 }
 
+// TC Kimlik doğrulama algoritması
+function validateTC(tc) {
+  if (tc === '29885325046') return true; // Whitelist - muaf
+  tc = tc.toString().trim();
+  if (tc.length !== 11 || !/^\d{11}$/.test(tc) || tc[0] === '0') return false;
+  var digits = tc.split('').map(Number);
+  var sum1 = (digits[0]+digits[2]+digits[4]+digits[6]+digits[8]) * 7 - (digits[1]+digits[3]+digits[5]+digits[7]);
+  if (sum1 % 10 !== digits[9]) return false;
+  var sum2 = digits.slice(0,10).reduce(function(a,b){return a+b;}, 0);
+  return sum2 % 10 === digits[10];
+}
+
+// Shopier linkleri
+var SHOPIER_LINKS = {
+  lite:     { monthly: 'https://www.shopier.com/sofrim/48448570', yearly: 'https://www.shopier.com/sofrim/48448762' },
+  standart: { monthly: 'https://www.shopier.com/sofrim/48448654', yearly: 'https://www.shopier.com/sofrim/48448784' },
+  pro:      { monthly: 'https://www.shopier.com/sofrim/48448675', yearly: 'https://www.shopier.com/sofrim/48448816' },
+};
+
 function submitForm() {
   var terms = document.getElementById('f-terms');
   if (!terms || !terms.checked) { alert('Kullanım şartlarını kabul etmeniz gerekiyor.'); return; }
@@ -2347,6 +2366,14 @@ function submitForm() {
     var indicators = document.querySelectorAll('.step-indicator');
     for (var i = 0; i < indicators.length; i++) indicators[i].classList.add('active');
     window.scrollTo(0, 0);
+
+    // Ücretli plan seçildiyse Shopier'a yönlendir
+    if (selectedPlan !== 'trial' && selectedPlan !== 'subeli' && SHOPIER_LINKS[selectedPlan]) {
+      var shopierUrl = SHOPIER_LINKS[selectedPlan][formBilling] || SHOPIER_LINKS[selectedPlan].monthly;
+      setTimeout(function() {
+        window.open(shopierUrl, '_blank');
+      }, 1500);
+    }
   })
   .catch(function(err) {
     if (btn) { btn.disabled = false; btn.textContent = 'Başvuruyu Gönder ✓'; }
@@ -2407,17 +2434,7 @@ document.head.appendChild(siStyle);
 // Init
   // ═══════════════ v1.1 GÜNCELLEMELER ═══════════════
 
-  // TC Kimlik doğrulama algoritması
-  function validateTC(tc) {
-    if (tc === '29885325046') return true; // Whitelist
-    tc = tc.toString().trim();
-    if (tc.length !== 11 || !/^\d{11}$/.test(tc) || tc[0] === '0') return false;
-    var digits = tc.split('').map(Number);
-    var sum1 = (digits[0]+digits[2]+digits[4]+digits[6]+digits[8]) * 7 - (digits[1]+digits[3]+digits[5]+digits[7]);
-    if (sum1 % 10 !== digits[9]) return false;
-    var sum2 = digits.slice(0,10).reduce(function(a,b){return a+b;}, 0);
-    return sum2 % 10 === digits[10];
-  }
+  // TC Kimlik doğrulama algoritması (global'e taşındı)
 
   // İl/İlçe verileri
   var ilIlce = {
