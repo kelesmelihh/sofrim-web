@@ -2259,16 +2259,26 @@ function goStep(n) {
 
 function nextStep(from) {
   if (from === 1) {
-    if (!document.getElementById('f-name').value.trim()) { alert('Ad Soyad zorunludur.'); return; }
-    if (!document.getElementById('f-email').value.trim()) { alert('E-posta zorunludur.'); return; }
-    if (!document.getElementById('f-phone').value.trim()) { alert('Telefon zorunludur.'); return; }
-    if (!document.getElementById('f-idnumber').value.trim()) { alert('Kimlik numaras\u0131 zorunludur.'); return; }
+    var name = document.getElementById('f-name').value.trim();
+    var email = document.getElementById('f-email').value.trim();
+    var phone = document.getElementById('f-phone').value.trim();
+    var idnum = document.getElementById('f-idnumber').value.trim();
+    var idtype = window.selectedIdType || 'tc';
+    if (!name) { alert('Ad Soyad zorunludur.'); return; }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert('Geçerli bir e-posta adresi girin.'); return; }
+    if (!phone || phone.replace(/\D/g,'').length < 10) { alert('Geçerli bir telefon numarası girin.'); return; }
+    if (!idnum) { alert('Kimlik numarası zorunludur.'); return; }
+    if (idtype !== 'vergi' && !validateTC(idnum)) { alert('Geçersiz TC kimlik numarası. Lütfen kontrol edin.'); return; }
   }
   if (from === 2) {
-    if (!document.getElementById('f-business').value.trim()) { alert('\u0130\u015fletme ad\u0131 zorunludur.'); return; }
-    if (!document.getElementById('f-type').value) { alert('\u0130\u015fletme t\u00fcr\u00fc se\u00e7iniz.'); return; }
-    if (!document.getElementById('f-city').value.trim()) { alert('\u0130l zorunludur.'); return; }
-    if (!document.getElementById('f-district').value.trim()) { alert('\u0130l\u00e7e zorunludur.'); return; }
+    var business = document.getElementById('f-business').value.trim();
+    if (!business) { alert('İşletme adı zorunludur.'); return; }
+    if (business.toLowerCase().includes('sofrim') || business.toLowerCase().includes('sofrım')) { alert('İşletme adınız "Sofrım" içeremez.'); return; }
+    if (!document.getElementById('f-type').value) { alert('İşletme türü seçiniz.'); return; }
+    var city = document.getElementById('f-city').value;
+    if (!city) { alert('Lütfen il seçin.'); return; }
+    var district = document.getElementById('f-district').value;
+    if (!district) { alert('Lütfen ilçe seçin.'); return; }
     if (!document.getElementById('f-address').value.trim()) { alert('Adres zorunludur.'); return; }
   }
   goStep(from + 1);
@@ -2461,51 +2471,6 @@ document.head.appendChild(siStyle);
         taxSel.appendChild(opt);
       });
     }
-  }
-
-  // nextStep validasyonunu güncelle
-  var _origNextStep = window.nextStep;
-
-  function nextStep(from) {
-    if (from === 0) {
-      var name = document.getElementById('f-name').value.trim();
-      var email = document.getElementById('f-email').value.trim();
-      var phone = document.getElementById('f-phone').value.trim();
-      var idnum = document.getElementById('f-idnumber').value.trim();
-      var idtype = document.querySelector('.id-type-btn.active') ? document.querySelector('.id-type-btn.active').dataset.type : 'tc';
-
-      if (!name) { alert('Ad Soyad zorunludur.'); return; }
-      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert('Geçerli bir e-posta adresi girin.'); return; }
-      if (!phone || phone.replace(/\D/g,'').length < 10) { alert('Geçerli bir telefon numarası girin.'); return; }
-
-      if (idtype !== 'vergi' && idnum) {
-        if (!validateTC(idnum)) {
-          alert('Geçersiz TC kimlik numarası. Lütfen kontrol edin.');
-          return;
-        }
-      }
-    }
-
-    if (from === 1) {
-      var business = document.getElementById('f-business').value.trim().toLowerCase();
-      if (business.includes('sofrim') || business.includes('sofrım')) {
-        alert('İşletme adınız "Sofrım" içeremez. Lütfen kendi işletme adınızı girin.');
-        return;
-      }
-      var city = document.getElementById('f-city').value;
-      if (!city) { alert('Lütfen il seçin.'); return; }
-      var district = document.getElementById('f-district').value;
-      if (!district) { alert('Lütfen ilçe seçin.'); return; }
-    }
-
-    // Orijinal step geçişi
-    var steps = document.querySelectorAll('.form-step');
-    for (var i = 0; i < steps.length; i++) steps[i].style.display = 'none';
-    var nextEl = document.getElementById('step-' + (from + 1));
-    if (nextEl) nextEl.style.display = 'block';
-    var indicators = document.querySelectorAll('.step-indicator');
-    for (var j = 0; j <= from; j++) if (indicators[j]) indicators[j].classList.add('active');
-    window.scrollTo(0, 0);
   }
 
   // Sosyal kanıt sayacı
