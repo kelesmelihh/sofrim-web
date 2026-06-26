@@ -2263,7 +2263,7 @@ function nextStep(from) {
     var email = document.getElementById('f-email').value.trim();
     var phone = document.getElementById('f-phone').value.trim();
     var idnum = document.getElementById('f-idnumber').value.trim();
-    var idtype = window.selectedIdType || 'tc';
+    var idtype = selectedIdType || 'tc';
     if (!name) { alert('Ad Soyad zorunludur.'); return; }
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert('Geçerli bir e-posta adresi girin.'); return; }
     if (!phone || phone.replace(/\D/g,'').length < 10) { alert('Geçerli bir telefon numarası girin.'); return; }
