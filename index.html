@@ -2473,19 +2473,7 @@ document.head.appendChild(siStyle);
     }
   }
 
-  // Sosyal kanıt sayacı
-  async function loadSocialProof() {
-    try {
-      var resp = await fetch('https://hvmjkayittkivmfwdmhv.supabase.co/rest/v1/rpc/get_tenant_count', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2bWprYXlpdHRraXZtZndkbWh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE4MjMxNDUsImV4cCI6MjA5NzM5OTE0NX0.Y-KaZIS-5jD66-MD6EnxuLb6jyT4ZCoIa2PdVFnurYE'
-        },
-        body: JSON.stringify({})
-      });
-      var data = await resp.json();
-  // ═══════════════ v1.1 SONU ═══════════════
+// ═══════════════ v1.1 SONU ═══════════════
   setBranch(2);
 
   // URL'den ref kodunu yakala
@@ -2514,7 +2502,22 @@ document.head.appendChild(siStyle);
   }, 2200);
 
   // Sosyal kanıt sayacı
-  loadSocialProof();
+  (async function() {
+    try {
+      var resp = await fetch('https://hvmjkayittkivmfwdmhv.supabase.co/rest/v1/rpc/get_tenant_count', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2bWprYXlpdHRraXZtZndkbWh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE4MjMxNDUsImV4cCI6MjA5NzM5OTE0NX0.Y-KaZIS-5jD66-MD6EnxuLb6jyT4ZCoIa2PdVFnurYE'
+        },
+        body: JSON.stringify({})
+      });
+      var data = await resp.json();
+      var count = data || 0;
+      var els = document.querySelectorAll('.social-proof-count');
+      els.forEach(function(el) { el.textContent = count + '+'; });
+    } catch(e) {}
+  })();
 });
 
 // ─── HUKUKİ METİNLER ───────────────────────────────────────
