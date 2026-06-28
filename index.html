@@ -1791,6 +1791,14 @@
         <div id="step-1" class="form-step">
           <div style="font-size:16px; font-weight:800; margin-bottom:20px;" data-tr="👤 Kişisel Bilgiler" data-en="👤 Personal Information">👤 Kişisel Bilgiler</div>
 
+          <!-- Resmi kanal uyarısı -->
+          <div style="background:#FF6B1A11; border:1.5px solid #FF6B1A33; border-radius:12px; padding:12px 16px; margin-bottom:16px; display:flex; gap:10px; align-items:flex-start;">
+            <span style="font-size:20px; flex-shrink:0;">⚠️</span>
+            <div style="font-size:11px; color:var(--sec); line-height:1.7;">
+              <strong style="color:#FF6B1A;">Dikkat:</strong> Sofrım yalnızca bu form, <strong style="color:var(--text);">kelesmelih551@gmail.com</strong> ve <strong style="color:var(--text);">WhatsApp: 0312 820 10 13</strong> üzerinden satılmaktadır. Ödeme yapmadan önce bizimle iletişime geçtiğinizden emin olun. Başka kişi veya kanallar üzerinden yapılan işlemlerden sorumlu değiliz.
+            </div>
+          </div>
+
           <!-- Davet bildirimi -->
           <div id="referral-notice" style="display:none; align-items:flex-start; gap:12px; padding:16px; background:linear-gradient(135deg, rgba(255,107,26,0.12), rgba(255,209,102,0.08)); border:1.5px solid rgba(255,107,26,0.3); border-radius:14px; margin-bottom:16px;">
             <span style="font-size:28px; flex-shrink:0;">🎁</span>
@@ -1860,7 +1868,7 @@
                 <label data-tr="İL *" data-en="CITY *">İL *</label>
                 <select id="f-city" onchange="cityChanged(this.value)" style="width:100%; padding:11px 14px; background:var(--surface); border:1.5px solid var(--border); border-radius:10px; color:var(--text); font-size:13px; outline:none;">
                   <option value="">İl seçin...</option>
-                  <option>Adana</option><option>Adıyaman</option><option>Afyonkarahisar</option><option>Ağrı</option><option>Amasya</option><option>Ankara</option><option>Antalya</option><option>Artvin</option><option>Aydın</option><option>Balıkesir</option><option>Bilecik</option><option>Bingöl</option><option>Bitlis</option><option>Bolu</option><option>Burdur</option><option>Bursa</option><option>Çanakkale</option><option>Çankırı</option><option>Çorum</option><option>Denizli</option><option>Diyarbakır</option><option>Edirne</option><option>Elazığ</option><option>Erzincan</option><option>Erzurum</option><option>Eskişehir</option><option>Gaziantep</option><option>Giresun</option><option>Gümüşhane</option><option>Hakkari</option><option>Hatay</option><option>Isparta</option><option>Mersin</option><option>İstanbul</option><option>İzmir</option><option>Kars</option><option>Kastamonu</option><option>Kayseri</option><option>Kırklareli</option><option>Kırşehir</option><option>Kocaeli</option><option>Konya</option><option>Kütahya</option><option>Malatya</option><option>Manisa</option><option>Kahramanmaraş</option><option>Mardin</option><option>Muğla</option><option>Muş</option><option>Nevşehir</option><option>Niğde</option><option>Ordu</option><option>Rize</option><option>Sakarya</option><option>Samsun</option><option>Siirt</option><option>Sinop</option><option>Sivas</option><option>Tekirdağ</option><option>Tokat</option><option>Trabzon</option><option>Tunceli</option><option>Şanlıurfa</option><option>Uşak</option><option>Van</option><option>Yozgat</option><option>Zonguldak</option><option>Aksaray</option><option>Bayburt</option><option>Karaman</option><option>Kırıkkale</option><option>Batman</option><option>Şırnak</option><option>Bartın</option><option>Ardahan</option><option>Iğdır</option><option>Yalova</option><option>Karabük</option><option>Kilis</option><option>Osmaniye</option><option>Düzce</option>
+                  <option>Adana</option><option>Adıyaman</option><option>Afyonkarahisar</option><option>Aksaray</option><option>Amasya</option><option>Ankara</option><option>Antalya</option><option>Ardahan</option><option>Artvin</option><option>Aydın</option><option>Ağrı</option><option>Balıkesir</option><option>Bartın</option><option>Batman</option><option>Bayburt</option><option>Bilecik</option><option>Bingöl</option><option>Bitlis</option><option>Bolu</option><option>Burdur</option><option>Bursa</option><option>Denizli</option><option>Diyarbakır</option><option>Düzce</option><option>Edirne</option><option>Elazığ</option><option>Erzincan</option><option>Erzurum</option><option>Eskişehir</option><option>Gaziantep</option><option>Giresun</option><option>Gümüşhane</option><option>Hakkari</option><option>Hatay</option><option>Isparta</option><option>Iğdır</option><option>Kahramanmaraş</option><option>Karabük</option><option>Karaman</option><option>Kars</option><option>Kastamonu</option><option>Kayseri</option><option>Kilis</option><option>Kocaeli</option><option>Konya</option><option>Kütahya</option><option>Kırklareli</option><option>Kırıkkale</option><option>Kırşehir</option><option>Malatya</option><option>Manisa</option><option>Mardin</option><option>Mersin</option><option>Muğla</option><option>Muş</option><option>Nevşehir</option><option>Niğde</option><option>Ordu</option><option>Osmaniye</option><option>Rize</option><option>Sakarya</option><option>Samsun</option><option>Siirt</option><option>Sinop</option><option>Sivas</option><option>Tekirdağ</option><option>Tokat</option><option>Trabzon</option><option>Tunceli</option><option>Uşak</option><option>Van</option><option>Yalova</option><option>Yozgat</option><option>Zonguldak</option><option>Çanakkale</option><option>Çankırı</option><option>Çorum</option><option>İstanbul</option><option>İzmir</option><option>Şanlıurfa</option><option>Şırnak</option>
                 </select>
               </div>
               <div class="form-group">
@@ -1992,7 +2000,10 @@
         <div id="step-success" style="display:none; text-align:center; padding:60px 20px;">
           <div style="font-size:64px; margin-bottom:20px;">✅</div>
           <h3 style="font-size:22px; font-weight:900; margin-bottom:12px;" data-tr="Başvurunuz Alındı!" data-en="Application Received!">Başvurunuz Alındı!</h3>
-          <p style="color:var(--sec); font-size:14px; line-height:1.8; max-width:360px; margin:0 auto 28px;" data-tr="En geç 1 iş günü içinde e-posta adresinize dönüş yapacağız. Onay sonrası kullanıcı kodunuz ve şifreniz iletilecektir." data-en="We will get back to you within 1 business day. After approval, your user code and password will be sent.">En geç 1 iş günü içinde size dönüş yapacağız.</p>
+          <p style="color:var(--sec); font-size:14px; line-height:1.8; max-width:360px; margin:0 auto 20px;">En geç 1 iş günü içinde size dönüş yapacağız. Onay sonrası giriş bilgileriniz yalnızca <strong style="color:var(--text);">kelesmelih551@gmail.com</strong> adresinden gönderilecektir.</p>
+          <div style="background:#FF6B1A11; border:1.5px solid #FF6B1A33; border-radius:12px; padding:12px 16px; margin:0 auto 24px; max-width:360px; font-size:12px; color:var(--sec); line-height:1.7; text-align:left;">
+            <strong style="color:#FF6B1A;">⚠️ Önemli:</strong> Giriş bilgilerinizi yalnızca bizden alın. Başka kişilerden gelen bilgileri kullanmayın. Şüpheli bir durum fark ederseniz <strong style="color:var(--text);">0312 820 10 13</strong> numaralı WhatsApp hattımızdan bize ulaşın.
+          </div>
           <button class="btn-primary" onclick="resetForm()" data-tr="Ana Sayfaya Dön" data-en="Back to Home">Ana Sayfaya Dön</button>
         </div>
       </div>
@@ -2051,6 +2062,19 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">Sofrım</div>
+
+  <!-- Resmi kanal uyarısı -->
+  <div style="background:#FF6B1A11; border:1.5px solid #FF6B1A33; border-radius:12px; padding:14px 20px; margin:16px auto; max-width:600px; text-align:center;">
+    <div style="font-size:13px; font-weight:800; color:#FF6B1A; margin-bottom:6px;">⚠️ Resmi Satış Kanallarımız</div>
+    <div style="font-size:12px; color:var(--sec); line-height:1.8;">
+      Sofrım yalnızca aşağıdaki resmi kanallardan satılmaktadır:<br>
+      🌐 <strong style="color:var(--text);">sofrim-web.vercel.app</strong> &nbsp;·&nbsp;
+      📧 <strong style="color:var(--text);">kelesmelih551@gmail.com</strong> &nbsp;·&nbsp;
+      💬 <strong style="color:var(--text);">WhatsApp: 0312 820 10 13</strong><br>
+      <span style="color:#FF6B1A; font-weight:700;">Başka kanallardan yapılan işlemlerden sorumlu değiliz.</span>
+    </div>
+  </div>
+
   <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap; justify-content:center;">
     <a href="tel:+903128201013" style="color:var(--sec); text-decoration:none; font-size:13px; font-weight:600; display:flex; align-items:center; gap:6px;">📞 0312 820 10 13</a>
     <a href="https://wa.me/903128201013" target="_blank" style="color:var(--sec); text-decoration:none; font-size:13px; font-weight:600; display:flex; align-items:center; gap:6px;">💬 WhatsApp</a>
@@ -2432,30 +2456,171 @@ document.head.appendChild(siStyle);
 
   // İl/İlçe verileri
   var ilIlce = {
-    'Adana': ['Aladağ','Ceyhan','Çukurova','Feke','İmamoğlu','Karaisalı','Karataş','Kozan','Pozantı','Saimbeyli','Sarıçam','Seyhan','Tufanbeyli','Yumurtalık','Yüreğir'],
-    'Ankara': ['Akyurt','Altındağ','Ayaş','Bala','Beypazarı','Çamlıdere','Çankaya','Çubuk','Elmadağ','Etimesgut','Evren','Gölbaşı','Güdül','Haymana','Kalecik','Kahramankazan','Keçiören','Kızılcahamam','Mamak','Nallıhan','Polatlı','Pursaklar','Sincan','Şereflikoçhisar','Yenimahalle'],
-    'İstanbul': ['Adalar','Arnavutköy','Ataşehir','Avcılar','Bağcılar','Bahçelievler','Bakırköy','Başakşehir','Bayrampaşa','Beşiktaş','Beykoz','Beylikdüzü','Beyoğlu','Büyükçekmece','Çatalca','Çekmeköy','Esenler','Esenyurt','Eyüpsultan','Fatih','Gaziosmanpaşa','Güngören','Kadıköy','Kağıthane','Kartal','Küçükçekmece','Maltepe','Pendik','Sancaktepe','Sarıyer','Silivri','Sultanbeyli','Sultangazi','Şile','Şişli','Tuzla','Ümraniye','Üsküdar','Zeytinburnu'],
-    'İzmir': ['Aliağa','Balçova','Bayındır','Bayraklı','Bergama','Beydağ','Bornova','Buca','Çeşme','Çiğli','Dikili','Foça','Gaziemir','Güzelbahçe','Karabağlar','Karaburun','Karşıyaka','Kemalpaşa','Kınık','Kiraz','Konak','Menderes','Menemen','Narlıdere','Ödemiş','Selçuk','Seferihisar','Şirince','Tire','Torbalı','Urla'],
-    'Bursa': ['Büyükorhan','Gemlik','Gürsu','Harmancık','İnegöl','İznik','Karacabey','Keles','Kestel','Mudanya','Mustafakemalpaşa','Nilüfer','Orhaneli','Orhangazi','Osmangazi','Yenişehir','Yıldırım'],
-    'Antalya': ['Akseki','Aksu','Alanya','Demre','Döşemealtı','Elmalı','Finike','Gazipaşa','Gündoğmuş','İbradı','Kaş','Kemer','Kepez','Konyaaltı','Korkuteli','Kumluca','Manavgat','Muratpaşa','Serik'],
-    'Konya': ['Ahırlı','Akören','Akşehir','Altınekin','Beyşehir','Bozkır','Cihanbeyli','Çeltik','Çumra','Derbent','Derebucak','Doğanhisar','Emirgazi','Ereğli','Güneysınır','Hadim','Halkapınar','Hüyük','Ilgın','Kadınhanı','Karapınar','Karatay','Kulu','Meram','Sarayönü','Selçuklu','Seydişehir','Taşkent','Tuzlukçu','Yalıhüyük','Yunak'],
-    'Gaziantep': ['Araban','İslahiye','Karkamış','Nizip','Nurdağı','Oğuzeli','Şahinbey','Şehitkamil','Yavuzeli'],
-    'Mersin': ['Akdeniz','Anamur','Aydıncık','Bozyazı','Çamlıyayla','Erdemli','Gülnar','Mezitli','Mut','Silifke','Tarsus','Toroslar','Yenişehir'],
-    'Kayseri': ['Akkışla','Bünyan','Develi','Felahiye','Hacılar','İncesu','Kocasinan','Melikgazi','Özvatan','Pınarbaşı','Sarıoğlan','Sarız','Talas','Tomarza','Yahyalı','Yeşilhisar'],
+    'Adana': ["Aladağ","Ceyhan","Çukurova","Feke","İmamoğlu","Karaisalı","Karataş","Kozan","Pozantı","Saimbeyli","Sarıçam","Seyhan","Tufanbeyli","Yumurtalık","Yüreğir"],
+    'Adıyaman': ["Besni","Çelikhan","Gerger","Gölbaşı","Kahta","Merkez","Samsat","Sincik","Tut"],
+    'Afyonkarahisar': ["Başmakçı","Bayat","Bolvadin","Çay","Çobanlar","Dazkırı","Dinar","Emirdağ","Evciler","Hocalar","İhsaniye","İscehisar","Kızılören","Merkez","Sandıklı","Sinanpaşa","Sultandağı","Şuhut"],
+    'Ağrı': ["Diyadin","Doğubayazıt","Eleşkirt","Hamur","Merkez","Patnos","Taşlıçay","Tutak"],
+    'Aksaray': ["Ağaçören","Eskil","Gülağaç","Güzelyurt","Merkez","Ortaköy","Sarıyahşi","Sultanhanı"],
+    'Amasya': ["Göynücek","Gümüşhacıköy","Hamamözü","Merkez","Merzifon","Suluova","Taşova"],
+    'Ankara': ["Akyurt","Altındağ","Ayaş","Bala","Beypazarı","Çamlıdere","Çankaya","Çubuk","Elmadağ","Etimesgut","Evren","Gölbaşı","Güdül","Haymana","Kalecik","Kahramankazan","Keçiören","Kızılcahamam","Mamak","Nallıhan","Polatlı","Pursaklar","Sincan","Şereflikoçhisar","Yenimahalle"],
+    'Antalya': ["Akseki","Aksu","Alanya","Demre","Döşemealtı","Elmalı","Finike","Gazipaşa","Gündoğmuş","İbradı","Kaş","Kemer","Kepez","Konyaaltı","Korkuteli","Kumluca","Manavgat","Muratpaşa","Serik"],
+    'Ardahan': ["Çıldır","Damal","Göle","Hanak","Merkez","Posof"],
+    'Artvin': ["Ardanuç","Arhavi","Borçka","Hopa","Kemalpaşa","Merkez","Murgul","Şavşat","Yusufeli"],
+    'Aydın': ["Bozdoğan","Buharkent","Çine","Didim","Efeler","Germencik","İncirliova","Karacasu","Karpuzlu","Koçarlı","Köşk","Kuşadası","Kuyucak","Nazilli","Söke","Sultanhisar","Yenipazar"],
+    'Balıkesir': ["Altıeylül","Ayvalık","Balya","Bandırma","Bigadiç","Burhaniye","Dursunbey","Edremit","Erdek","Gömeç","Gönen","Havran","İvrindi","Karesi","Kepsut","Manyas","Marmara","Savaştepe","Sındırgı","Susurluk"],
+    'Bartın': ["Amasra","Kurucaşile","Merkez","Ulus"],
+    'Batman': ["Beşiri","Gercüş","Hasankeyf","Kozluk","Merkez","Sason"],
+    'Bayburt': ["Aydıntepe","Demirözü","Merkez"],
+    'Bilecik': ["Bozüyük","Gölpazarı","İnhisar","Merkez","Osmaneli","Pazaryeri","Söğüt","Yenipazar"],
+    'Bingöl': ["Adaklı","Genç","Karlıova","Kiğı","Merkez","Solhan","Yayladere","Yedisu"],
+    'Bitlis': ["Adilcevaz","Ahlat","Güroymak","Hizan","Merkez","Mutki","Tatvan"],
+    'Bolu': ["Dörtdivan","Gerede","Göynük","Kıbrıscık","Mengen","Merkez","Mudurnu","Seben","Yeniçağa"],
+    'Burdur': ["Ağlasun","Altınyayla","Bucak","Çavdır","Çeltikçi","Gölhisar","Karamanlı","Kemer","Merkez","Tefenni","Yeşilova"],
+    'Bursa': ["Büyükorhan","Gemlik","Gürsu","Harmancık","İnegöl","İznik","Karacabey","Keles","Kestel","Mudanya","Mustafakemalpaşa","Nilüfer","Orhaneli","Orhangazi","Osmangazi","Yenişehir","Yıldırım"],
+    'Çanakkale': ["Ayvacık","Bayramiç","Biga","Bozcaada","Çan","Eceabat","Ezine","Gelibolu","Gökçeada","Lapseki","Merkez","Yenice"],
+    'Çankırı': ["Atkaracalar","Bayramören","Çerkeş","Eldivan","Ilgaz","Kızılırmak","Korgun","Kurşunlu","Merkez","Orta","Şabanözü","Yapraklı"],
+    'Çorum': ["Alaca","Bayat","Boğazkale","Dodurga","İskilip","Kargı","Laçin","Mecitözü","Merkez","Oğuzlar","Ortaköy","Osmancık","Sungurlu","Uğurludağ"],
+    'Denizli': ["Acıpayam","Babadağ","Baklan","Bekilli","Beyağaç","Bozkurt","Buldan","Çal","Çameli","Çardak","Çivril","Güney","Honaz","Kale","Merkezefendi","Pamukkale","Sarayköy","Serinhisar","Tavas"],
+    'Diyarbakır': ["Bağlar","Bismil","Çermik","Çınar","Çüngüş","Dicle","Eğil","Ergani","Hani","Hazro","Kayapınar","Kocaköy","Kulp","Lice","Silvan","Sur","Yenişehir"],
+    'Düzce': ["Akçakoca","Cumayeri","Çilimli","Gölyaka","Gümüşova","Kaynaşlı","Merkez","Yığılca"],
+    'Edirne': ["Enez","Havsa","İpsala","Keşan","Lalapaşa","Meriç","Merkez","Süloğlu","Uzunköprü"],
+    'Elazığ': ["Ağın","Alacakaya","Arıcak","Baskil","Karakoçan","Keban","Kovancılar","Maden","Merkez","Palu","Sivrice"],
+    'Erzincan': ["Çayırlı","İliç","Kemah","Kemaliye","Merkez","Otlukbeli","Refahiye","Tercan","Üzümlü"],
+    'Erzurum': ["Aşkale","Aziziye","Çat","Hınıs","Horasan","İspir","Karaçoban","Karayazı","Köprüköy","Narman","Oltu","Olur","Palandöken","Pasinler","Pazaryolu","Şenkaya","Tekman","Tortum","Uzundere","Yakutiye"],
+    'Eskişehir': ["Alpu","Beylikova","Çifteler","Günyüzü","Han","İnönü","Mahmudiye","Mihalgazi","Mihalıççık","Odunpazarı","Sarıcakaya","Seyitgazi","Sivrihisar","Tepebaşı"],
+    'Gaziantep': ["Araban","İslahiye","Karkamış","Nizip","Nurdağı","Oğuzeli","Şahinbey","Şehitkamil","Yavuzeli"],
+    'Giresun': ["Alucra","Bulancak","Çamoluk","Çanakçı","Dereli","Doğankent","Espiye","Eynesil","Görele","Güce","Keşap","Merkez","Piraziz","Şebinkarahisar","Tirebolu","Yağlıdere"],
+    'Gümüşhane': ["Kelkit","Köse","Kürtün","Merkez","Şiran","Torul"],
+    'Hakkari': ["Çukurca","Merkez","Şemdinli","Yüksekova"],
+    'Hatay': ["Altınözü","Antakya","Arsuz","Belen","Defne","Dörtyol","Erzin","Hassa","İskenderun","Kırıkhan","Kumlu","Mandacı","Payas","Reyhanlı","Samandağ","Yayladağı"],
+    'Iğdır': ["Aralık","Karakoyunlu","Merkez","Tuzluca"],
+    'Isparta': ["Aksu","Atabey","Eğirdir","Gelendost","Gönen","Keçiborlu","Merkez","Senirkent","Sütçüler","Şarkikaraağaç","Uluborlu","Yalvaç","Yenişarbademli"],
+    'İstanbul': ["Adalar","Arnavutköy","Ataşehir","Avcılar","Bağcılar","Bahçelievler","Bakırköy","Başakşehir","Bayrampaşa","Beşiktaş","Beykoz","Beylikdüzü","Beyoğlu","Büyükçekmece","Çatalca","Çekmeköy","Esenler","Esenyurt","Eyüpsultan","Fatih","Gaziosmanpaşa","Güngören","Kadıköy","Kağıthane","Kartal","Küçükçekmece","Maltepe","Pendik","Sancaktepe","Sarıyer","Silivri","Sultanbeyli","Sultangazi","Şile","Şişli","Tuzla","Ümraniye","Üsküdar","Zeytinburnu"],
+    'İzmir': ["Aliağa","Balçova","Bayındır","Bayraklı","Bergama","Beydağ","Bornova","Buca","Çeşme","Çiğli","Dikili","Foça","Gaziemir","Güzelbahçe","Karabağlar","Karaburun","Karşıyaka","Kemalpaşa","Kınık","Kiraz","Konak","Menderes","Menemen","Narlıdere","Ödemiş","Selçuk","Seferihisar","Tire","Torbalı","Urla"],
+    'Kahramanmaraş': ["Afşin","Andırın","Çağlayancerit","Dulkadiroğlu","Ekinözü","Elbistan","Göksun","Nurhak","Onikişubat","Pazarcık","Türkoğlu"],
+    'Karabük': ["Eflani","Eskipazar","Merkez","Ovacık","Safranbolu","Yenice"],
+    'Karaman': ["Ayrancı","Başyayla","Ermenek","Kazımkarabekir","Merkez","Sarıveliler"],
+    'Kars': ["Akyaka","Arpaçay","Digor","Kağızman","Merkez","Sarıkamış","Selim","Susuz"],
+    'Kastamonu': ["Abana","Ağlı","Araç","Azdavay","Bozkurt","Cide","Çatalzeytin","Daday","Devrekani","Doğanyurt","Hanönü","İhsangazi","İnebolu","Küre","Merkez","Pınarbaşı","Şenpazar","Taşköprü","Tosya"],
+    'Kayseri': ["Akkışla","Bünyan","Develi","Felahiye","Hacılar","İncesu","Kocasinan","Melikgazi","Özvatan","Pınarbaşı","Sarıoğlan","Sarız","Talas","Tomarza","Yahyalı","Yeşilhisar"],
+    'Kilis': ["Elbeyli","Merkez","Musabeyli","Polateli"],
+    'Kırıkkale': ["Bahşili","Balışeyh","Çelebi","Delice","Karakeçili","Keskin","Merkez","Sulakyurt","Yahşihan"],
+    'Kırklareli': ["Babaeski","Demirköy","Kofçaz","Lüleburgaz","Merkez","Pehlivanköy","Pınarhisar","Vize"],
+    'Kırşehir': ["Akçakent","Akpınar","Boztepe","Çiçekdağı","Kaman","Merkez","Mucur"],
+    'Kocaeli': ["Başiskele","Çayırova","Darıca","Derince","Dilovası","Gebze","Gölcük","İzmit","Kandıra","Karamürsel","Kartepe","Körfez"],
+    'Konya': ["Ahırlı","Akören","Akşehir","Altınekin","Beyşehir","Bozkır","Cihanbeyli","Çeltik","Çumra","Derbent","Derebucak","Doğanhisar","Emirgazi","Ereğli","Güneysınır","Hadim","Halkapınar","Hüyük","Ilgın","Kadınhanı","Karapınar","Karatay","Kulu","Meram","Sarayönü","Selçuklu","Seydişehir","Taşkent","Tuzlukçu","Yalıhüyük","Yunak"],
+    'Kütahya': ["Altıntaş","Aslanapa","Çavdarhisar","Domaniç","Dumlupınar","Emet","Gediz","Hisarcık","Merkez","Pazarlar","Simav","Şaphane","Tavşanlı"],
+    'Malatya': ["Akçadağ","Arapgir","Arguvan","Battalgazi","Darende","Doğanşehir","Doğanyol","Hekimhan","Kale","Kuluncak","Pütürge","Yazıhan","Yeşilyurt"],
+    'Manisa': ["Ahmetli","Akhisar","Alaşehir","Demirci","Gölmarmara","Gördes","Kırkağaç","Köprübaşı","Kula","Merkez","Salihli","Sarıgöl","Saruhanlı","Selendi","Soma","Şehzadeler","Turgutlu","Yunusemre"],
+    'Mardin': ["Artuklu","Dargeçit","Derik","Kızıltepe","Mazıdağı","Midyat","Nusaybin","Ömerli","Savur","Yeşilli"],
+    'Mersin': ["Akdeniz","Anamur","Aydıncık","Bozyazı","Çamlıyayla","Erdemli","Gülnar","Mezitli","Mut","Silifke","Tarsus","Toroslar","Yenişehir"],
+    'Muğla': ["Bodrum","Dalaman","Datça","Fethiye","Kavaklıdere","Köyceğiz","Marmaris","Menteşe","Milas","Ortaca","Seydikemer","Ula","Yatağan"],
+    'Muş': ["Bulanık","Hasköy","Korkut","Malazgirt","Merkez","Varto"],
+    'Nevşehir': ["Acıgöl","Avanos","Derinkuyu","Gülşehir","Hacıbektaş","Kozaklı","Merkez","Ürgüp"],
+    'Niğde': ["Altunhisar","Bor","Çamardı","Çiftlik","Merkez","Ulukışla"],
+    'Ordu': ["Akkuş","Altınordu","Aybastı","Çamaş","Çatalpınar","Çaybaşı","Fatsa","Gölköy","Gülyalı","Gürgentepe","İkizce","Kabadüz","Kabataş","Korgan","Kumru","Mesudiye","Perşembe","Ulubey","Ünye"],
+    'Osmaniye': ["Bahçe","Düziçi","Hasanbeyli","Kadirli","Merkez","Sumbas","Toprakkale"],
+    'Rize': ["Ardeşen","Çamlıhemşin","Çayeli","Derepazarı","Fındıklı","Güneysu","Hemşin","İkizdere","İyidere","Kalkandere","Merkez","Pazar"],
+    'Sakarya': ["Adapazarı","Akyazı","Arifiye","Erenler","Ferizli","Geyve","Hendek","Karapürçek","Karasu","Kaynarca","Kocaali","Mithatpaşa","Pamukova","Sapanca","Serdivan","Söğütlü","Taraklı"],
+    'Samsun': ["Alaçam","Asarcık","Atakum","Ayvacık","Bafra","Canik","Çarşamba","Havza","İlkadım","Kavak","Ladik","Salıpazarı","Tekkeköy","Terme","Vezirköprü","Yakakent"],
+    'Siirt': ["Baykan","Eruh","Kurtalan","Merkez","Pervari","Şirvan","Tillo"],
+    'Sinop': ["Ayancık","Boyabat","Dikmen","Durağan","Erfelek","Gerze","Merkez","Saraydüzü","Türkeli"],
+    'Sivas': ["Akıncılar","Altınyayla","Divriği","Doğanşar","Gemerek","Gölova","Hafik","İmranlı","Kangal","Koyulhisar","Merkez","Suşehri","Şarkışla","Ulaş","Yıldızeli","Zara"],
+    'Şanlıurfa': ["Akçakale","Birecik","Bozova","Ceylanpınar","Eyyübiye","Halfeti","Haliliye","Harran","Hilvan","Karaköprü","Siverek","Suruç","Viranşehir"],
+    'Şırnak': ["Beytüşşebap","Cizre","Güçlükonak","İdil","Merkez","Silopi","Uludere"],
+    'Tekirdağ': ["Çerkezköy","Çorlu","Ergene","Hayrabolu","Kapaklı","Malkara","Marmaraereğlisi","Muratlı","Saray","Süleymanpaşa","Şarköy"],
+    'Tokat': ["Almus","Artova","Başçiftlik","Erbaa","Merkez","Niksar","Pazar","Reşadiye","Sulusaray","Turhal","Yeşilyurt","Zile"],
+    'Trabzon': ["Akçaabat","Araklı","Arsin","Beşikdüzü","Çarşıbaşı","Çaykara","Dernekpazarı","Düzköy","Hayrat","Köprübaşı","Maçka","Of","Ortahisar","Sürmene","Şalpazarı","Tonya","Vakfıkebir","Yomra"],
+    'Tunceli': ["Çemişgezek","Hozat","Mazgirt","Merkez","Nazımiye","Ovacık","Pertek","Pülümür"],
+    'Uşak': ["Banaz","Eşme","Karahallı","Merkez","Sivaslı","Ulubey"],
+    'Van': ["Bahçesaray","Başkale","Çaldıran","Çatak","Edremit","Erciş","Gevaş","Gürpınar","İpekyolu","Muradiye","Özalp","Saray","Tuşba"],
+    'Yalova': ["Altınova","Armutlu","Çınarcık","Çiftlikköy","Merkez","Termal"],
+    'Yozgat': ["Akdağmadeni","Aydıncık","Boğazlıyan","Çandır","Çayıralan","Çekerek","Kadışehri","Merkez","Saraykent","Sarıkaya","Şefaatli","Sorgun","Yenifakılı","Yerköy"],
+    'Zonguldak': ["Alaplı","Çaycuma","Devrek","Ereğli","Gökçebey","Kilimli","Kozlu","Merkez"],
   };
 
-  // Vergi daireleri
   var vergiDaireleri = {
-    'Adana': ['Çukurova VD','Seyhan VD','Kozan VD','Ceyhan VD'],
-    'Ankara': ['Çankaya VD','Yenimahalle VD','Keçiören VD','Mamak VD','Sincan VD','Etimesgut VD','Altındağ VD','Pursaklar VD'],
-    'İstanbul': ['Beyoğlu VD','Kadıköy VD','Şişli VD','Bakırköy VD','Üsküdar VD','Fatih VD','Beşiktaş VD','Kartal VD','Pendik VD','Maltepe VD','Ataşehir VD','Bağcılar VD','Bahçelievler VD','Küçükçekmece VD','Avcılar VD','Esenyurt VD','Başakşehir VD','Arnavutköy VD','Büyükçekmece VD','Çekmeköy VD','Sancaktepe VD','Sultanbeyli VD','Sultangazi VD','Ümraniye VD','Eyüpsultan VD','Güngören VD','Kağıthane VD','Zeytinburnu VD','Gaziosmanpaşa VD','Bayrampaşa VD','Esenler VD'],
-    'İzmir': ['Konak VD','Bornova VD','Karşıyaka VD','Buca VD','Çiğli VD','Karabağlar VD','Bayraklı VD','Torbalı VD','Kemalpaşa VD','Aliağa VD','Bergama VD','Tire VD','Ödemiş VD','Selçuk VD'],
-    'Bursa': ['Osmangazi VD','Nilüfer VD','Yıldırım VD','İnegöl VD','Gemlik VD','Mudanya VD','Orhangazi VD'],
-    'Antalya': ['Muratpaşa VD','Kepez VD','Konyaaltı VD','Alanya VD','Manavgat VD','Serik VD','Kemer VD'],
-    'Konya': ['Meram VD','Selçuklu VD','Karatay VD','Ereğli VD','Akşehir VD','Beyşehir VD'],
-    'Gaziantep': ['Şahinbey VD','Şehitkamil VD','Nizip VD','İslahiye VD'],
-    'Mersin': ['Akdeniz VD','Mezitli VD','Toroslar VD','Yenişehir VD','Tarsus VD','Erdemli VD'],
-    'Kayseri': ['Kocasinan VD','Melikgazi VD','Talas VD','Develi VD'],
+    'Adana': ["Çukurova VD","Seyhan VD","Kozan VD","Ceyhan VD","Karataş VD","Pozantı VD","Yüreğir VD"],
+    'Adıyaman': ["Adıyaman VD","Kahta VD","Gölbaşı VD","Besni VD"],
+    'Afyonkarahisar': ["Afyonkarahisar VD","Bolvadin VD","Sandıklı VD","Dinar VD","Emirdağ VD"],
+    'Ağrı': ["Ağrı VD","Doğubayazıt VD","Patnos VD"],
+    'Aksaray': ["Aksaray VD","Güzelyurt VD"],
+    'Amasya': ["Amasya VD","Merzifon VD","Suluova VD"],
+    'Ankara': ["Çankaya VD","Yenimahalle VD","Keçiören VD","Mamak VD","Sincan VD","Etimesgut VD","Altındağ VD","Pursaklar VD","Gölbaşı VD","Polatlı VD","Kahramankazan VD","Çubuk VD","Beypazarı VD"],
+    'Antalya': ["Muratpaşa VD","Kepez VD","Konyaaltı VD","Alanya VD","Manavgat VD","Serik VD","Kemer VD","Kaş VD","Finike VD","Kumluca VD"],
+    'Ardahan': ["Ardahan VD","Göle VD"],
+    'Artvin': ["Artvin VD","Hopa VD","Arhavi VD"],
+    'Aydın': ["Efeler VD","Nazilli VD","Söke VD","Kuşadası VD","Didim VD","İncirliova VD","Çine VD"],
+    'Balıkesir': ["Altıeylül VD","Karesi VD","Bandırma VD","Edremit VD","Ayvalık VD","Gönen VD","Burhaniye VD"],
+    'Bartın': ["Bartın VD","Amasra VD"],
+    'Batman': ["Batman VD","Kozluk VD","Beşiri VD"],
+    'Bayburt': ["Bayburt VD"],
+    'Bilecik': ["Bilecik VD","Bozüyük VD","Osmaneli VD"],
+    'Bingöl': ["Bingöl VD","Genç VD"],
+    'Bitlis': ["Bitlis VD","Tatvan VD","Ahlat VD"],
+    'Bolu': ["Bolu VD","Gerede VD","Mudurnu VD"],
+    'Burdur': ["Burdur VD","Bucak VD","Gölhisar VD"],
+    'Bursa': ["Osmangazi VD","Nilüfer VD","Yıldırım VD","İnegöl VD","Gemlik VD","Mudanya VD","Orhangazi VD","Karacabey VD","Mustafakemalpaşa VD","Kestel VD","Gürsu VD"],
+    'Çanakkale': ["Çanakkale VD","Biga VD","Çan VD","Gelibolu VD","Ezine VD"],
+    'Çankırı': ["Çankırı VD","Çerkeş VD","Kurşunlu VD"],
+    'Çorum': ["Çorum VD","Sungurlu VD","İskilip VD","Osmancık VD","Alaca VD"],
+    'Denizli': ["Pamukkale VD","Merkezefendi VD","Denizli VD","Çivril VD","Acıpayam VD","Buldan VD","Tavas VD"],
+    'Diyarbakır': ["Bağlar VD","Kayapınar VD","Sur VD","Yenişehir VD","Ergani VD","Bismil VD","Silvan VD"],
+    'Düzce': ["Düzce VD","Akçakoca VD"],
+    'Edirne': ["Edirne VD","Keşan VD","Uzunköprü VD","İpsala VD"],
+    'Elazığ': ["Elazığ VD","Kovancılar VD","Keban VD"],
+    'Erzincan': ["Erzincan VD","Tercan VD","Refahiye VD"],
+    'Erzurum': ["Yakutiye VD","Palandöken VD","Aziziye VD","Pasinler VD","Oltu VD","Horasan VD"],
+    'Eskişehir': ["Odunpazarı VD","Tepebaşı VD","Eskişehir VD","Sivrihisar VD","Çifteler VD"],
+    'Gaziantep': ["Şahinbey VD","Şehitkamil VD","Nizip VD","İslahiye VD","Nurdağı VD","Oğuzeli VD"],
+    'Giresun': ["Giresun VD","Bulancak VD","Tirebolu VD","Şebinkarahisar VD"],
+    'Gümüşhane': ["Gümüşhane VD","Kelkit VD"],
+    'Hakkari': ["Hakkari VD","Yüksekova VD"],
+    'Hatay': ["Antakya VD","İskenderun VD","Dörtyol VD","Kırıkhan VD","Reyhanlı VD","Samandağ VD","Belen VD","Hassa VD"],
+    'Iğdır': ["Iğdır VD","Aralık VD"],
+    'Isparta': ["Isparta VD","Yalvaç VD","Eğirdir VD","Şarkikaraağaç VD"],
+    'İstanbul': ["Beyoğlu VD","Kadıköy VD","Şişli VD","Bakırköy VD","Üsküdar VD","Fatih VD","Beşiktaş VD","Kartal VD","Pendik VD","Maltepe VD","Ataşehir VD","Bağcılar VD","Bahçelievler VD","Küçükçekmece VD","Avcılar VD","Esenyurt VD","Başakşehir VD","Arnavutköy VD","Büyükçekmece VD","Çekmeköy VD","Sancaktepe VD","Sultanbeyli VD","Sultangazi VD","Ümraniye VD","Eyüpsultan VD","Güngören VD","Kağıthane VD","Zeytinburnu VD","Gaziosmanpaşa VD","Bayrampaşa VD","Esenler VD","Sarıyer VD","Beykoz VD","Tuzla VD","Beylikdüzü VD","Silivri VD","Şile VD","Adalar VD","Çatalca VD"],
+    'İzmir': ["Konak VD","Bornova VD","Karşıyaka VD","Buca VD","Çiğli VD","Karabağlar VD","Bayraklı VD","Torbalı VD","Kemalpaşa VD","Aliağa VD","Bergama VD","Tire VD","Ödemiş VD","Selçuk VD","Gaziemir VD","Menemen VD","Urla VD","Çeşme VD","Seferihisar VD","Dikili VD"],
+    'Kahramanmaraş': ["Dulkadiroğlu VD","Onikişubat VD","Elbistan VD","Afşin VD","Göksun VD","Pazarcık VD"],
+    'Karabük': ["Karabük VD","Safranbolu VD"],
+    'Karaman': ["Karaman VD","Ermenek VD"],
+    'Kars': ["Kars VD","Sarıkamış VD","Kağızman VD"],
+    'Kastamonu': ["Kastamonu VD","Tosya VD","Taşköprü VD","İnebolu VD"],
+    'Kayseri': ["Kocasinan VD","Melikgazi VD","Talas VD","Develi VD","Bünyan VD","İncesu VD","Hacılar VD","Pınarbaşı VD"],
+    'Kilis': ["Kilis VD","Elbeyli VD"],
+    'Kırıkkale': ["Kırıkkale VD","Keskin VD","Delice VD"],
+    'Kırklareli': ["Kırklareli VD","Lüleburgaz VD","Babaeski VD","Vize VD"],
+    'Kırşehir': ["Kırşehir VD","Kaman VD","Mucur VD"],
+    'Kocaeli': ["İzmit VD","Gebze VD","Körfez VD","Gölcük VD","Kartepe VD","Çayırova VD","Darıca VD","Dilovası VD","Başiskele VD","Karamürsel VD"],
+    'Konya': ["Meram VD","Selçuklu VD","Karatay VD","Ereğli VD","Akşehir VD","Beyşehir VD","Seydişehir VD","Ilgın VD","Çumra VD","Karapınar VD","Kulu VD","Cihanbeyli VD"],
+    'Kütahya': ["Kütahya VD","Tavşanlı VD","Simav VD","Gediz VD","Emet VD"],
+    'Malatya': ["Battalgazi VD","Yeşilyurt VD","Malatya VD","Hekimhan VD","Doğanşehir VD","Akçadağ VD"],
+    'Manisa': ["Şehzadeler VD","Yunusemre VD","Turgutlu VD","Akhisar VD","Salihli VD","Soma VD","Alaşehir VD","Kula VD","Demirci VD"],
+    'Mardin': ["Artuklu VD","Kızıltepe VD","Nusaybin VD","Midyat VD","Derik VD"],
+    'Mersin': ["Akdeniz VD","Mezitli VD","Toroslar VD","Yenişehir VD","Tarsus VD","Erdemli VD","Silifke VD","Anamur VD","Mut VD"],
+    'Muğla': ["Menteşe VD","Bodrum VD","Fethiye VD","Marmaris VD","Milas VD","Dalaman VD","Ortaca VD","Yatağan VD"],
+    'Muş': ["Muş VD","Malazgirt VD","Bulanık VD"],
+    'Nevşehir': ["Nevşehir VD","Ürgüp VD","Avanos VD","Hacıbektaş VD"],
+    'Niğde': ["Niğde VD","Bor VD","Ulukışla VD"],
+    'Ordu': ["Altınordu VD","Ünye VD","Fatsa VD","Korgan VD","Kumru VD"],
+    'Osmaniye': ["Osmaniye VD","Kadirli VD","Düziçi VD"],
+    'Rize': ["Rize VD","Çayeli VD","Pazar VD","Ardeşen VD"],
+    'Sakarya': ["Adapazarı VD","Serdivan VD","Erenler VD","Hendek VD","Sapanca VD","Karasu VD","Akyazı VD","Geyve VD"],
+    'Samsun': ["İlkadım VD","Atakum VD","Canik VD","Tekkeköy VD","Bafra VD","Çarşamba VD","Terme VD","Havza VD","Vezirköprü VD"],
+    'Siirt': ["Siirt VD","Kurtalan VD","Eruh VD"],
+    'Sinop': ["Sinop VD","Boyabat VD","Gerze VD"],
+    'Sivas': ["Sivas VD","Şarkışla VD","Suşehri VD","Zara VD","Gemerek VD","Kangal VD"],
+    'Şanlıurfa': ["Eyyübiye VD","Karaköprü VD","Haliliye VD","Siverek VD","Viranşehir VD","Birecik VD","Suruç VD","Akçakale VD","Harran VD"],
+    'Şırnak': ["Şırnak VD","Cizre VD","Silopi VD","İdil VD"],
+    'Tekirdağ': ["Süleymanpaşa VD","Çorlu VD","Çerkezköy VD","Ergene VD","Malkara VD","Muratlı VD","Hayrabolu VD"],
+    'Tokat': ["Tokat VD","Erbaa VD","Turhal VD","Zile VD","Niksar VD","Reşadiye VD"],
+    'Trabzon': ["Ortahisar VD","Akçaabat VD","Of VD","Sürmene VD","Araklı VD","Vakfıkebir VD","Arsin VD"],
+    'Tunceli': ["Tunceli VD","Pertek VD"],
+    'Uşak': ["Uşak VD","Eşme VD","Banaz VD"],
+    'Van': ["İpekyolu VD","Tuşba VD","Erciş VD","Edremit VD","Gürpınar VD","Muradiye VD"],
+    'Yalova': ["Yalova VD","Çınarcık VD","Altınova VD"],
+    'Yozgat': ["Yozgat VD","Sorgun VD","Boğazlıyan VD","Yerköy VD","Akdağmadeni VD"],
+    'Zonguldak': ["Zonguldak VD","Ereğli VD","Çaycuma VD","Devrek VD","Alaplı VD"],
   };
 
   function cityChanged(city) {
