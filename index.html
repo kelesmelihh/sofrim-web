@@ -2313,12 +2313,12 @@ function setFormBilling(type) {
   } else {
     yBtn.style.background = 'var(--accent)'; yBtn.style.color = '#fff';
     mBtn.style.background = 'transparent'; mBtn.style.color = 'var(--sec)';
-    document.getElementById('form-price-lite').textContent = '665,83₺/ay';
-    document.getElementById('form-price-standart').textContent = '1.249,16₺/ay';
-    document.getElementById('form-price-pro').textContent = '2.082,50₺/ay';
-    document.getElementById('form-price-lite-y').style.display = 'block'; document.getElementById('form-price-lite-y').textContent = 'Toplam: 7.990₺/yıl';
-    document.getElementById('form-price-standart-y').style.display = 'block'; document.getElementById('form-price-standart-y').textContent = 'Toplam: 14.990₺/yıl';
-    document.getElementById('form-price-pro-y').style.display = 'block'; document.getElementById('form-price-pro-y').textContent = 'Toplam: 24.990₺/yıl';
+    document.getElementById('form-price-lite').textContent = '665₺/ay';
+    document.getElementById('form-price-standart').textContent = '1.249₺/ay';
+    document.getElementById('form-price-pro').textContent = '2.082₺/ay';
+    document.getElementById('form-price-lite-y').style.display = 'block'; document.getElementById('form-price-lite-y').textContent = 'Toplam: 7.980₺/yıl';
+    document.getElementById('form-price-standart-y').style.display = 'block'; document.getElementById('form-price-standart-y').textContent = 'Toplam: 14.988₺/yıl';
+    document.getElementById('form-price-pro-y').style.display = 'block'; document.getElementById('form-price-pro-y').textContent = 'Toplam: 24.984₺/yıl';
   }
 }
 
@@ -2423,9 +2423,9 @@ function handleSubmit() {
 function getPlanPrice() {
   var billing = window._formBillingMode || formBilling || 'monthly';
   var prices = {
-    lite:     { monthly: 799,   yearly: 7990  },
-    standart: { monthly: 1499,  yearly: 14990 },
-    pro:      { monthly: 2499,  yearly: 24990 },
+    lite:     { monthly: 799,   yearly: 7980  },
+    standart: { monthly: 1499,  yearly: 14988 },
+    pro:      { monthly: 2499,  yearly: 24984 },
   };
   return prices[selectedPlan] ? prices[selectedPlan][billing] : 0;
 }
