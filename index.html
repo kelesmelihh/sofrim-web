@@ -1999,7 +1999,13 @@
 
             <div style="display:flex; gap:8px;">
               <button class="btn-secondary" style="flex:1" onclick="goStep(2)" data-tr="← Geri" data-en="← Back">← Geri</button>
-              <button class="btn-primary" style="flex:2" onclick="submitForm()" data-tr="Başvuruyu Gönder ✓" data-en="Submit Application ✓">Başvuruyu Gönder ✓</button>
+              <button id="submit-btn" class="btn-primary" style="flex:2" onclick="handleSubmit()">Başvuruyu Gönder ✓</button>
+            </div>
+            <!-- iyzico ödeme butonu - ücretli paket seçilince görünür -->
+            <div id="iyzico-pay-btn" style="display:none; margin-top:10px;">
+              <button onclick="handleSubmit()" style="width:100%; padding:14px; border:none; border-radius:12px; cursor:pointer; background:transparent; display:flex; align-items:center; justify-content:center;">
+                <img src="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/iyzico_ile_ode_colored.png" alt="iyzico ile Öde" style="height:44px;" />
+              </button>
             </div>
           </div>
         </div>
@@ -2310,6 +2316,153 @@ function selectPlan(plan) {
       el.style.background = 'transparent';
     }
   }
+
+  // Ücretli paket seçilince iyzico butonu göster
+  var submitBtn = document.getElementById('submit-btn');
+  var iyzicoBtn = document.getElementById('iyzico-pay-btn');
+  if (plan === 'trial') {
+    if (submitBtn) { submitBtn.style.display = 'block'; submitBtn.textContent = 'Başvuruyu Gönder ✓'; }
+    if (iyzicoBtn) iyzicoBtn.style.display = 'none';
+  } else {
+    if (submitBtn) { submitBtn.style.display = 'none'; }
+    if (iyzicoBtn) iyzicoBtn.style.display = 'block';
+  }
+}
+
+function handleSubmit() {
+  if (selectedPlan === 'trial') {
+    submitForm();
+  } else {
+    goToPayment();
+  }
+}
+
+// Ücret hesapla
+function getPlanPrice() {
+  var billing = window._formBillingMode || 'monthly';
+  var prices = {
+    lite:     { monthly: 799,   yearly: 7990  },
+    standart: { monthly: 1499,  yearly: 14990 },
+    pro:      { monthly: 2499,  yearly: 24990 },
+    subeli:   { monthly: 2499,  yearly: 24990 },
+  };
+  return prices[selectedPlan] ? prices[selectedPlan][billing] : 0;
+}
+
+function getPlanName() {
+  var names = { lite: 'Lite', standart: 'Standart', pro: 'Pro', subeli: 'Şubeli' };
+  return names[selectedPlan] || selectedPlan;
+}
+
+function goToPayment() {
+  // Form validasyon
+  var terms = document.getElementById('f-terms');
+  if (!terms || !terms.checked) { alert('Devam etmek için kullanım koşullarını kabul etmeniz gerekiyor.'); return; }
+  var name = document.getElementById('f-name');
+  if (!name || !name.value.trim()) { alert('Lütfen adınızı ve soyadınızı giriniz.'); return; }
+
+  // Ödeme sayfasına yönlendir
+  var price = getPlanPrice();
+  var planName = getPlanName();
+  var billing = window._formBillingMode || 'monthly';
+  var url = '/odeme.html?plan=' + selectedPlan + '&billing=' + billing + '&price=' + price + '&name=' + encodeURIComponent(name.value.trim());
+
+  // Şimdilik aynı sayfada ödeme modalı aç
+  openPaymentModal(planName, price, billing);
+}
+
+function openPaymentModal(planName, price, billing) {
+  var modal = document.getElementById('paymentModal');
+  if (!modal) {
+    // Modal oluştur
+    var m = document.createElement('div');
+    m.id = 'paymentModal';
+    m.style.cssText = 'display:flex;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999;align-items:center;justify-content:center;padding:20px;';
+    m.innerHTML = `
+      <div style="background:#0E0E1A;border:1.5px solid #1E1E2E;border-radius:24px;padding:32px;max-width:460px;width:100%;position:relative;">
+        <button onclick="document.getElementById('paymentModal').style.display='none'" style="position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;border:1px solid #1E1E2E;background:#161622;color:#6666AA;cursor:pointer;font-size:16px;">✕</button>
+
+        <div style="text-align:center;margin-bottom:24px;">
+          <img src="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/iyzico_ile_ode_colored.png" alt="iyzico" style="height:40px;margin-bottom:12px;" />
+          <div style="font-size:13px;color:#6666AA;">Güvenli Ödeme</div>
+        </div>
+
+        <div style="background:#161622;border-radius:14px;padding:16px;margin-bottom:20px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+            <span style="font-size:13px;color:#6666AA;">Sofrım <span id="pm-plan"></span></span>
+            <span style="font-size:13px;color:#6666AA;" id="pm-billing"></span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding-top:10px;border-top:1px solid #1E1E2E;">
+            <span style="font-size:15px;font-weight:800;color:#F0F0F8;">Toplam</span>
+            <span style="font-size:18px;font-weight:900;color:#FF6B1A;" id="pm-price"></span>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px;">
+          <div>
+            <div style="font-size:10px;color:#6666AA;font-weight:700;margin-bottom:5px;text-transform:uppercase;">Kart Üzerindeki Ad</div>
+            <input id="pm-cardholder" placeholder="Ad Soyad" style="width:100%;padding:10px 12px;background:#161622;border:1px solid #1E1E2E;border-radius:10px;color:#F0F0F8;font-size:13px;outline:none;box-sizing:border-box;" />
+          </div>
+          <div>
+            <div style="font-size:10px;color:#6666AA;font-weight:700;margin-bottom:5px;text-transform:uppercase;">Kart Numarası</div>
+            <input id="pm-cardnumber" placeholder="0000 0000 0000 0000" maxlength="19" style="width:100%;padding:10px 12px;background:#161622;border:1px solid #1E1E2E;border-radius:10px;color:#F0F0F8;font-size:13px;outline:none;box-sizing:border-box;" oninput="formatCard(this)" />
+          </div>
+          <div style="display:flex;gap:10px;">
+            <div style="flex:1;">
+              <div style="font-size:10px;color:#6666AA;font-weight:700;margin-bottom:5px;text-transform:uppercase;">Son Kullanma</div>
+              <input id="pm-expiry" placeholder="AA/YY" maxlength="5" style="width:100%;padding:10px 12px;background:#161622;border:1px solid #1E1E2E;border-radius:10px;color:#F0F0F8;font-size:13px;outline:none;box-sizing:border-box;" oninput="formatExpiry(this)" />
+            </div>
+            <div style="flex:1;">
+              <div style="font-size:10px;color:#6666AA;font-weight:700;margin-bottom:5px;text-transform:uppercase;">CVV</div>
+              <input id="pm-cvv" placeholder="000" maxlength="3" type="password" style="width:100%;padding:10px 12px;background:#161622;border:1px solid #1E1E2E;border-radius:10px;color:#F0F0F8;font-size:13px;outline:none;box-sizing:border-box;" />
+            </div>
+          </div>
+        </div>
+
+        <button onclick="processPayment()" style="width:100%;padding:14px;border:none;border-radius:12px;cursor:pointer;background:transparent;display:flex;align-items:center;justify-content:center;">
+          <img src="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/iyzico_ile_ode_colored.png" alt="iyzico ile Öde" style="height:44px;" />
+        </button>
+
+        <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;">
+          <img src="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/logo_band_white@2x.png" alt="Visa Mastercard" style="height:22px;opacity:0.6;" />
+        </div>
+        <div style="text-align:center;font-size:10px;color:#3A3A5A;margin-top:8px;">🔒 256-bit SSL ile korunmaktadır</div>
+      </div>
+    `;
+    document.body.appendChild(m);
+  }
+
+  document.getElementById('pm-plan').textContent = planName;
+  document.getElementById('pm-billing').textContent = billing === 'yearly' ? 'Yıllık' : 'Aylık';
+  document.getElementById('pm-price').textContent = price.toLocaleString('tr-TR') + '₺';
+  document.getElementById('paymentModal').style.display = 'flex';
+}
+
+function formatCard(inp) {
+  var v = inp.value.replace(/\D/g,'').slice(0,16);
+  inp.value = v.replace(/(.{4})/g,'$1 ').trim();
+}
+
+function formatExpiry(inp) {
+  var v = inp.value.replace(/\D/g,'').slice(0,4);
+  if (v.length > 2) v = v.slice(0,2) + '/' + v.slice(2);
+  inp.value = v;
+}
+
+function processPayment() {
+  var cardholder = document.getElementById('pm-cardholder').value.trim();
+  var cardnumber = document.getElementById('pm-cardnumber').value.replace(/\s/g,'');
+  var expiry = document.getElementById('pm-expiry').value;
+  var cvv = document.getElementById('pm-cvv').value;
+
+  if (!cardholder || cardnumber.length < 16 || expiry.length < 5 || cvv.length < 3) {
+    alert('Lütfen tüm kart bilgilerini eksiksiz doldurun.'); return;
+  }
+
+  // Ödeme işlemi başlatıldı - iyzico entegrasyonu gelince buraya bağlanacak
+  // Şimdilik başvuruyu kaydet
+  document.getElementById('paymentModal').style.display = 'none';
+  submitForm();
 }
 
 function goStep(n) {
