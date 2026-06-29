@@ -2031,14 +2031,13 @@
               </label>
             </div>
 
-            <div style="display:flex; gap:8px;">
+            <div style="display:flex; gap:8px; align-items:stretch;">
               <button class="btn-secondary" style="flex:1" onclick="goStep(2)" data-tr="← Geri" data-en="← Back">← Geri</button>
+              <!-- Trial: normal buton -->
               <button id="submit-btn" class="btn-primary" style="flex:2" onclick="handleSubmit()">Başvuruyu Gönder ✓</button>
-            </div>
-            <!-- iyzico ödeme butonu - ücretli paket seçilince görünür -->
-            <div id="iyzico-pay-btn" style="display:none; margin-top:10px;">
-              <button onclick="handleSubmit()" style="width:100%; padding:14px; border:none; border-radius:12px; cursor:pointer; background:transparent; display:flex; align-items:center; justify-content:center;">
-                <img src="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/iyzico_ile_ode_colored.png" alt="iyzico ile Öde" style="height:44px;" />
+              <!-- Ücretli: iyzico butonu -->
+              <button id="iyzico-pay-btn" onclick="handleSubmit()" style="display:none; flex:2; padding:10px 14px; border:none; border-radius:10px; cursor:pointer; background:#fff; display:none; align-items:center; justify-content:center;">
+                <img src="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/iyzico_ile_ode_colored.png" alt="iyzico ile Öde" style="height:36px;" />
               </button>
             </div>
           </div>
@@ -2359,7 +2358,7 @@ function selectPlan(plan) {
     if (iyzicoBtn) iyzicoBtn.style.display = 'none';
   } else {
     if (submitBtn) { submitBtn.style.display = 'none'; }
-    if (iyzicoBtn) iyzicoBtn.style.display = 'block';
+    if (iyzicoBtn) { iyzicoBtn.style.display = 'flex'; }
   }
 }
 
