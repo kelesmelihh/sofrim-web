@@ -654,8 +654,8 @@
 
 <!-- NAV -->
 <nav>
-  <a class="nav-logo" onclick="showPage('home')">
-    <div class="nav-logo-icon">S</div>
+  <a class="nav-logo" onclick="showPage('home')" style="display:flex;align-items:center;gap:10px;">
+    <img src="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/logo.jpeg" alt="Sofrım" style="width:38px;height:38px;border-radius:10px;object-fit:cover;" />
     <span class="nav-logo-text">Sofrım</span>
   </a>
 
@@ -1022,7 +1022,7 @@
         </ul>
         <button class="plan-btn filled" onclick="showPage('basvuru')" data-tr="Hemen Başla" data-en="Get Started">Hemen Başla</button>
         <div style="text-align:center;margin-top:10px;">
-          <img src="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/iyzico_ile_ode_white.png" alt="iyzico ile Öde" style="height:22px;opacity:0.7;" />
+          <img src="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/pay_with_iyzico_white.png" alt="iyzico ile Öde" style="height:22px;opacity:0.7;" />
         </div>
       </div>
 
@@ -2037,7 +2037,7 @@
               <button id="submit-btn" class="btn-primary" style="flex:2" onclick="handleSubmit()">Başvuruyu Gönder ✓</button>
               <!-- Ücretli: iyzico butonu -->
               <button id="iyzico-pay-btn" onclick="handleSubmit()" style="display:none; flex:2; padding:10px 14px; border:none; border-radius:10px; cursor:pointer; background:#1A1A2E; align-items:center; justify-content:center;">
-                <img src="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/iyzico_ile_ode_white.png" alt="iyzico ile Öde" style="height:36px;" />
+                <img id="iyzico-btn-img" src="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/iyzico_ile_ode_white.png" alt="iyzico ile Öde" style="height:36px;" />
               </button>
             </div>
           </div>
@@ -2114,7 +2114,10 @@
 
     <!-- Logo & Slogan -->
     <div>
-      <div style="font-size:22px; font-weight:900; color:var(--accent); margin-bottom:8px;">🍽️ Sofrım</div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <img src="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/logo.jpeg" alt="Sofrım" style="width:40px;height:40px;border-radius:10px;object-fit:cover;" />
+        <div style="font-size:22px; font-weight:900; color:var(--accent);">Sofrım</div>
+      </div>
       <div style="font-size:12px; color:var(--sec); line-height:1.7; margin-bottom:16px;">Türkiye'nin restoranları için<br>tasarlanmış yönetim yazılımı.</div>
       <a href="https://www.instagram.com/sofrimapp/" target="_blank" style="display:inline-flex; align-items:center; gap:6px; font-size:12px; color:var(--sec); text-decoration:none; font-weight:600;">📸 @sofrimapp</a>
     </div>
@@ -2132,12 +2135,12 @@
 
     <!-- Yasal -->
     <div>
-      <div style="font-size:11px; font-weight:800; color:var(--text); text-transform:uppercase; letter-spacing:1px; margin-bottom:14px;">Yasal</div>
-      <div style="display:flex; flex-direction:column; gap:10px;">
-        <a href="#" onclick="openModal('about');return false;" style="font-size:13px; color:var(--sec); text-decoration:none; font-weight:600;">Hakkımızda</a>
-        <a href="#" onclick="openModal('privacy');return false;" style="font-size:13px; color:var(--sec); text-decoration:none; font-weight:600;">Gizlilik Politikası</a>
-        <a href="#" onclick="openModal('terms');return false;" style="font-size:13px; color:var(--sec); text-decoration:none; font-weight:600;">Mesafeli Satış Sözleşmesi</a>
-        <a href="#" onclick="openModal('delivery');return false;" style="font-size:13px; color:var(--sec); text-decoration:none; font-weight:600;">Teslimat ve İade Şartları</a>
+      <div style="font-size:11px; font-weight:800; color:var(--text); text-transform:uppercase; letter-spacing:1px; margin-bottom:14px;" data-tr="Yasal" data-en="Legal">Yasal</div>
+      <div id="footer-legal-links" style="display:flex; flex-direction:column; gap:10px;">
+        <a href="#" onclick="openModal('about');return false;" style="font-size:13px; color:var(--sec); text-decoration:none; font-weight:600;" data-tr="Hakkımızda" data-en="About Us">Hakkımızda</a>
+        <a href="#" onclick="openModal('privacy');return false;" style="font-size:13px; color:var(--sec); text-decoration:none; font-weight:600;" data-tr="Gizlilik Politikası" data-en="Privacy Policy">Gizlilik Politikası</a>
+        <a href="#" onclick="openModal('terms');return false;" style="font-size:13px; color:var(--sec); text-decoration:none; font-weight:600;" data-tr="Mesafeli Satış Sözleşmesi" data-en="Distance Sales Contract">Mesafeli Satış Sözleşmesi</a>
+        <a href="#" onclick="openModal('delivery');return false;" style="font-size:13px; color:var(--sec); text-decoration:none; font-weight:600;" data-tr="Teslimat ve İade Şartları" data-en="Delivery & Returns">Teslimat ve İade Şartları</a>
       </div>
     </div>
 
@@ -2153,7 +2156,7 @@
     </div>
 
     <!-- Resmi kanal uyarısı - en altta -->
-    <div style="background:#FF6B1A0A; border:1px solid #FF6B1A22; border-radius:10px; padding:12px 16px; text-align:center;">
+    <div id="footer-warning-text" style="background:#FF6B1A0A; border:1px solid #FF6B1A22; border-radius:10px; padding:12px 16px; text-align:center;">
       <span style="font-size:11px; font-weight:800; color:#FF6B1A;">⚠️ Güvenli Alışveriş:</span>
       <span style="font-size:11px; color:var(--sec); margin-left:6px;">Sofrım yalnızca <strong style="color:var(--text);">sofrim-web.vercel.app</strong> üzerinden satılmaktadır.</span>
       <br>
@@ -2207,6 +2210,44 @@ function setLang(lang) {
       else els[i].innerHTML = val;
     }
   }
+
+  // iyzico logo dil değişimi
+  var BASE = 'https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets';
+  var iyzicoImgs = ['iyzico-btn-img','iyzico-modal-img','iyzico-pay-img'];
+  iyzicoImgs.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (lang === 'en') {
+      el.src = BASE + '/pay_with_iyzico_white.png';
+      el.alt = 'Pay with iyzico';
+    } else {
+      el.src = BASE + '/iyzico_ile_ode_white.png';
+      el.alt = 'iyzico ile Öde';
+    }
+  });
+
+  // Footer metinleri
+  var footerWarning = document.getElementById('footer-warning-text');
+  if (footerWarning) {
+    if (lang === 'en') {
+      footerWarning.innerHTML = '<span style="font-size:11px;font-weight:800;color:#FF6B1A;">⚠️ Official Sales Channel:</span><span style="font-size:11px;color:var(--sec);margin-left:6px;">Sofrım is sold only through <strong style="color:var(--text);">sofrim-web.vercel.app</strong></span><br><span style="font-size:10px;color:#FF6B1A;font-weight:700;">We are not responsible for transactions made through other channels.</span>';
+    } else {
+      footerWarning.innerHTML = '<span style="font-size:11px;font-weight:800;color:#FF6B1A;">⚠️ Güvenli Alışveriş:</span><span style="font-size:11px;color:var(--sec);margin-left:6px;">Sofrım yalnızca <strong style="color:var(--text);">sofrim-web.vercel.app</strong> üzerinden satılmaktadır.</span><br><span style="font-size:10px;color:#FF6B1A;font-weight:700;">Başka kanallardan yapılan işlemlerden sorumlu değiliz.</span>';
+    }
+  }
+
+  // Footer sözleşme linkleri
+  var footerLinks = document.getElementById('footer-legal-links');
+  if (footerLinks) {
+    if (lang === 'en') {
+      footerLinks.innerHTML = '<a href="#" onclick="openModal(\'privacy\');return false;" style="font-size:13px;color:var(--sec);text-decoration:none;font-weight:600;">Privacy Policy</a><a href="#" onclick="openModal(\'terms\');return false;" style="font-size:13px;color:var(--sec);text-decoration:none;font-weight:600;">Distance Sales Contract</a><a href="#" onclick="openModal(\'delivery\');return false;" style="font-size:13px;color:var(--sec);text-decoration:none;font-weight:600;">Delivery & Returns</a><a href="#" onclick="openModal(\'about\');return false;" style="font-size:13px;color:var(--sec);text-decoration:none;font-weight:600;">About Us</a>';
+    } else {
+      footerLinks.innerHTML = '<a href="#" onclick="openModal(\'privacy\');return false;" style="font-size:13px;color:var(--sec);text-decoration:none;font-weight:600;">Gizlilik Politikası</a><a href="#" onclick="openModal(\'terms\');return false;" style="font-size:13px;color:var(--sec);text-decoration:none;font-weight:600;">Mesafeli Satış Sözleşmesi</a><a href="#" onclick="openModal(\'delivery\');return false;" style="font-size:13px;color:var(--sec);text-decoration:none;font-weight:600;">Teslimat ve İade Şartları</a><a href="#" onclick="openModal(\'about\');return false;" style="font-size:13px;color:var(--sec);text-decoration:none;font-weight:600;">Hakkımızda</a>';
+    }
+  }
+
+  // Popup içerikleri güncelle
+  window._currentLang = lang;
 }
 
 function toggleMobileMenu() {
@@ -2416,7 +2457,7 @@ function openPaymentModal(planName, price, billing) {
         <button onclick="document.getElementById('paymentModal').style.display='none'" style="position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;border:1px solid #1E1E2E;background:#161622;color:#6666AA;cursor:pointer;font-size:16px;">✕</button>
 
         <div style="text-align:center;margin-bottom:24px;">
-          <img src="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/iyzico_ile_ode_white.png" alt="iyzico" style="height:40px;margin-bottom:12px;" />
+          <img id="iyzico-modal-img" src="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/iyzico_ile_ode_white.png" alt="iyzico" style="height:40px;margin-bottom:12px;" />
           <div style="font-size:13px;color:#6666AA;">Güvenli Ödeme</div>
         </div>
 
@@ -2453,7 +2494,7 @@ function openPaymentModal(planName, price, billing) {
         </div>
 
         <button onclick="processPayment()" style="width:100%;padding:14px;border:none;border-radius:12px;cursor:pointer;background:#161622;display:flex;align-items:center;justify-content:center;">
-          <img src="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/iyzico_ile_ode_white.png" alt="iyzico ile Öde" style="height:44px;" />
+          <img id="iyzico-pay-img" src="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/iyzico_ile_ode_white.png" alt="iyzico ile Öde" style="height:44px;" />
         </button>
 
         <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;">
@@ -3233,8 +3274,59 @@ var MODAL_CONTENT = {
     </div>`
 };
 
+var MODAL_CONTENT_EN = {
+  privacy: `
+    <h2 style="font-size:22px;font-weight:900;color:#F0F0F8;margin-bottom:6px;">Privacy Policy</h2>
+    <p style="color:#6666AA;font-size:12px;margin-bottom:24px;">Last updated: June 2026</p>
+    <div style="color:#8888AA;font-size:14px;line-height:1.8;">
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">1. Data Collected</h3>
+      <p>We collect full name, email, phone, business information and tax number. This data is used solely for service provision and is not shared with third parties.</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">2. Use of Data</h3>
+      <p>Collected data is used for account creation, billing, technical support and system notifications. Data is stored on servers within Turkey.</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">3. Your Rights</h3>
+      <p>You have the right to access, correct, delete and restrict processing of your data. Contact us at kelesmelih551@gmail.com.</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">4. Contact</h3>
+      <p>MK Software · kelesmelih551@gmail.com · 0312 820 10 13</p>
+    </div>`,
+  terms: `
+    <h2 style="font-size:22px;font-weight:900;color:#F0F0F8;margin-bottom:6px;">Distance Sales Contract</h2>
+    <p style="color:#6666AA;font-size:12px;margin-bottom:24px;">Last updated: June 2026</p>
+    <div style="color:#8888AA;font-size:14px;line-height:1.8;">
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">1. Parties</h3>
+      <p><strong style="color:#F0F0F8;">Seller:</strong> MK Software, kelesmelih551@gmail.com<br><strong style="color:#F0F0F8;">Buyer:</strong> The registered business owner</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">2. Pricing</h3>
+      <p>Lite: 799₺/mo · Standard: 1,499₺/mo · Pro: 2,499₺/mo. VAT included. No charge during 14-day trial.</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">3. Cancellation</h3>
+      <p>Subscriptions can be cancelled anytime. Service continues until end of current period.</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">4. Disputes</h3>
+      <p>Disputes shall be resolved in courts of the Republic of Turkey.</p>
+    </div>`,
+  delivery: `
+    <h2 style="font-size:22px;font-weight:900;color:#F0F0F8;margin-bottom:6px;">Delivery & Return Policy</h2>
+    <p style="color:#6666AA;font-size:12px;margin-bottom:24px;">Last updated: June 2026</p>
+    <div style="color:#8888AA;font-size:14px;line-height:1.8;">
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">Delivery</h3>
+      <p>Sofrım is a digital software service. There is no physical delivery. After approval, your login credentials are sent via email or WhatsApp within 1 business day.</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">Returns</h3>
+      <p>No charges during the 14-day free trial. Once a paid subscription starts, refunds are not available due to the digital nature of the service.</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">Contact</h3>
+      <p>kelesmelih551@gmail.com · 0312 820 10 13</p>
+    </div>`,
+  about: `
+    <h2 style="font-size:22px;font-weight:900;color:#F0F0F8;margin-bottom:6px;">About Us</h2>
+    <div style="color:#8888AA;font-size:14px;line-height:1.8;margin-top:16px;">
+      <p>Sofrım is a cloud-based restaurant management software developed by MK Software for restaurants, cafes and businesses in Turkey.</p>
+      <p style="margin-top:12px;">It enables business owners to manage their operations from a single screen with features like QR ordering, kitchen display, courier tracking, staff management and detailed reports.</p>
+      <p style="margin-top:12px;"><strong style="color:#F0F0F8;">Developer:</strong> MK Software<br>
+      <strong style="color:#F0F0F8;">Email:</strong> kelesmelih551@gmail.com<br>
+      <strong style="color:#F0F0F8;">Phone:</strong> 0312 820 10 13</p>
+    </div>`
+};
+
 function openModal(type) {
-  document.getElementById('modalContent').innerHTML = MODAL_CONTENT[type] || '';
+  var lang = window._currentLang || currentLang || 'tr';
+  var content = (lang === 'en' ? MODAL_CONTENT_EN[type] : MODAL_CONTENT[type]) || MODAL_CONTENT[type] || '';
+  document.getElementById('modalContent').innerHTML = content;
   document.getElementById('legalModal').style.display = 'block';
   document.body.style.overflow = 'hidden';
 }
