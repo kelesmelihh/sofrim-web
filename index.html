@@ -2455,20 +2455,16 @@ function goToPayment() {
 function openPaymentModal(planName, price, billing) {
   var modal = document.getElementById('paymentModal');
   if (!modal) {
-    // Modal oluştur
     var m = document.createElement('div');
     m.id = 'paymentModal';
-    m.style.cssText = 'display:flex;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999;align-items:center;justify-content:center;padding:20px;';
+    m.style.cssText = 'display:flex;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:9999;align-items:center;justify-content:center;padding:20px;';
     m.innerHTML = `
-      <div style="background:#0E0E1A;border:1.5px solid #1E1E2E;border-radius:24px;padding:32px;max-width:460px;width:100%;position:relative;">
+      <div style="background:#0E0E1A;border:1.5px solid #1E1E2E;border-radius:24px;padding:32px;max-width:420px;width:100%;position:relative;text-align:center;">
         <button onclick="document.getElementById('paymentModal').style.display='none'" style="position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;border:1px solid #1E1E2E;background:#161622;color:#6666AA;cursor:pointer;font-size:16px;">✕</button>
 
-        <div style="text-align:center;margin-bottom:24px;">
-          <img id="iyzico-modal-img" src="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/iyzico_ile_ode_white.png" alt="iyzico" style="height:40px;margin-bottom:12px;" />
-          <div style="font-size:13px;color:#6666AA;">Güvenli Ödeme</div>
-        </div>
+        <img id="iyzico-modal-img" src="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/iyzico_ile_ode_white.png" alt="iyzico" style="height:40px;margin-bottom:20px;" />
 
-        <div style="background:#161622;border-radius:14px;padding:16px;margin-bottom:20px;">
+        <div style="background:#161622;border-radius:14px;padding:16px;margin-bottom:24px;text-align:left;">
           <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
             <span style="font-size:13px;color:#6666AA;">Sofrım <span id="pm-plan"></span></span>
             <span style="font-size:13px;color:#6666AA;" id="pm-billing"></span>
@@ -2479,35 +2475,16 @@ function openPaymentModal(planName, price, billing) {
           </div>
         </div>
 
-        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px;">
-          <div>
-            <div style="font-size:10px;color:#6666AA;font-weight:700;margin-bottom:5px;text-transform:uppercase;">Kart Üzerindeki Ad</div>
-            <input id="pm-cardholder" placeholder="Ad Soyad" style="width:100%;padding:10px 12px;background:#161622;border:1px solid #1E1E2E;border-radius:10px;color:#F0F0F8;font-size:13px;outline:none;box-sizing:border-box;" />
-          </div>
-          <div>
-            <div style="font-size:10px;color:#6666AA;font-weight:700;margin-bottom:5px;text-transform:uppercase;">Kart Numarası</div>
-            <input id="pm-cardnumber" placeholder="0000 0000 0000 0000" maxlength="19" style="width:100%;padding:10px 12px;background:#161622;border:1px solid #1E1E2E;border-radius:10px;color:#F0F0F8;font-size:13px;outline:none;box-sizing:border-box;" oninput="formatCard(this)" />
-          </div>
-          <div style="display:flex;gap:10px;">
-            <div style="flex:1;">
-              <div style="font-size:10px;color:#6666AA;font-weight:700;margin-bottom:5px;text-transform:uppercase;">Son Kullanma</div>
-              <input id="pm-expiry" placeholder="AA/YY" maxlength="5" style="width:100%;padding:10px 12px;background:#161622;border:1px solid #1E1E2E;border-radius:10px;color:#F0F0F8;font-size:13px;outline:none;box-sizing:border-box;" oninput="formatExpiry(this)" />
-            </div>
-            <div style="flex:1;">
-              <div style="font-size:10px;color:#6666AA;font-weight:700;margin-bottom:5px;text-transform:uppercase;">CVV</div>
-              <input id="pm-cvv" placeholder="000" maxlength="3" type="password" style="width:100%;padding:10px 12px;background:#161622;border:1px solid #1E1E2E;border-radius:10px;color:#F0F0F8;font-size:13px;outline:none;box-sizing:border-box;" />
-            </div>
-          </div>
+        <div style="background:#FF6B1A0A;border:1px solid #FF6B1A22;border-radius:12px;padding:14px;margin-bottom:24px;font-size:12px;color:#8888AA;line-height:1.7;">
+          🔒 Ödeme işleminiz <strong style="color:#F0F0F8;">iyzico</strong> güvencesiyle gerçekleştirilecektir. Kart bilgileriniz hiçbir şekilde sitemizde saklanmaz. Ödeme sayfasına yönlendiriliyorsunuz.
         </div>
 
-        <button onclick="processPayment()" style="width:100%;padding:14px;border:none;border-radius:12px;cursor:pointer;background:#161622;display:flex;align-items:center;justify-content:center;">
+        <button onclick="processPayment()" style="width:100%;padding:14px;border:none;border-radius:12px;cursor:pointer;background:#161622;display:flex;align-items:center;justify-content:center;margin-bottom:14px;">
           <img id="iyzico-pay-img" src="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/iyzico_ile_ode_white.png" alt="iyzico ile Öde" style="height:44px;" />
         </button>
 
-        <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;">
-          <img src="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/logo_band_white@2x.png" alt="Visa Mastercard" style="height:22px;opacity:0.6;" />
-        </div>
-        <div style="text-align:center;font-size:10px;color:#3A3A5A;margin-top:8px;">🔒 256-bit SSL ile korunmaktadır</div>
+        <img src="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/logo_band_white@2x.png" alt="Visa Mastercard" style="height:22px;opacity:0.6;margin-bottom:8px;" />
+        <div style="font-size:10px;color:#3A3A5A;">🔒 256-bit SSL ile korunmaktadır</div>
       </div>
     `;
     document.body.appendChild(m);
@@ -2519,32 +2496,12 @@ function openPaymentModal(planName, price, billing) {
   document.getElementById('paymentModal').style.display = 'flex';
 }
 
-function formatCard(inp) {
-  var v = inp.value.replace(/\D/g,'').slice(0,16);
-  inp.value = v.replace(/(.{4})/g,'$1 ').trim();
-}
-
-function formatExpiry(inp) {
-  var v = inp.value.replace(/\D/g,'').slice(0,4);
-  if (v.length > 2) v = v.slice(0,2) + '/' + v.slice(2);
-  inp.value = v;
-}
-
 function processPayment() {
-  var cardholder = document.getElementById('pm-cardholder').value.trim();
-  var cardnumber = document.getElementById('pm-cardnumber').value.replace(/\s/g,'');
-  var expiry = document.getElementById('pm-expiry').value;
-  var cvv = document.getElementById('pm-cvv').value;
-
-  if (!cardholder || cardnumber.length < 16 || expiry.length < 5 || cvv.length < 3) {
-    alert('Lütfen tüm kart bilgilerini eksiksiz doldurun.'); return;
-  }
-
-  // Ödeme işlemi başlatıldı - iyzico entegrasyonu gelince buraya bağlanacak
-  // Şimdilik başvuruyu kaydet
+  // Başvuruyu kaydet, iyzico entegrasyonu gelince gerçek ödeme sayfasına yönlendirilecek
   document.getElementById('paymentModal').style.display = 'none';
   submitForm();
 }
+
 
 function goStep(n) {
   var steps = document.querySelectorAll('.form-step');
@@ -3223,60 +3180,147 @@ function closeLegal() {
 <script>
 var MODAL_CONTENT = {
   privacy: `
-    <h2 style="font-size:22px;font-weight:900;color:#F0F0F8;margin-bottom:6px;">Gizlilik Politikası</h2>
+    <h2 style="font-size:22px;font-weight:900;color:#F0F0F8;margin-bottom:6px;">Gizlilik Politikası ve KVKK Aydınlatma Metni</h2>
     <p style="color:#6666AA;font-size:12px;margin-bottom:24px;">Son güncelleme: Haziran 2026</p>
-    <div style="color:#8888AA;font-size:14px;line-height:1.8;">
-      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">1. Toplanan Veriler</h3>
-      <p>Sofrım olarak hizmetlerimizi sunabilmek için ad soyad, e-posta, telefon, işletme bilgileri ve vergi numarası toplamaktayız. Bu veriler yalnızca hizmet sunumu amacıyla kullanılmakta olup üçüncü taraflarla paylaşılmamaktadır.</p>
-      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">2. Verilerin Kullanımı</h3>
-      <p>Toplanan veriler; hesap oluşturma, faturalama, teknik destek ve sistem bildirimleri amacıyla kullanılmaktadır. Verileriniz Türkiye sınırları içindeki sunucularda saklanmaktadır.</p>
-      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">3. KVKK Hakları</h3>
-      <p>6698 sayılı KVKK kapsamında verilerinize erişme, düzeltme, silme ve işlenmesini kısıtlama haklarına sahipsiniz. Taleplerinizi kelesmelih551@gmail.com adresine iletebilirsiniz.</p>
-      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">4. Çerezler</h3>
-      <p>Sitemizde oturum yönetimi amacıyla zorunlu çerezler kullanılmaktadır. Üçüncü taraf pazarlama çerezi kullanılmamaktadır.</p>
-      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">5. İletişim</h3>
+    <div style="color:#8888AA;font-size:14px;line-height:1.9;">
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">1. Veri Sorumlusu</h3>
+      <p>6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") uyarınca veri sorumlusu; MK Software (Melih Keleş), kelesmelih551@gmail.com, 0312 820 10 13 iletişim bilgileriyle faaliyet gösteren şahıs işletmesidir.</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">2. İşlenen Kişisel Veriler</h3>
+      <p>Platformumuzu kullanırken aşağıdaki kişisel verileriniz işlenmektedir:</p>
+      <p>• <strong style="color:#F0F0F8;">Kimlik verileri:</strong> Ad soyad, TC kimlik numarası veya vergi numarası<br>
+      • <strong style="color:#F0F0F8;">İletişim verileri:</strong> E-posta adresi, telefon numarası<br>
+      • <strong style="color:#F0F0F8;">İşletme verileri:</strong> İşletme adı, adresi, türü, vergi dairesi bilgileri<br>
+      • <strong style="color:#F0F0F8;">İşlem verileri:</strong> Sipariş geçmişi, ödeme bilgileri (kart numarası saklanmaz), kullanım logları<br>
+      • <strong style="color:#F0F0F8;">Teknik veriler:</strong> IP adresi, tarayıcı bilgisi, oturum verileri</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">3. Kişisel Verilerin İşlenme Amaçları</h3>
+      <p>Kişisel verileriniz; hizmet sözleşmesinin kurulması ve ifası, müşteri hesabının oluşturulması ve yönetimi, faturalandırma ve muhasebe işlemleri, teknik destek sağlanması, yasal yükümlülüklerin yerine getirilmesi, hizmet kalitesinin iyileştirilmesi amacıyla işlenmektedir.</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">4. Kişisel Verilerin Aktarılması</h3>
+      <p>Kişisel verileriniz; ödeme altyapısı için iyzico Ödeme Hizmetleri A.Ş.'ye, bulut altyapısı için Supabase Inc.'e (KVKK m.9 kapsamında yurt dışı aktarım), e-posta iletimi için Resend Inc.'e aktarılmaktadır. Bu aktarımlar hizmetin sunulabilmesi için zorunludur.</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">5. Kişisel Veri Saklama Süreleri</h3>
+      <p>Hesap bilgileriniz aboneliğinizin sona ermesinden itibaren 3 yıl, fatura ve ödeme kayıtları 10 yıl, destek talepleri 2 yıl süreyle saklanır.</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">6. KVKK Kapsamındaki Haklarınız</h3>
+      <p>KVKK'nın 11. maddesi uyarınca aşağıdaki haklara sahipsiniz:<br>
+      • Kişisel verilerinizin işlenip işlenmediğini öğrenme<br>
+      • İşlenmişse buna ilişkin bilgi talep etme<br>
+      • Verilerin işlenme amacını ve amacına uygun kullanılıp kullanılmadığını öğrenme<br>
+      • Verilerin yurt içinde veya yurt dışında aktarıldığı üçüncü kişileri bilme<br>
+      • Eksik veya yanlış işlenmişse düzeltilmesini isteme<br>
+      • Verilerin silinmesini veya yok edilmesini isteme<br>
+      • İşleme itiraz etme<br>
+      • Zararın tazminini talep etme</p>
+      <p style="margin-top:8px;">Haklarınızı kullanmak için kelesmelih551@gmail.com adresine yazılı olarak başvurabilirsiniz. Talepler 30 gün içinde yanıtlanır.</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">7. Çerez Politikası</h3>
+      <p>Sitemizde yalnızca oturum yönetimi için zorunlu çerezler kullanılmaktadır. Analitik ve pazarlama çerezleri kullanılmamaktadır.</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">8. İletişim</h3>
       <p>MK Software · kelesmelih551@gmail.com · 0312 820 10 13</p>
     </div>`,
+
   terms: `
     <h2 style="font-size:22px;font-weight:900;color:#F0F0F8;margin-bottom:6px;">Mesafeli Satış Sözleşmesi</h2>
-    <p style="color:#6666AA;font-size:12px;margin-bottom:24px;">Son güncelleme: Haziran 2026</p>
-    <div style="color:#8888AA;font-size:14px;line-height:1.8;">
+    <p style="color:#6666AA;font-size:12px;margin-bottom:24px;">6502 sayılı Tüketicinin Korunması Hakkında Kanun ve Mesafeli Sözleşmeler Yönetmeliği kapsamında düzenlenmiştir. Son güncelleme: Haziran 2026</p>
+    <div style="color:#8888AA;font-size:14px;line-height:1.9;">
       <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">1. Taraflar</h3>
-      <p><strong style="color:#F0F0F8;">Satıcı:</strong> MK Software, kelesmelih551@gmail.com, 0312 820 10 13<br><strong style="color:#F0F0F8;">Alıcı:</strong> Sisteme kayıt olan işletme sahibi</p>
-      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">2. Konu</h3>
-      <p>Bu sözleşme, Sofrım bulut tabanlı restoran yönetim yazılımının aylık veya yıllık abonelik esasıyla satışına ilişkindir.</p>
-      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">3. Fiyatlar</h3>
-      <p>Lite: 799₺/ay · Standart: 1.499₺/ay · Pro: 2.499₺/ay. Fiyatlar KDV dahildir. 14 günlük ücretsiz deneme süresinde ücret alınmaz.</p>
-      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">4. Ödeme</h3>
-      <p>Ödemeler kredi/banka kartı ile alınmaktadır. Fatura kayıtlı e-posta adresine iletilir.</p>
-      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">5. İptal ve İade</h3>
-      <p>Abonelik dilediğiniz zaman iptal edilebilir. İptal sonrası mevcut dönem sonuna kadar hizmet devam eder. 14 günlük deneme içinde ücret alınmaz.</p>
+      <p><strong style="color:#F0F0F8;">Satıcı (Hizmet Sağlayıcı):</strong><br>
+      Unvan: MK Software (Şahıs İşletmesi — Melih Keleş)<br>
+      Faaliyet Kodu: 621000 — Bilgisayar Programlama Faaliyetleri<br>
+      E-posta: kelesmelih551@gmail.com<br>
+      Telefon: 0312 820 10 13<br>
+      Web: sofrim-web.vercel.app</p>
+      <p style="margin-top:8px;"><strong style="color:#F0F0F8;">Alıcı:</strong> Platforma başvuran ve onaylanan işletme sahibi</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">2. Sözleşmenin Konusu ve Kapsamı</h3>
+      <p>İşbu sözleşme; Sofrım bulut tabanlı restoran yönetim yazılımının aylık veya yıllık abonelik modeliyle elektronik ortamda sunulmasına ilişkin koşulları düzenlemektedir. Hizmet tamamen dijital nitelikte olup yazılıma uzaktan erişim şeklinde sunulmaktadır.</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">3. Hizmet Paketleri ve Ücretler</h3>
+      <p><strong style="color:#F0F0F8;">Aylık Paketler (KDV dahil):</strong><br>
+      • Lite: 799₺/ay<br>
+      • Standart: 1.499₺/ay<br>
+      • Pro: 2.499₺/ay</p>
+      <p style="margin-top:8px;"><strong style="color:#F0F0F8;">Yıllık Paketler (KDV dahil):</strong><br>
+      • Lite: 665₺/ay × 12 = 7.980₺/yıl<br>
+      • Standart: 1.249₺/ay × 12 = 14.988₺/yıl<br>
+      • Pro: 2.082₺/ay × 12 = 24.984₺/yıl</p>
+      <p style="margin-top:8px;">Tüm paketler 14 günlük ücretsiz deneme süresiyle başlar. Deneme süresi boyunca herhangi bir ücret tahsil edilmez.</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">4. Ödeme Koşulları</h3>
+      <p>Ödemeler iyzico Ödeme Hizmetleri A.Ş. altyapısı üzerinden kredi kartı veya banka kartıyla güvenli biçimde alınmaktadır. Kart bilgileri hiçbir şekilde Sofrım sistemlerinde saklanmaz. Yıllık pakette ödeme tek seferlik peşin olarak alınır.</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">5. Hizmetin İfası</h3>
+      <p>Ödeme tamamlandıktan sonra en geç 1 iş günü içinde hesap bilgileri e-posta ve/veya WhatsApp aracılığıyla iletilir. Hizmet, bilgilerin iletiminden itibaren aktif olur.</p>
       <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">6. Cayma Hakkı</h3>
-      <p>Dijital hizmet niteliğinde olduğundan hizmet kullanımına başlandıktan sonra cayma hakkı kullanılamaz.</p>
-      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">7. Uyuşmazlık</h3>
-      <p>Uyuşmazlıklarda Türkiye Cumhuriyeti mahkemeleri yetkilidir.</p>
+      <p>6502 sayılı Kanun'un 49. maddesi ve Mesafeli Sözleşmeler Yönetmeliği'nin 12. maddesi uyarınca, tüketici dijital içerik ve hizmetlerde teslim veya ifanın başlamasına açıkça onay vermiş ise cayma hakkını kullanamaz. Alıcı, platforma erişim sağlayarak hizmetin ifasına başlandığını kabul etmiş sayılır. Ancak 14 günlük ücretsiz deneme süresi bu hakkın pratikte karşılığını oluşturmaktadır.</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">7. İptal ve İade Politikası</h3>
+      <p>• Deneme süresi içinde iptal: Hiçbir ücret tahsil edilmez.<br>
+      • Aylık abonelikte iptal: Mevcut dönem sonuna kadar erişim devam eder, sonraki dönem ücretlendirilmez.<br>
+      • Yıllık abonelikte iptal: Kullanılmayan tam aylara karşılık gelen tutar iade edilir. Kısmi aylar iade kapsamında değildir.<br>
+      • Teknik arızadan kaynaklanan kesintilerde süre uzatımı veya iade değerlendirmesi yapılır.</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">8. Gizlilik ve Veri Güvenliği</h3>
+      <p>Platformda işlenen tüm restoran ve müşteri verileri yalnızca aboneye aittir. Sofrım bu veriler üzerinde veri sahibi değil, veri işleyicidir. Veriler üçüncü taraflarla paylaşılmaz, reklam amacıyla kullanılmaz.</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">9. Sorumluluk Sınırlaması</h3>
+      <p>Sofrım, mücbir sebepler, internet altyapı sorunları veya kullanıcı hatalarından kaynaklanan gelir kayıplarından sorumlu tutulamaz. Sorumluluk her durumda ilgili dönem abonelik ücretiyle sınırlıdır.</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">10. Uygulanacak Hukuk ve Yetki</h3>
+      <p>İşbu sözleşme Türkiye Cumhuriyeti hukukuna tabidir. Uyuşmazlıklarda Türkiye Cumhuriyeti mahkemeleri ve icra daireleri yetkilidir.</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">11. İletişim ve Şikayet</h3>
+      <p>kelesmelih551@gmail.com · 0312 820 10 13 · sofrim-web.vercel.app<br>
+      Tüketici şikayetleri için ayrıca Tüketici Hakem Heyeti'ne veya Tüketici Mahkemelerine başvurulabilir.</p>
     </div>`,
+
   delivery: `
-    <h2 style="font-size:22px;font-weight:900;color:#F0F0F8;margin-bottom:6px;">Teslimat ve İade Şartları</h2>
+    <h2 style="font-size:22px;font-weight:900;color:#F0F0F8;margin-bottom:6px;">Teslimat, İade ve İptal Politikası</h2>
     <p style="color:#6666AA;font-size:12px;margin-bottom:24px;">Son güncelleme: Haziran 2026</p>
-    <div style="color:#8888AA;font-size:14px;line-height:1.8;">
-      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">Teslimat</h3>
-      <p>Sofrım dijital bir yazılım hizmetidir. Fiziksel teslimat söz konusu değildir. Başvurunuz onaylandıktan sonra giriş bilgileriniz e-posta veya WhatsApp ile iletilir. Onay süreci en geç 1 iş günü içinde tamamlanır.</p>
-      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">İade</h3>
-      <p>14 günlük ücretsiz deneme süresi içinde herhangi bir ücret alınmaz. Ücretli abonelik başladıktan sonra dijital hizmet niteliği gereği iade yapılamamaktadır. Aboneliğinizi mevcut dönem sonunda iptal edebilirsiniz.</p>
-      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">Teknik Sorunlar</h3>
-      <p>Sistem kaynaklı kesintilerde destek ekibimiz en geç 24 saat içinde yanıt verir. Uzun süreli kesintilerde abonelik süresi uzatılabilir.</p>
-      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">İletişim</h3>
-      <p>kelesmelih551@gmail.com · 0312 820 10 13</p>
+    <div style="color:#8888AA;font-size:14px;line-height:1.9;">
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">1. Hizmetin Niteliği</h3>
+      <p>Sofrım tamamen dijital bir yazılım hizmetidir. Herhangi bir fiziksel ürün veya kargo teslimatı söz konusu değildir. Hizmet, bulut altyapısı üzerinden internet bağlantısı aracılığıyla sunulmaktadır.</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">2. Erişim Teslimatı</h3>
+      <p>Başvurunuzun onaylanmasının ardından:<br>
+      • Ödeme onayı alındıktan sonra en geç <strong style="color:#F0F0F8;">1 iş günü</strong> içinde hesap bilgileri iletilir.<br>
+      • Giriş bilgileri yalnızca kayıtlı e-posta adresinize ve/veya WhatsApp numaranıza gönderilir.<br>
+      • Başka kanallardan gelen giriş bilgileri kesinlikle kullanılmamalıdır.</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">3. Ücretsiz Deneme</h3>
+      <p>Tüm paketler 14 günlük ücretsiz deneme süresiyle sunulmaktadır. Bu süre içinde:<br>
+      • Herhangi bir ücret tahsil edilmez.<br>
+      • Kredi kartı bilgisi istenmez.<br>
+      • Tüm özellikler eksiksiz kullanılabilir.<br>
+      • İstediğiniz zaman herhangi bir yaptırım olmaksızın iptal edilebilir.</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">4. İptal Koşulları</h3>
+      <p><strong style="color:#F0F0F8;">Aylık abonelik:</strong> Bir sonraki fatura döneminden en az 3 gün önce iptal talebinde bulunulmalıdır. Mevcut dönem sona erene kadar erişim sürer.<br><br>
+      <strong style="color:#F0F0F8;">Yıllık abonelik:</strong> Kullanılmayan tam aylara karşılık gelen tutar iade edilir. İptal talebi kelesmelih551@gmail.com adresine yazılı olarak iletilmelidir.</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">5. İade Koşulları</h3>
+      <p>• 14 günlük deneme süresi içinde herhangi bir ücret alınmadığından iade söz konusu değildir.<br>
+      • Ücretli abonelik başladıktan sonra dijital hizmetin ifası başlamış sayılacağından, genel kural olarak iade yapılamamaktadır.<br>
+      • Ancak ciddi teknik arızalar, hizmetin sunulamaması veya sözleşmeye aykırılık hallerinde iade değerlendirmesi yapılır.<br>
+      • İade talepleri en geç 14 iş günü içinde sonuçlandırılır.</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">6. Hizmet Kesintileri</h3>
+      <p>Planlı bakım çalışmaları önceden bildirilir. Plansız kesintilerde:<br>
+      • 1 saate kadar: Bildirim yapılır.<br>
+      • 4 saate kadar: Özür ve bilgilendirme mesajı gönderilir.<br>
+      • 24 saati aşan kesintilerde: Abonelik süresi uzatılır veya orantılı ücret iadesi yapılır.</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">7. İletişim</h3>
+      <p>Teslimat, iptal veya iade talepleriniz için:<br>
+      📧 kelesmelih551@gmail.com<br>
+      📞 0312 820 10 13<br>
+      💬 WhatsApp: 0312 820 10 13<br>
+      Yanıt süresi: Hafta içi en geç 24 saat</p>
     </div>`,
+
   about: `
     <h2 style="font-size:22px;font-weight:900;color:#F0F0F8;margin-bottom:6px;">Hakkımızda</h2>
-    <div style="color:#8888AA;font-size:14px;line-height:1.8;margin-top:16px;">
-      <p>Sofrım, MK Software tarafından Türkiye'nin restoran, kafe ve işletmeleri için geliştirilmiş bulut tabanlı bir yönetim yazılımıdır.</p>
-      <p style="margin-top:12px;">QR sipariş, mutfak ekranı, garson yönetimi, kurye takibi, personel yönetimi ve detaylı raporlama gibi özellikleriyle işletmenizi tek ekrandan yönetmenizi sağlar.</p>
-      <p style="margin-top:12px;"><strong style="color:#F0F0F8;">Geliştirici:</strong> MK Software<br>
+    <div style="color:#8888AA;font-size:14px;line-height:1.9;margin-top:16px;">
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">Sofrım Nedir?</h3>
+      <p>Sofrım, Türkiye'nin restoran, kafe, büfe, pastane ve işletmeleri için özel olarak tasarlanmış bulut tabanlı bir yönetim yazılımıdır. MK Software tarafından geliştirilmekte ve sürdürülmektedir.</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">Misyonumuz</h3>
+      <p>Türkiye'deki işletme sahiplerine; karmaşık, pahalı ve kullanması zor sistemler yerine — sade, uygun fiyatlı ve gerçekten işe yarayan bir çözüm sunmak. Her restoran sahibinin teknolojiye erişebilmesi gerektiğine inanıyoruz.</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">Ne Sunuyoruz?</h3>
+      <p>QR sipariş sistemi, mutfak ve bar ekranı, canlı masa haritası, garson çağrı sistemi, kurye ve teslimat yönetimi, personel ve maaş takibi, vardiya ve izin yönetimi, stok kontrolü, detaylı raporlar, müşteri sadakat sistemi ve daha fazlası — hepsi tek platformda.</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">Neden Sofrım?</h3>
+      <p>• Rakip sistemlere kıyasla 3-4 kat daha uygun fiyat<br>
+      • Kurulum gerektirmez, tarayıcıdan çalışır<br>
+      • Türkiye'nin iş yapış şekline göre tasarlandı<br>
+      • 14 gün ücretsiz, kredi kartı gerekmez<br>
+      • Türkçe destek, hızlı yanıt</p>
+      <h3 style="color:#F0F0F8;font-size:15px;margin:20px 0 8px;">İletişim Bilgileri</h3>
+      <p><strong style="color:#F0F0F8;">Şirket:</strong> MK Software<br>
+      <strong style="color:#F0F0F8;">Faaliyet Kodu:</strong> 621000 — Bilgisayar Programlama Faaliyetleri<br>
       <strong style="color:#F0F0F8;">E-posta:</strong> kelesmelih551@gmail.com<br>
       <strong style="color:#F0F0F8;">Telefon:</strong> 0312 820 10 13<br>
+      <strong style="color:#F0F0F8;">WhatsApp:</strong> 0312 820 10 13<br>
+      <strong style="color:#F0F0F8;">Instagram:</strong> @sofrimapp<br>
       <strong style="color:#F0F0F8;">Web:</strong> sofrim-web.vercel.app</p>
     </div>`
 };
