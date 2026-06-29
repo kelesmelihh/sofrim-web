@@ -2297,6 +2297,7 @@ function setBilling(type) {
 
 function setFormBilling(type) {
   formBilling = type;
+  window._formBillingMode = type;
   var mBtn = document.getElementById('form-toggle-monthly');
   var yBtn = document.getElementById('form-toggle-yearly');
   if (!mBtn || !yBtn) return;
@@ -2401,8 +2402,8 @@ function selectPlan(plan) {
   // Ücretli paket seçilince iyzico butonu göster
   var submitBtn = document.getElementById('submit-btn');
   var iyzicoBtn = document.getElementById('iyzico-pay-btn');
-  if (plan === 'trial') {
-    if (submitBtn) { submitBtn.style.display = 'block'; submitBtn.textContent = 'Başvuruyu Gönder ✓'; }
+  if (plan === 'trial' || plan === 'subeli') {
+    if (submitBtn) { submitBtn.style.display = 'block'; submitBtn.textContent = plan === 'subeli' ? 'Başvuruyu Gönder ✓' : 'Başvuruyu Gönder ✓'; }
     if (iyzicoBtn) iyzicoBtn.style.display = 'none';
   } else {
     if (submitBtn) { submitBtn.style.display = 'none'; }
@@ -2420,12 +2421,11 @@ function handleSubmit() {
 
 // Ücret hesapla
 function getPlanPrice() {
-  var billing = window._formBillingMode || 'monthly';
+  var billing = window._formBillingMode || formBilling || 'monthly';
   var prices = {
     lite:     { monthly: 799,   yearly: 7990  },
     standart: { monthly: 1499,  yearly: 14990 },
     pro:      { monthly: 2499,  yearly: 24990 },
-    subeli:   { monthly: 2499,  yearly: 24990 },
   };
   return prices[selectedPlan] ? prices[selectedPlan][billing] : 0;
 }
