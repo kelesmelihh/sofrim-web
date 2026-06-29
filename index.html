@@ -493,9 +493,8 @@
   /* ─── FOOTER ──────────────────────────── */
   footer {
     border-top: 1px solid var(--border);
-    padding: 40px;
-    display: flex; justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: 20px;
+    padding: 0;
+    display: block;
   }
 
   .footer-logo { font-size: 18px; font-weight: 900; color: var(--accent); }
@@ -2069,41 +2068,62 @@
 </div>
 
 <!-- FOOTER -->
-<footer>
-  <div class="footer-logo">Sofrım</div>
+<footer style="padding:48px 40px 32px; background:var(--surface); border-top:1px solid var(--border);">
 
-  <!-- Resmi kanal uyarısı -->
-  <div style="background:#FF6B1A11; border:1.5px solid #FF6B1A33; border-radius:12px; padding:14px 20px; margin:16px auto; max-width:600px; text-align:center;">
-    <div style="font-size:13px; font-weight:800; color:#FF6B1A; margin-bottom:6px;">⚠️ Resmi Satış Kanallarımız</div>
-    <div style="font-size:12px; color:var(--sec); line-height:1.8;">
-      Sofrım yalnızca aşağıdaki resmi kanallardan satılmaktadır:<br>
-      🌐 <strong style="color:var(--text);">sofrim-web.vercel.app</strong> &nbsp;·&nbsp;
-      📧 <strong style="color:var(--text);">kelesmelih551@gmail.com</strong> &nbsp;·&nbsp;
-      💬 <strong style="color:var(--text);">WhatsApp: 0312 820 10 13</strong><br>
-      <span style="color:#FF6B1A; font-weight:700;">Başka kanallardan yapılan işlemlerden sorumlu değiliz.</span>
+  <!-- Üst bölüm: Logo + İletişim + Sayfalar -->
+  <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:40px; max-width:900px; margin:0 auto 36px; text-align:left;">
+
+    <!-- Logo & Slogan -->
+    <div>
+      <div style="font-size:22px; font-weight:900; color:var(--accent); margin-bottom:8px;">🍽️ Sofrım</div>
+      <div style="font-size:12px; color:var(--sec); line-height:1.7; margin-bottom:16px;">Türkiye'nin restoranları için<br>tasarlanmış yönetim yazılımı.</div>
+      <a href="https://www.instagram.com/sofrimapp/" target="_blank" style="display:inline-flex; align-items:center; gap:6px; font-size:12px; color:var(--sec); text-decoration:none; font-weight:600;">📸 @sofrimapp</a>
     </div>
+
+    <!-- İletişim -->
+    <div>
+      <div style="font-size:11px; font-weight:800; color:var(--text); text-transform:uppercase; letter-spacing:1px; margin-bottom:14px;">İletişim</div>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <a href="tel:+903128201013" style="font-size:13px; color:var(--sec); text-decoration:none; font-weight:600;">📞 0312 820 10 13</a>
+        <a href="mailto:kelesmelih551@gmail.com" style="font-size:13px; color:var(--sec); text-decoration:none; font-weight:600;">📧 kelesmelih551@gmail.com</a>
+        <a href="https://wa.me/903128201013" target="_blank" style="font-size:13px; color:var(--sec); text-decoration:none; font-weight:600;">💬 WhatsApp</a>
+        <a href="https://t.me/Sofrim_bildirim_bot" target="_blank" style="font-size:13px; color:var(--sec); text-decoration:none; font-weight:600;">✈️ Telegram</a>
+      </div>
+    </div>
+
+    <!-- Yasal -->
+    <div>
+      <div style="font-size:11px; font-weight:800; color:var(--text); text-transform:uppercase; letter-spacing:1px; margin-bottom:14px;">Yasal</div>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <a href="#" onclick="openModal('about');return false;" style="font-size:13px; color:var(--sec); text-decoration:none; font-weight:600;">Hakkımızda</a>
+        <a href="#" onclick="openModal('privacy');return false;" style="font-size:13px; color:var(--sec); text-decoration:none; font-weight:600;">Gizlilik Politikası</a>
+        <a href="#" onclick="openModal('terms');return false;" style="font-size:13px; color:var(--sec); text-decoration:none; font-weight:600;">Mesafeli Satış Sözleşmesi</a>
+        <a href="#" onclick="openModal('delivery');return false;" style="font-size:13px; color:var(--sec); text-decoration:none; font-weight:600;">Teslimat ve İade Şartları</a>
+      </div>
+    </div>
+
   </div>
 
-  <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap; justify-content:center;">
-    <a href="tel:+903128201013" style="color:var(--sec); text-decoration:none; font-size:13px; font-weight:600; display:flex; align-items:center; gap:6px;">📞 0312 820 10 13</a>
-    <a href="https://wa.me/903128201013" target="_blank" style="color:var(--sec); text-decoration:none; font-size:13px; font-weight:600; display:flex; align-items:center; gap:6px;">💬 WhatsApp</a>
-    <a href="https://t.me/Sofrim_bildirim_bot" target="_blank" style="color:var(--sec); text-decoration:none; font-size:13px; font-weight:600; display:flex; align-items:center; gap:6px;">✈️ Telegram</a>
-    <a href="https://www.instagram.com/sofrimapp/" target="_blank" style="color:var(--sec); text-decoration:none; font-size:13px; font-weight:600; display:flex; align-items:center; gap:6px;">📸 @sofrimapp</a>
-  </div>
-  <!-- Ödeme logoları - iyzico resmi band -->
-  <div style="display:flex;flex-direction:column;align-items:center;gap:12px;margin:20px 0;">
-    <img src="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/logo_band_white@2x.png" alt="Visa Mastercard iyzico" style="height:36px;opacity:0.8;" />
-  </div>
+  <!-- Ayraç -->
+  <div style="max-width:900px; margin:0 auto; border-top:1px solid var(--border); padding-top:24px;">
 
-  <!-- Sözleşme linkleri - popup -->
-  <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-bottom:12px;">
-    <a href="#" onclick="openModal('privacy');return false;" style="color:var(--sec);text-decoration:none;font-size:12px;">Gizlilik Politikası</a>
-    <a href="#" onclick="openModal('terms');return false;" style="color:var(--sec);text-decoration:none;font-size:12px;">Mesafeli Satış Sözleşmesi</a>
-    <a href="#" onclick="openModal('delivery');return false;" style="color:var(--sec);text-decoration:none;font-size:12px;">Teslimat ve İade Şartları</a>
-    <a href="#" onclick="openModal('about');return false;" style="color:var(--sec);text-decoration:none;font-size:12px;">Hakkımızda</a>
-  </div>
+    <!-- Ödeme logosu + copyright -->
+    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:20px;">
+      <div style="font-size:11px; color:var(--sec);">© 2026 Sofrım · MK Software</div>
+      <img src="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/logo_band_white@2x.png" alt="Visa Mastercard iyzico" style="height:32px; opacity:1; display:block;" onerror="this.style.display='none'" />
+    </div>
 
-  <div class="footer-copy" data-tr="© 2026 Sofrım v1.3.0 · MK Software tarafından geliştirilmiştir." data-en="© 2026 Sofrım v1.3.0. Developed by MK Software.">© 2026 Sofrım v1.3.0 · MK Software tarafından geliştirilmiştir.</div>
+    <!-- Resmi kanal uyarısı - en altta -->
+    <div style="background:#FF6B1A0A; border:1px solid #FF6B1A22; border-radius:10px; padding:12px 16px; text-align:center;">
+      <span style="font-size:11px; font-weight:800; color:#FF6B1A;">⚠️ Resmi Satış Kanalları:</span>
+      <span style="font-size:11px; color:var(--sec); margin-left:6px;">
+        sofrim-web.vercel.app &nbsp;·&nbsp; kelesmelih551@gmail.com &nbsp;·&nbsp; WhatsApp: 0312 820 10 13
+      </span>
+      <br>
+      <span style="font-size:10px; color:#FF6B1A; font-weight:700;">Başka kanallardan yapılan işlemlerden sorumlu değiliz.</span>
+    </div>
+
+  </div>
 </footer>
 
 
