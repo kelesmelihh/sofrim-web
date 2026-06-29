@@ -2125,13 +2125,13 @@
         <img src="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/sofrim_logo.jpeg" alt="Sofrım" style="width:40px;height:40px;border-radius:10px;object-fit:cover;" />
         <div style="font-size:22px; font-weight:900; color:var(--accent);">Sofrım</div>
       </div>
-      <div style="font-size:12px; color:var(--sec); line-height:1.7; margin-bottom:16px;">Türkiye'nin restoranları için<br>tasarlanmış yönetim yazılımı.</div>
+      <div style="font-size:12px; color:var(--sec); line-height:1.7; margin-bottom:16px;" data-tr="Türkiye'nin restoranları için<br>tasarlanmış yönetim yazılımı." data-en="Restaurant management software<br>designed for Turkey.">Türkiye'nin restoranları için<br>tasarlanmış yönetim yazılımı.</div>
       <a href="https://www.instagram.com/sofrimapp/" target="_blank" style="display:inline-flex; align-items:center; gap:6px; font-size:12px; color:var(--sec); text-decoration:none; font-weight:600;">📸 @sofrimapp</a>
     </div>
 
     <!-- İletişim -->
     <div>
-      <div style="font-size:11px; font-weight:800; color:var(--text); text-transform:uppercase; letter-spacing:1px; margin-bottom:14px;">İletişim</div>
+      <div style="font-size:11px; font-weight:800; color:var(--text); text-transform:uppercase; letter-spacing:1px; margin-bottom:14px;" data-tr="İletişim" data-en="Contact">İletişim</div>
       <div style="display:flex; flex-direction:column; gap:10px;">
         <a href="tel:+903128201013" style="font-size:13px; color:var(--sec); text-decoration:none; font-weight:600;">📞 0312 820 10 13</a>
         <a href="mailto:kelesmelih551@gmail.com" style="font-size:13px; color:var(--sec); text-decoration:none; font-weight:600;">📧 kelesmelih551@gmail.com</a>
@@ -2313,12 +2313,12 @@ function setFormBilling(type) {
   } else {
     yBtn.style.background = 'var(--accent)'; yBtn.style.color = '#fff';
     mBtn.style.background = 'transparent'; mBtn.style.color = 'var(--sec)';
-    document.getElementById('form-price-lite').textContent = '665\u20ba/ay';
-    document.getElementById('form-price-standart').textContent = '1.249\u20ba/ay';
-    document.getElementById('form-price-pro').textContent = '2.082\u20ba/ay';
-    document.getElementById('form-price-lite-y').style.display = 'block';
-    document.getElementById('form-price-standart-y').style.display = 'block';
-    document.getElementById('form-price-pro-y').style.display = 'block';
+    document.getElementById('form-price-lite').textContent = '665,83₺/ay';
+    document.getElementById('form-price-standart').textContent = '1.249,16₺/ay';
+    document.getElementById('form-price-pro').textContent = '2.082,50₺/ay';
+    document.getElementById('form-price-lite-y').style.display = 'block'; document.getElementById('form-price-lite-y').textContent = 'Toplam: 7.990₺/yıl';
+    document.getElementById('form-price-standart-y').style.display = 'block'; document.getElementById('form-price-standart-y').textContent = 'Toplam: 14.990₺/yıl';
+    document.getElementById('form-price-pro-y').style.display = 'block'; document.getElementById('form-price-pro-y').textContent = 'Toplam: 24.990₺/yıl';
   }
 }
 
