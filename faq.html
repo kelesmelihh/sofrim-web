@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SSS — Sofrım</title>
+  <meta name="description" content="Sofrım hakkında sık sorulan sorular ve yanıtları.">
+  <link rel="canonical" href="https://sofrim-web.vercel.app/faq.html">
+  <link rel="icon" href="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/sofrim_logo.jpeg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="intro-placeholder"></div>
+<div id="nav-placeholder"></div>
+<div class="page-wrap">
+  <div class="page-header">
+    <div class="section-label">SIKÇA SORULAN SORULAR</div>
+    <h1>Aklınızdaki<br><span>Tüm Sorular</span></h1>
+    <p>Sofrım hakkında merak ettikleriniz.</p>
+  </div>
+
+  <section style="max-width:760px;padding-top:0;">
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Sözleşme imzalamam gerekiyor mu?</span><span class="faq-arrow">▼</span></div><div class="faq-a">Hayır. Sofrım'da uzun vadeli sözleşme yoktur. Aylık veya yıllık ödeme yapabilirsiniz. İstediğiniz zaman iptal edebilirsiniz.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>AI mutfak özelliği nasıl çalışır?</span><span class="faq-arrow">▼</span></div><div class="faq-a">Sipariş geldiğinde yapay zeka; anlık sipariş yoğunluğunu, aktif personel sayısını, günün saatini ve geçmiş verileri analiz eder. Her ürün için dinamik hazırlanma süresi belirler. Bu süre dolunca ürün otomatik "Hazır" işaretlenir ve garsonun telefonuna bildirim gider. Veri biriktikçe AI daha isabetli tahminler yapar.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>PWA nedir, neden işime yarar?</span><span class="faq-arrow">▼</span></div><div class="faq-a">PWA, web sitesini telefona uygulama gibi yüklemenizi sağlar. App Store veya Play Store'a gerek yoktur. Sofrım'i telefonunuza yükleyince ikon ana ekrana eklenir, tam ekran açılır ve normal bir uygulama gibi çalışır. Garsonlar, müdür ve patron tek tıkla panele erişir.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>İnternet kesilirse ne olur?</span><span class="faq-arrow">▼</span></div><div class="faq-a">Sofrım bulut tabanlı bir sistemdir, internet bağlantısı gerektirir. Kısa süreli kesintilerde mevcut açık siparişler kaybolmaz, yeniden bağlanınca sistem kaldığı yerden devam eder.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Müşterilerin uygulama indirmesi gerekiyor mu?</span><span class="faq-arrow">▼</span></div><div class="faq-a">Hayır. Müşteriler sadece QR kodu okutarak tarayıcıda siparişlerini verebilir. Uygulama indirmek veya hesap açmak gerekmez. Herhangi bir telefon ve tarayıcı ile çalışır.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Kaç cihazda kullanabilirim?</span><span class="faq-arrow">▼</span></div><div class="faq-a">Sınırsız cihaz desteği vardır. Mutfak tableti, garson telefonu, patron telefonu, kasa bilgisayarı — hepsi aynı anda kullanılabilir. Ek cihaz ücreti yoktur.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Müdür paneli ne işe yarar?</span><span class="faq-arrow">▼</span></div><div class="faq-a">Müdür, sahibinden bağımsız olarak restoran operasyonunu yönetebilir. Canlı siparişler, mutfak takibi, personel durumu, stok, mesajlar ve raporlar — hepsi müdürün kendi panelinde. Müdür PIN ile giriş yapar, abonelik ve ödeme gibi sistem ayarlarına erişemez.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Yazıcı desteği var mı?</span><span class="faq-arrow">▼</span></div><div class="faq-a">Evet. Termal yazıcı desteği mevcuttur. Mutfak ekranını Yazıcı Modu'na alarak yeni siparişleri otomatik yazdırabilirsiniz. Kurulumda teknik destek ekibimiz yardımcı olur.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Teslimat bölgesi nasıl tanımlanır?</span><span class="faq-arrow">▼</span></div><div class="faq-a">Owner panelinden Teslimat Bölgeleri sayfasına gidin. İl, ilçe ve mahalle bazında hizmet verdiğiniz bölgeleri ekleyin. Online sipariş sayfasında müşteri adresini seçerken sistem hizmet dışı bölgeleri otomatik filtreler.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>14 günlük deneme sonrası ne olur?</span><span class="faq-arrow">▼</span></div><div class="faq-a">Deneme süresi bittiğinde bir paket seçerek devam edebilirsiniz. Verileriniz korunur, hiçbir şey kaybolmaz.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Verilerim güvende mi?</span><span class="faq-arrow">▼</span></div><div class="faq-a">Tüm veriler SSL/TLS şifrelemesiyle korunmaktadır. Her restoran yalnızca kendi verilerine erişebilir (Row Level Security). Kart bilgileri Sofrım sisteminde saklanmaz, ödeme iyzico altyapısından geçer.</div></div>
+    <div style="margin-top:48px;padding:28px;background:var(--card);border:1px solid var(--border);border-radius:20px;text-align:center;">
+      <div style="font-size:20px;margin-bottom:8px;">🤔</div>
+      <div style="font-size:15px;font-weight:800;margin-bottom:8px;">Başka sorunuz mu var?</div>
+      <div style="font-size:13px;color:var(--sec);margin-bottom:16px;">WhatsApp veya telefon ile bize ulaşabilirsiniz.</div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+        <a href="apply.html" class="btn-primary">14 Gün Ücretsiz Dene</a>
+        <a href="contact.html" class="btn-secondary">İletişime Geç</a>
+      </div>
+    </div>
+  </section>
+
+</div>
+<div id="footer-placeholder"></div>
+<script src="nav.js"></script>
+<script>
+  renderNav('faq');
+  renderFooter();
+</script>
+</body>
+</html>

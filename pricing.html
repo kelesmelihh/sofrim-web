@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fiyatlar — Sofrım</title>
+  <meta name="description" content="Sofrım fiyat paketleri. Lite 799₺/ay, Standart 1.499₺/ay, Pro 2.499₺/ay. 14 gün ücretsiz.">
+  <link rel="canonical" href="https://sofrim-web.vercel.app/pricing.html">
+  <link rel="icon" href="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/sofrim_logo.jpeg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="intro-placeholder"></div>
+<div id="nav-placeholder"></div>
+<div class="page-wrap">
+  <div class="page-header">
+    <div class="section-label">FİYATLAR</div>
+    <h1>Restoranınıza<br><span style="background:linear-gradient(135deg,var(--accent),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Uygun Paket</span></h1>
+    <p>Tüm paketler 14 gün ücretsiz deneme ile başlar. Kredi kartı gerekmez.</p>
+  </div>
+  <section style="padding-top:0;">
+    <div style="display:flex;justify-content:center;margin-bottom:32px;">
+      <div style="display:inline-flex;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:4px;gap:4px;">
+        <button id="toggle-monthly" onclick="setBilling('monthly')" style="padding:10px 24px;border-radius:9px;border:none;background:var(--accent);color:#fff;font-size:13px;font-weight:700;cursor:pointer;">Aylık</button>
+        <button id="toggle-yearly" onclick="setBilling('yearly')" style="padding:10px 24px;border-radius:9px;border:none;background:transparent;color:var(--sec);font-size:13px;font-weight:700;cursor:pointer;">Yıllık (2 ay ücretsiz)</button>
+      </div>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="plan-name">Lite</div>
+        <div class="plan-price" id="price-lite">799₺ <span>/ay</span></div>
+        <div id="price-lite-y" style="display:none;font-size:12px;color:var(--teal);font-weight:700;margin-bottom:8px;">7.990₺/yıl — 2 ay ücretsiz</div>
+        <div class="plan-desc">Küçük kafeler ve restoranlar için</div>
+        <ul class="plan-features">
+          <li>QR ile müşteri sipariş</li><li>Mutfak & Bar ekranı</li><li>Kasa yönetimi</li><li>Garson sipariş alma</li><li>Temel raporlar</li><li>Yazıcı desteği</li><li>3 personel • 1 şube</li>
+          <li class="no">Stok & reçete takibi</li><li class="no">Kurye modülü</li><li class="no">Vardiya & maaş</li>
+        </ul>
+        <a href="apply.html" class="plan-btn outline">Hemen Başla</a>
+      </div>
+      <div class="pricing-card popular">
+        <div class="popular-badge">En Çok Tercih Edilen</div>
+        <div class="plan-name">Standart</div>
+        <div class="plan-price" id="price-standart">1.499₺ <span>/ay</span></div>
+        <div id="price-standart-y" style="display:none;font-size:12px;color:var(--teal);font-weight:700;margin-bottom:8px;">14.990₺/yıl — 2 ay ücretsiz</div>
+        <div class="plan-desc">Büyüyen restoranlar için</div>
+        <ul class="plan-features">
+          <li>Lite'ın tamamı +</li><li>Stok & reçete takibi</li><li>Masa birleştirme & hesap bölme</li><li>Ürün opsiyonları</li><li>Canlı masa haritası</li><li>Mobil patron özeti</li><li>Vardiya & izin yönetimi</li><li>🤖 AI mutfak yönetimi</li><li>7 personel • 1 şube</li>
+        </ul>
+        <a href="apply.html" class="plan-btn filled">Hemen Başla</a>
+      </div>
+      <div class="pricing-card">
+        <div class="plan-name">Pro</div>
+        <div class="plan-price" id="price-pro">2.499₺ <span>/ay</span></div>
+        <div id="price-pro-y" style="display:none;font-size:12px;color:var(--teal);font-weight:700;margin-bottom:8px;">24.990₺/yıl — 2 ay ücretsiz</div>
+        <div class="plan-desc">Tam donanımlı restoranlar için</div>
+        <ul class="plan-features">
+          <li>Standart'ın tamamı +</li><li>Kurye & teslimat modülü</li><li>Gerçek zamanlı kurye takibi</li><li>Müşteri sadakat sistemi</li><li>Rezervasyon sistemi</li><li>Maaş takibi & hesaplama</li><li>Gelişmiş raporlar</li><li>Öncelikli destek</li><li>Sınırsız personel • 1 şube</li>
+        </ul>
+        <a href="apply.html" class="plan-btn outline">Hemen Başla</a>
+      </div>
+      <div class="pricing-card">
+        <div class="plan-name">Şubeli Plan</div>
+        <div class="plan-price" style="font-size:22px;">2.499₺ + şube başı</div>
+        <div class="plan-desc">Birden fazla şubesi olan zincirler için</div>
+        <div style="background:var(--surface);border-radius:12px;padding:14px;margin-bottom:16px;">
+          <div style="font-size:11px;color:var(--sec);font-weight:700;margin-bottom:10px;">ŞUBE SAYISI SEÇİN</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button onclick="setBranch(2)" id="branch-2" class="branch-btn" style="padding:6px 12px;border-radius:8px;border:1.5px solid var(--accent);background:rgba(255,107,26,.1);color:var(--accent);font-size:12px;font-weight:700;cursor:pointer;">2</button>
+            <button onclick="setBranch(3)" id="branch-3" class="branch-btn" style="padding:6px 12px;border-radius:8px;border:1.5px solid var(--border);background:transparent;color:var(--sec);font-size:12px;font-weight:700;cursor:pointer;">3</button>
+            <button onclick="setBranch(5)" id="branch-5" class="branch-btn" style="padding:6px 12px;border-radius:8px;border:1.5px solid var(--border);background:transparent;color:var(--sec);font-size:12px;font-weight:700;cursor:pointer;">5</button>
+            <button onclick="setBranch(10)" id="branch-10" class="branch-btn" style="padding:6px 12px;border-radius:8px;border:1.5px solid var(--border);background:transparent;color:var(--sec);font-size:12px;font-weight:700;cursor:pointer;">10</button>
+            <button onclick="setBranch(99)" id="branch-99" class="branch-btn" style="padding:6px 12px;border-radius:8px;border:1.5px solid var(--border);background:transparent;color:var(--sec);font-size:12px;font-weight:700;cursor:pointer;">10+</button>
+          </div>
+          <div id="branch-price" style="margin-top:12px;font-size:18px;font-weight:900;color:var(--accent);">3.999₺/ay</div>
+        </div>
+        <ul class="plan-features">
+          <li>Pro'nun tamamı +</li><li>Çoklu şube yönetimi</li><li>Şubeler arası karşılaştırma</li><li>Merkezi menü yönetimi</li><li>Sınırsız personel</li>
+        </ul>
+        <a href="apply.html" class="plan-btn outline">Başvur</a>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-top:40px;flex-wrap:wrap;">
+      <div style="font-size:12px;color:var(--sec);">🔒 Güvenli ödeme:</div>
+      <img src="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/logo_band_white@2x.png" alt="Visa Mastercard" style="height:28px;opacity:.8;" onerror="this.style.display='none'">
+    </div>
+  </section>
+  <div class="cta-banner">
+    <h2>14 Gün Ücretsiz Deneyin</h2>
+    <p>Kredi kartı gerekmez. Beğenmezseniz hiçbir ücret ödemezsiniz.</p>
+    <a href="apply.html" class="btn-primary">Hemen Başvur →</a>
+  </div>
+</div>
+<div id="footer-placeholder"></div>
+<script src="nav.js"></script>
+<script>
+  renderNav('pricing');
+  renderFooter();
+  let currentBilling = 'monthly', currentBranches = 2;
+  function setBilling(type) {
+    currentBilling = type;
+    const mB = document.getElementById('toggle-monthly'), yB = document.getElementById('toggle-yearly');
+    if (type === 'monthly') { mB.style.background='var(--accent)';mB.style.color='#fff';yB.style.background='transparent';yB.style.color='var(--sec)'; document.getElementById('price-lite').innerHTML='799₺ <span>/ay</span>';document.getElementById('price-standart').innerHTML='1.499₺ <span>/ay</span>';document.getElementById('price-pro').innerHTML='2.499₺ <span>/ay</span>';['lite','standart','pro'].forEach(p=>{document.getElementById('price-'+p+'-y').style.display='none';}); }
+    else { yB.style.background='var(--accent)';yB.style.color='#fff';mB.style.background='transparent';mB.style.color='var(--sec)'; document.getElementById('price-lite').innerHTML='665₺ <span>/ay</span>';document.getElementById('price-standart').innerHTML='1.249₺ <span>/ay</span>';document.getElementById('price-pro').innerHTML='2.082₺ <span>/ay</span>';['lite','standart','pro'].forEach(p=>{document.getElementById('price-'+p+'-y').style.display='block';}); }
+    updateBranchPrice();
+  }
+  function setBranch(n) {
+    currentBranches = n;
+    document.querySelectorAll('.branch-btn').forEach(b=>{b.style.borderColor='var(--border)';b.style.background='transparent';b.style.color='var(--sec)';});
+    const b = document.getElementById('branch-'+n); if(b){b.style.borderColor='var(--accent)';b.style.background='rgba(255,107,26,.1)';b.style.color='var(--accent)';}
+    updateBranchPrice();
+  }
+  function updateBranchPrice() {
+    const el = document.getElementById('branch-price'); if(!el) return;
+    if(currentBranches===99){el.textContent='Bizimle iletişime geçin';return;}
+    let base=2499,extra=0;for(let i=2;i<=currentBranches;i++)extra+=i<=5?1500:1000;
+    let m=base+extra;if(currentBilling==='yearly')m=Math.round(m*10/12);
+    el.textContent=m.toLocaleString('tr-TR')+'₺/ay';
+  }
+  setBranch(2);
+</script>
+</body>
+</html>
