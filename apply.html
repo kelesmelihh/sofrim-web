@@ -10,381 +10,639 @@
   <link rel="icon" href="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/sofrim_logo.jpeg">
   <link rel="stylesheet" href="style.css">
   <style>
-    .apply-grid { display: grid; grid-template-columns: 1fr 380px; gap: 48px; align-items: start; }
-    .apply-sidebar { position: sticky; top: 80px; }
-    .sidebar-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 20px; margin-bottom: 14px; }
-    .sidebar-card-title { font-size: 13px; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-    .sidebar-card p { font-size: 12px; color: var(--sec); line-height: 1.7; }
-    .id-type-btns { display: flex; gap: 8px; margin-bottom: 14px; }
-    .id-type-btn { flex: 1; padding: 10px; border-radius: 10px; border: 1.5px solid var(--border); background: transparent; color: var(--sec); font-size: 13px; font-weight: 700; cursor: pointer; transition: all .2s; }
-    .id-type-btn.active { border-color: var(--accent); background: rgba(255,107,26,.1); color: var(--accent); }
-    .plan-option { padding: 14px 16px; border-radius: 12px; border: 1.5px solid var(--border); background: transparent; cursor: pointer; display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; transition: all .2s; }
-    .plan-option:hover { border-color: rgba(255,107,26,.4); }
-    .plan-option.selected { border-color: var(--accent); background: rgba(255,107,26,.08); }
-    .billing-toggle { display: flex; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 4px; gap: 4px; margin-bottom: 14px; }
-    .billing-btn { flex: 1; padding: 9px; border-radius: 9px; border: none; background: transparent; color: var(--sec); font-size: 12px; font-weight: 700; cursor: pointer; transition: all .2s; }
-    .billing-btn.active { background: var(--accent); color: #fff; }
-    @media (max-width: 900px) { .apply-grid { grid-template-columns: 1fr; } .apply-sidebar { position: static; } }
+    .apply-wrap{max-width:720px;margin:0 auto;padding:0 24px;}
+    .step-box{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px;}
+    .step-title{font-size:20px;font-weight:900;margin-bottom:6px;}
+    .step-desc{font-size:13px;color:var(--sec);margin-bottom:28px;}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+    .fg{margin-bottom:18px;}
+    .fg label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--sec);margin-bottom:6px;}
+    .fg input,.fg select,.fg textarea{width:100%;padding:12px 14px;background:var(--surface);border:1.5px solid var(--border);border-radius:10px;color:var(--text);font-size:14px;outline:none;font-family:inherit;transition:border-color .2s;}
+    .fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--accent);}
+    .fg textarea{resize:vertical;min-height:80px;}
+    .input-error{border-color:#FF4757!important;}
+    .err{font-size:11px;color:#FF4757;margin-top:4px;display:none;}
+    .err.show{display:block;}
+    .phone-wrap{display:flex;gap:8px;}
+    .cc-sel{width:110px;flex-shrink:0;}
+    .id-btns{display:flex;gap:8px;margin-bottom:12px;}
+    .id-btn{flex:1;padding:10px;border-radius:10px;border:1.5px solid var(--border);background:transparent;color:var(--sec);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;}
+    .id-btn.active{border-color:var(--accent);background:rgba(255,107,26,.1);color:var(--accent);}
+    .cb-group{display:flex;flex-wrap:wrap;gap:8px;}
+    .cb-item{display:flex;align-items:center;gap:8px;padding:8px 14px;background:var(--surface);border:1.5px solid var(--border);border-radius:10px;cursor:pointer;transition:all .2s;font-size:13px;font-weight:600;color:var(--sec);}
+    .cb-item.checked{border-color:var(--accent);background:rgba(255,107,26,.08);color:var(--text);}
+    .cb-item input{display:none;}
+    .plan-opt{padding:16px 18px;border-radius:14px;border:1.5px solid var(--border);background:transparent;cursor:pointer;display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;transition:all .2s;}
+    .plan-opt:hover{border-color:rgba(255,107,26,.4);}
+    .plan-opt.selected{border-color:var(--accent);background:rgba(255,107,26,.08);}
+    .bill-tog{display:flex;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:4px;gap:4px;margin-bottom:18px;}
+    .bill-btn{flex:1;padding:10px;border-radius:9px;border:none;background:transparent;color:var(--sec);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;}
+    .bill-btn.active{background:var(--accent);color:#fff;}
+    .branch-calc{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;margin-top:16px;}
+    .b-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--sec);padding:6px 0;border-bottom:1px solid var(--border);}
+    .b-row:last-child{border-bottom:none;font-weight:900;color:var(--accent);font-size:16px;}
+    .sum-sec{margin-bottom:20px;}
+    .sum-ttl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--sec);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+    .sum-row{display:flex;justify-content:space-between;font-size:13px;padding:5px 0;}
+    .sum-lbl{color:var(--sec);}
+    .sum-val{color:var(--text);font-weight:600;text-align:right;max-width:60%;}
+    .con-item{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;gap:12px;transition:all .2s;}
+    .con-item.checked{border-color:var(--teal);background:rgba(45,212,191,.06);}
+    .con-check{width:22px;height:22px;border-radius:6px;border:2px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;transition:all .2s;}
+    .con-item.checked .con-check{background:var(--teal);border-color:var(--teal);color:#07070F;}
+    .con-link{color:var(--accent);font-weight:700;cursor:pointer;text-decoration:underline;font-size:13px;}
+    .con-txt{font-size:13px;color:var(--sec);flex:1;line-height:1.5;}
+    .lmo{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:1000;align-items:flex-end;justify-content:center;}
+    .lmo.open{display:flex;}
+    .lm{background:var(--card);border:1.5px solid var(--border);border-radius:24px 24px 0 0;width:100%;max-width:680px;max-height:85vh;display:flex;flex-direction:column;}
+    .lm-hd{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-shrink:0;}
+    .lm-ttl{font-size:16px;font-weight:800;}
+    .lm-cls{width:32px;height:32px;border-radius:50%;border:1px solid var(--border);background:var(--surface);color:var(--sec);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;}
+    .lm-body{flex:1;overflow-y:auto;padding:24px;font-size:13.5px;color:var(--sec);line-height:1.9;}
+    .lm-ft{padding:16px 24px;border-top:1px solid var(--border);flex-shrink:0;}
+    .sc-hint{font-size:11px;color:var(--muted);text-align:center;margin-bottom:8px;transition:opacity .3s;}
+    .ap-btn{width:100%;padding:14px;border-radius:12px;border:none;font-size:14px;font-weight:700;cursor:pointer;transition:all .3s;}
+    .ap-btn.disabled{background:var(--border);color:var(--muted);cursor:not-allowed;}
+    .ap-btn.enabled{background:linear-gradient(135deg,var(--teal),#1ab5a0);color:#07070F;}
+    .step-nav{display:flex;gap:10px;margin-top:24px;}
+    .warn-box{background:rgba(255,107,26,.06);border:1.5px solid rgba(255,107,26,.2);border-radius:12px;padding:12px 16px;margin-bottom:20px;display:flex;gap:10px;align-items:flex-start;font-size:12px;color:var(--sec);line-height:1.7;}
+    @media(max-width:600px){.form-row{grid-template-columns:1fr;}}
   </style>
 </head>
 <body>
-
 <div id="intro-placeholder"></div>
 <div id="nav-placeholder"></div>
-
 <div class="page-wrap">
   <div class="page-header">
     <div class="section-label">BAŞVURU FORMU</div>
     <h1>Restoranınızı<br><span style="background:linear-gradient(135deg,var(--accent),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Dijitale Taşıyın</span></h1>
-    <p>Formu doldurun, en geç 1 iş günü içinde size dönelim.</p>
+    <p>14 gün ücretsiz. Kredi kartı gerekmez. En geç 1 iş günü içinde dönüş yapıyoruz.</p>
   </div>
-
   <section style="padding-top:0;">
-
-    <!-- ADIM GÖSTERGESİ -->
-    <div class="step-indicators" id="step-indicators">
-      <div class="step-ind active" id="si-1"><div class="step-ind-num">1</div><div class="step-ind-label">Kişisel</div></div>
-      <div class="step-ind-line"></div>
-      <div class="step-ind" id="si-2"><div class="step-ind-num">2</div><div class="step-ind-label">İşletme</div></div>
-      <div class="step-ind-line"></div>
-      <div class="step-ind" id="si-3"><div class="step-ind-num">3</div><div class="step-ind-label">Paket</div></div>
-    </div>
-
-    <div class="apply-grid">
-      <!-- FORM -->
-      <div>
-
-        <!-- ADIM 1 -->
-        <div id="step-1">
-          <div style="font-size:16px;font-weight:800;margin-bottom:20px;">👤 Kişisel Bilgiler</div>
-
-          <div style="background:rgba(255,107,26,.06);border:1.5px solid rgba(255,107,26,.2);border-radius:12px;padding:12px 16px;margin-bottom:20px;display:flex;gap:10px;align-items:flex-start;">
-            <span style="font-size:20px;flex-shrink:0;">⚠️</span>
-            <div style="font-size:11px;color:var(--sec);line-height:1.7;">
-              <strong style="color:var(--accent);">Güvenli Alışveriş:</strong> Sofrım yalnızca <strong style="color:var(--text);">sofrim-web.vercel.app</strong> üzerinden satılmaktadır. Başka kanallardan gelen tekliflere itibar etmeyiniz.
-            </div>
-          </div>
-
-          <div id="referral-notice" style="display:none;align-items:flex-start;gap:12px;padding:16px;background:linear-gradient(135deg,rgba(255,107,26,.12),rgba(255,209,102,.08));border:1.5px solid rgba(255,107,26,.3);border-radius:14px;margin-bottom:20px;">
-            <span style="font-size:28px;flex-shrink:0;">🎁</span>
-            <div>
-              <div style="font-size:14px;font-weight:900;color:var(--accent);">Davet ile geldiniz!</div>
-              <div style="font-size:12px;color:var(--sec);margin-top:4px;">2 ay ücretsiz Pro hediye! Kod: <strong class="ref-code-display" style="color:var(--accent);letter-spacing:2px;"></strong></div>
-            </div>
-          </div>
-          <input type="hidden" id="f-ref-code" value="">
-
-          <div class="form-group">
-            <label>YETKİLİ ADI SOYADI *</label>
-            <input type="text" id="f-name" placeholder="Ad ve soyadınızı girin" autocomplete="name">
-          </div>
-          <div class="form-group">
-            <label>E-POSTA ADRESİ * <span style="color:var(--teal);font-size:10px;">(sisteme giriş için kullanılacak)</span></label>
-            <input type="email" id="f-email" placeholder="E-posta adresinizi girin" autocomplete="email">
-          </div>
-          <div class="form-group">
-            <label>TELEFON NUMARASI *</label>
-            <input type="tel" id="f-phone" placeholder="05xx xxx xx xx" autocomplete="tel">
-          </div>
-
-          <div class="form-group">
-            <label>KİMLİK TÜRÜ *</label>
-            <div class="id-type-btns">
-              <button class="id-type-btn active" id="id-tc-btn" onclick="setIdType('tc')">TC Kimlik No</button>
-              <button class="id-type-btn" id="id-vergi-btn" onclick="setIdType('vergi')">Vergi No</button>
-            </div>
-            <div>
-              <label id="id-label" style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--sec);margin-bottom:6px;display:block;">TC KİMLİK NUMARASI *</label>
-              <input type="text" id="f-idnumber" placeholder="11 haneli TC kimlik numaranız" maxlength="11" inputmode="numeric">
-              <div style="font-size:11px;color:var(--muted);margin-top:4px;">⚠️ Her kimlik numarası yalnızca 1 kez kullanılabilir.</div>
-            </div>
-          </div>
-
-          <button class="btn-primary" style="width:100%;margin-top:8px;justify-content:center;" onclick="nextStep(1)">Devam → İşletme Bilgileri</button>
-        </div>
-
-        <!-- ADIM 2 -->
-        <div id="step-2" style="display:none;">
-          <div style="font-size:16px;font-weight:800;margin-bottom:20px;">🏢 İşletme Bilgileri</div>
-
-          <div class="form-group">
-            <label>İŞLETME ADI *</label>
-            <input type="text" id="f-business" placeholder="İşletmenizin ticari adı">
-          </div>
-          <div class="form-group">
-            <label>İŞLETME TÜRÜ *</label>
-            <select id="f-type">
-              <option value="">Seçiniz...</option>
-              <option value="restoran">Restoran</option>
-              <option value="kafe">Kafe</option>
-              <option value="fastfood">Fast Food</option>
-              <option value="pastane">Pastane</option>
-              <option value="bar">Bar / Pub</option>
-              <option value="diger">Diğer</option>
-            </select>
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-            <div class="form-group">
-              <label>İL *</label>
-              <select id="f-city" onchange="cityChanged('f-city','f-district','f-taxoffice')">
-                <option value="">İl seçin...</option>
-                <option>Adana</option><option>Adıyaman</option><option>Afyonkarahisar</option><option>Aksaray</option><option>Amasya</option><option>Ankara</option><option>Antalya</option><option>Ardahan</option><option>Artvin</option><option>Aydın</option><option>Ağrı</option><option>Balıkesir</option><option>Bartın</option><option>Batman</option><option>Bayburt</option><option>Bilecik</option><option>Bingöl</option><option>Bitlis</option><option>Bolu</option><option>Burdur</option><option>Bursa</option><option>Denizli</option><option>Diyarbakır</option><option>Düzce</option><option>Edirne</option><option>Elazığ</option><option>Erzincan</option><option>Erzurum</option><option>Eskişehir</option><option>Gaziantep</option><option>Giresun</option><option>Gümüşhane</option><option>Hakkari</option><option>Hatay</option><option>Isparta</option><option>Iğdır</option><option>Kahramanmaraş</option><option>Karabük</option><option>Karaman</option><option>Kars</option><option>Kastamonu</option><option>Kayseri</option><option>Kilis</option><option>Kocaeli</option><option>Konya</option><option>Kütahya</option><option>Kırklareli</option><option>Kırıkkale</option><option>Kırşehir</option><option>Malatya</option><option>Manisa</option><option>Mardin</option><option>Mersin</option><option>Muğla</option><option>Muş</option><option>Nevşehir</option><option>Niğde</option><option>Ordu</option><option>Osmaniye</option><option>Rize</option><option>Sakarya</option><option>Samsun</option><option>Siirt</option><option>Sinop</option><option>Sivas</option><option>Tekirdağ</option><option>Tokat</option><option>Trabzon</option><option>Tunceli</option><option>Uşak</option><option>Van</option><option>Yalova</option><option>Yozgat</option><option>Zonguldak</option><option>Çanakkale</option><option>Çankırı</option><option>Çorum</option><option>İstanbul</option><option>İzmir</option><option>Şanlıurfa</option><option>Şırnak</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>İLÇE *</label>
-              <select id="f-district"><option value="">Önce il seçin</option></select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>AÇIK ADRES *</label>
-            <textarea id="f-address" rows="2" placeholder="Açık işletme adresiniz"></textarea>
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-            <div class="form-group">
-              <label>VERGİ DAİRESİ</label>
-              <select id="f-taxoffice"><option value="">Önce il seçin</option></select>
-            </div>
-            <div class="form-group">
-              <label>TAHMİNİ MASA SAYISI</label>
-              <input type="number" id="f-tables" placeholder="Masa sayınız" min="1" max="500">
-            </div>
-          </div>
-          <div style="display:flex;gap:8px;margin-top:8px;">
-            <button class="btn-secondary" style="flex:1;justify-content:center;" onclick="goStep(1)">← Geri</button>
-            <button class="btn-primary" style="flex:2;justify-content:center;" onclick="nextStep(2)">Devam → Paket Seçimi</button>
-          </div>
-        </div>
-
-        <!-- ADIM 3 -->
-        <div id="step-3" style="display:none;">
-          <div style="font-size:16px;font-weight:800;margin-bottom:20px;">📦 Paket Seçimi</div>
-
-          <div class="billing-toggle">
-            <button class="billing-btn active" id="billing-monthly" onclick="setBillingForm('monthly')">Aylık</button>
-            <button class="billing-btn" id="billing-yearly" onclick="setBillingForm('yearly')">Yıllık — 2 ay ücretsiz 🎁</button>
-          </div>
-
-          <div id="plan-options">
-            <div class="plan-option selected" id="po-trial" onclick="selectPlan('trial')">
-              <div><div style="font-size:13px;font-weight:800;">🆓 14 Gün Ücretsiz Dene</div><div style="font-size:11px;color:var(--sec);margin-top:2px;">Sonra karar veririm, tüm özellikler açık</div></div>
-              <div style="font-size:14px;font-weight:900;color:var(--teal);">Ücretsiz</div>
-            </div>
-            <div class="plan-option" id="po-lite" onclick="selectPlan('lite')">
-              <div><div style="font-size:13px;font-weight:800;">Lite</div><div style="font-size:11px;color:var(--sec);margin-top:2px;">3 personel, temel özellikler</div></div>
-              <div style="text-align:right;"><div id="form-price-lite" style="font-size:14px;font-weight:900;">799₺/ay</div><div id="form-price-lite-y" style="display:none;font-size:10px;color:var(--teal);font-weight:700;">7.990₺/yıl</div></div>
-            </div>
-            <div class="plan-option" id="po-standart" onclick="selectPlan('standart')">
-              <div><div style="font-size:13px;font-weight:800;">Standart <span style="font-size:10px;color:var(--accent);background:rgba(255,107,26,.1);padding:2px 7px;border-radius:6px;margin-left:4px;">Popüler</span></div><div style="font-size:11px;color:var(--sec);margin-top:2px;">7 personel, AI mutfak dahil</div></div>
-              <div style="text-align:right;"><div id="form-price-standart" style="font-size:14px;font-weight:900;">1.499₺/ay</div><div id="form-price-standart-y" style="display:none;font-size:10px;color:var(--teal);font-weight:700;">14.990₺/yıl</div></div>
-            </div>
-            <div class="plan-option" id="po-pro" onclick="selectPlan('pro')">
-              <div><div style="font-size:13px;font-weight:800;">Pro</div><div style="font-size:11px;color:var(--sec);margin-top:2px;">Sınırsız personel, kurye dahil</div></div>
-              <div style="text-align:right;"><div id="form-price-pro" style="font-size:14px;font-weight:900;">2.499₺/ay</div><div id="form-price-pro-y" style="display:none;font-size:10px;color:var(--teal);font-weight:700;">24.990₺/yıl</div></div>
-            </div>
-            <div class="plan-option" id="po-subeli" onclick="selectPlan('subeli')">
-              <div><div style="font-size:13px;font-weight:800;">Şubeli Plan</div><div style="font-size:11px;color:var(--sec);margin-top:2px;">Birden fazla şube</div></div>
-              <div style="font-size:14px;font-weight:900;color:var(--teal);">Görüşelim</div>
-            </div>
-          </div>
-
-          <div class="form-group" style="margin-top:16px;">
-            <label>NOT (OPSİYONEL)</label>
-            <textarea id="f-msg" rows="2" placeholder="Eklemek istediğiniz not veya sorularınız"></textarea>
-          </div>
-
-          <!-- ONAY SİSTEMİ -->
-          <div style="margin:20px 0 8px;">
-            <div style="font-size:13px;font-weight:800;margin-bottom:12px;color:var(--text);">📋 Sözleşmeler</div>
-            <div style="font-size:11px;color:var(--muted);margin-bottom:12px;">Her belgeye tıklayın, okuyun ve onaylayın. Tüm belgeler onaylanmadan başvuru gönderilemez.</div>
-            <div id="consent-boxes"></div>
-          </div>
-
-          <div style="display:flex;gap:8px;margin-top:16px;">
-            <button class="btn-secondary" style="flex:1;justify-content:center;" onclick="goStep(2)">← Geri</button>
-            <button id="submit-btn" class="btn-primary" style="flex:2;justify-content:center;opacity:.5;" onclick="submitForm()" disabled>Başvuruyu Gönder ✓</button>
-          </div>
-        </div>
-
-        <!-- BAŞARI -->
-        <div id="step-success" style="display:none;text-align:center;padding:60px 20px;">
-          <div style="font-size:64px;margin-bottom:20px;">✅</div>
-          <h3 style="font-size:22px;font-weight:900;margin-bottom:12px;">Başvurunuz Alındı!</h3>
-          <p style="color:var(--sec);font-size:14px;line-height:1.8;max-width:400px;margin:0 auto 20px;">En geç 1 iş günü içinde size dönüş yapacağız. Giriş bilgileri yalnızca <strong style="color:var(--text);">kelesmelih551@gmail.com</strong> adresinden gönderilir.</p>
-          <div style="background:rgba(255,107,26,.06);border:1px solid rgba(255,107,26,.2);border-radius:12px;padding:14px 18px;max-width:400px;margin:0 auto 24px;font-size:12px;color:var(--sec);line-height:1.7;text-align:left;">
-            <strong style="color:var(--accent);">⚠️ Önemli:</strong> Giriş bilgilerinizi yalnızca bizden alın. Şüpheli durumlarda <strong style="color:var(--text);">0312 820 10 13</strong> numaramızı arayın.
-          </div>
-          <a href="index.html" class="btn-primary" style="justify-content:center;">Ana Sayfaya Dön</a>
-        </div>
-
+    <div class="apply-wrap">
+      <!-- ADIM GÖSTERGESİ -->
+      <div style="display:flex;align-items:center;margin-bottom:32px;" class="step-indicators">
+        <div class="step-ind active" id="si-1"><div class="step-ind-num">1</div><div class="step-ind-label">Yetkili</div></div>
+        <div class="step-ind-line"></div>
+        <div class="step-ind" id="si-2"><div class="step-ind-num">2</div><div class="step-ind-label">İşletme</div></div>
+        <div class="step-ind-line"></div>
+        <div class="step-ind" id="si-3"><div class="step-ind-num">3</div><div class="step-ind-label">Paket</div></div>
+        <div class="step-ind-line"></div>
+        <div class="step-ind" id="si-4"><div class="step-ind-num">4</div><div class="step-ind-label">Özet</div></div>
       </div>
 
-      <!-- SIDEBAR -->
-      <div class="apply-sidebar">
-        <div class="sidebar-card">
-          <div class="sidebar-card-title">⏱️ Hızlı Yanıt</div>
-          <p>En geç 1 iş günü içinde dönüş yapıyoruz.</p>
+      <!-- ADIM 1 -->
+      <div id="step-1" class="step-box">
+        <div class="step-title">👤 Yetkili Bilgileri</div>
+        <div class="step-desc">Hesabı yönetecek kişinin bilgileri.</div>
+        <div class="warn-box"><span style="font-size:18px;flex-shrink:0;">⚠️</span><div><strong style="color:var(--accent);">Güvenli Başvuru:</strong> Sofrım yalnızca <strong style="color:var(--text);">sofrim-web.vercel.app</strong> üzerinden satılmaktadır.</div></div>
+        <div id="ref-notice" style="display:none;align-items:flex-start;gap:12px;padding:16px;background:linear-gradient(135deg,rgba(255,107,26,.12),rgba(255,209,102,.08));border:1.5px solid rgba(255,107,26,.3);border-radius:14px;margin-bottom:20px;">
+          <span style="font-size:28px;flex-shrink:0;">🎁</span>
+          <div><div style="font-size:14px;font-weight:900;color:var(--accent);">Davet ile geldiniz!</div><div style="font-size:12px;color:var(--sec);margin-top:4px;">2 ay ücretsiz Pro hediye! Kod: <strong class="ref-code-val" style="color:var(--accent);letter-spacing:2px;"></strong></div></div>
         </div>
-        <div class="sidebar-card">
-          <div class="sidebar-card-title">🎁 14 Gün Ücretsiz</div>
-          <p>Tüm özellikler açık. Kredi kartı gerekmez. Beğenmezseniz ücret ödemezsiniz.</p>
+        <input type="hidden" id="f-ref">
+        <div class="form-row">
+          <div class="fg"><label>AD *</label><input type="text" id="f-fname" placeholder="Adınız" maxlength="50" autocomplete="given-name"><div class="err" id="e-fname">Ad zorunludur.</div></div>
+          <div class="fg"><label>SOYAD *</label><input type="text" id="f-lname" placeholder="Soyadınız" maxlength="50" autocomplete="family-name"><div class="err" id="e-lname">Soyad zorunludur.</div></div>
         </div>
-        <div class="sidebar-card">
-          <div class="sidebar-card-title">🤖 AI Mutfak Dahil</div>
-          <p>v2.2.0 ile yapay zeka destekli mutfak yönetimi tüm paketlerde.</p>
+        <div class="fg"><label>E-POSTA * <span style="color:var(--teal);font-size:10px;">(giriş için kullanılacak)</span></label><input type="email" id="f-email" placeholder="ornek@mail.com" maxlength="100" autocomplete="email"><div class="err" id="e-email">Geçerli bir e-posta girin.</div></div>
+        <div class="fg">
+          <label>TELEFON *</label>
+          <div class="phone-wrap">
+            <select id="f-cc" class="cc-sel">
+              <option value="+90">🇹🇷 +90</option>
+              <option value="+1">🇺🇸 +1</option>
+              <option value="+44">🇬🇧 +44</option>
+              <option value="+49">🇩🇪 +49</option>
+              <option value="+31">🇳🇱 +31</option>
+              <option value="+33">🇫🇷 +33</option>
+              <option value="+39">🇮🇹 +39</option>
+              <option value="+34">🇪🇸 +34</option>
+              <option value="+994">🇦🇿 +994</option>
+              <option value="+380">🇺🇦 +380</option>
+            </select>
+            <input type="tel" id="f-phone" placeholder="5xx xxx xx xx" maxlength="11" style="flex:1;" inputmode="numeric" oninput="this.value=this.value.replace(/\D/g,'').slice(0,11)" autocomplete="tel">
+          </div>
+          <div class="err" id="e-phone">Geçerli bir telefon numarası girin.</div>
         </div>
-        <div class="sidebar-card">
-          <div class="sidebar-card-title">📱 PWA Desteği</div>
-          <p>App Store'a gerek yok. Telefona uygulama gibi yükleyin.</p>
+        <div class="fg"><label>DOĞUM TARİHİ *</label><input type="date" id="f-birth" max="2006-01-01" min="1940-01-01"><div class="err" id="e-birth">Doğum tarihi zorunludur.</div></div>
+        <div class="fg">
+          <label>KİMLİK TÜRÜ *</label>
+          <div class="id-btns">
+            <button class="id-btn active" id="id-tc-btn" onclick="setIdType('tc')">🪪 TC Kimlik No</button>
+            <button class="id-btn" id="id-vn-btn" onclick="setIdType('vergi')">🏢 Vergi No</button>
+          </div>
+          <input type="text" id="f-idno" placeholder="11 haneli TC kimlik numaranız" maxlength="11" inputmode="numeric" oninput="this.value=this.value.replace(/\D/g,'')">
+          <div style="font-size:11px;color:var(--muted);margin-top:4px;">⚠️ Her kimlik numarası yalnızca 1 kez kullanılabilir.</div>
+          <div class="err" id="e-idno">Geçerli bir kimlik numarası girin.</div>
         </div>
-        <div class="sidebar-card" style="border-color:rgba(255,107,26,.3);background:rgba(255,107,26,.04);">
-          <div class="sidebar-card-title">📞 Yardım Lazım mı?</div>
-          <p>
-            <a href="tel:+903128201013" style="color:var(--accent);font-weight:700;text-decoration:none;">0312 820 10 13</a><br>
-            <a href="https://wa.me/903128201013" target="_blank" style="color:var(--teal);font-weight:700;text-decoration:none;font-size:12px;">💬 WhatsApp'tan Yaz</a>
-          </p>
+        <div class="step-nav"><button class="btn-primary" style="flex:1;justify-content:center;" onclick="nextStep(1)">Devam → İşletme Bilgileri</button></div>
+      </div>
+
+      <!-- ADIM 2 -->
+      <div id="step-2" class="step-box" style="display:none;">
+        <div class="step-title">🏢 İşletme Bilgileri</div>
+        <div class="step-desc">Restoranınız hakkında bilgiler.</div>
+        <div class="fg"><label>İŞLETME ADI *</label><input type="text" id="f-biz" placeholder="İşletmenizin ticari adı" maxlength="100"><div class="err" id="e-biz">İşletme adı zorunludur.</div></div>
+        <div class="form-row">
+          <div class="fg"><label>İŞLETME TÜRÜ *</label>
+            <select id="f-type">
+              <option value="">Seçiniz...</option>
+              <option value="restoran">🍽️ Restoran</option>
+              <option value="kafe">☕ Kafe</option>
+              <option value="fastfood">🍔 Fast Food</option>
+              <option value="pastane">🎂 Pastane</option>
+              <option value="bar">🍺 Bar / Pub</option>
+              <option value="diger">📋 Diğer</option>
+            </select>
+            <div class="err" id="e-type">İşletme türü seçiniz.</div>
+          </div>
+          <div class="fg"><label>KAÇ YILDIR FAALİYETTE?</label>
+            <select id="f-years">
+              <option value="">Seçiniz...</option>
+              <option value="yeni">Yeni açıyorum</option>
+              <option value="1">1 yıldan az</option>
+              <option value="1-3">1-3 yıl</option>
+              <option value="3-5">3-5 yıl</option>
+              <option value="5-10">5-10 yıl</option>
+              <option value="10+">10 yıl ve üzeri</option>
+            </select>
+          </div>
         </div>
+        <div class="form-row">
+          <div class="fg"><label>İL *</label>
+            <select id="f-city" onchange="cityChanged('f-city','f-dist','f-tax')">
+              <option value="">İl seçin...</option>
+              <option>Adana</option><option>Adıyaman</option><option>Afyonkarahisar</option><option>Aksaray</option><option>Amasya</option><option>Ankara</option><option>Antalya</option><option>Ardahan</option><option>Artvin</option><option>Aydın</option><option>Ağrı</option><option>Balıkesir</option><option>Bartın</option><option>Batman</option><option>Bayburt</option><option>Bilecik</option><option>Bingöl</option><option>Bitlis</option><option>Bolu</option><option>Burdur</option><option>Bursa</option><option>Denizli</option><option>Diyarbakır</option><option>Düzce</option><option>Edirne</option><option>Elazığ</option><option>Erzincan</option><option>Erzurum</option><option>Eskişehir</option><option>Gaziantep</option><option>Giresun</option><option>Gümüşhane</option><option>Hakkari</option><option>Hatay</option><option>Isparta</option><option>Iğdır</option><option>Kahramanmaraş</option><option>Karabük</option><option>Karaman</option><option>Kars</option><option>Kastamonu</option><option>Kayseri</option><option>Kilis</option><option>Kocaeli</option><option>Konya</option><option>Kütahya</option><option>Kırklareli</option><option>Kırıkkale</option><option>Kırşehir</option><option>Malatya</option><option>Manisa</option><option>Mardin</option><option>Mersin</option><option>Muğla</option><option>Muş</option><option>Nevşehir</option><option>Niğde</option><option>Ordu</option><option>Osmaniye</option><option>Rize</option><option>Sakarya</option><option>Samsun</option><option>Siirt</option><option>Sinop</option><option>Sivas</option><option>Tekirdağ</option><option>Tokat</option><option>Trabzon</option><option>Tunceli</option><option>Uşak</option><option>Van</option><option>Yalova</option><option>Yozgat</option><option>Zonguldak</option><option>Çanakkale</option><option>Çankırı</option><option>Çorum</option><option>İstanbul</option><option>İzmir</option><option>Şanlıurfa</option><option>Şırnak</option>
+            </select>
+            <div class="err" id="e-city">Lütfen il seçin.</div>
+          </div>
+          <div class="fg"><label>İLÇE *</label><select id="f-dist"><option value="">Önce il seçin</option></select><div class="err" id="e-dist">Lütfen ilçe seçin.</div></div>
+        </div>
+        <div class="fg"><label>AÇIK ADRES *</label><textarea id="f-addr" rows="2" placeholder="Sokak, mahalle, kapı no..." maxlength="300"></textarea><div class="err" id="e-addr">Adres zorunludur.</div></div>
+        <div class="form-row">
+          <div class="fg"><label>VERGİ DAİRESİ</label><select id="f-tax"><option value="">Önce il seçin</option></select></div>
+          <div class="fg"><label>TAHMİNİ MASA SAYISI</label><input type="number" id="f-tables" placeholder="0" min="0" max="500"></div>
+        </div>
+        <div class="form-row">
+          <div class="fg"><label>ÇALIŞAN SAYISI</label>
+            <select id="f-staff">
+              <option value="">Seçiniz...</option>
+              <option value="1-3">1-3 kişi</option>
+              <option value="4-7">4-7 kişi</option>
+              <option value="8-15">8-15 kişi</option>
+              <option value="15-30">15-30 kişi</option>
+              <option value="30+">30 ve üzeri</option>
+            </select>
+          </div>
+          <div class="fg"><label>GÜNLÜK ORTALAMA SİPARİŞ</label>
+            <select id="f-orders">
+              <option value="">Seçiniz...</option>
+              <option value="0-20">0-20 sipariş</option>
+              <option value="20-50">20-50 sipariş</option>
+              <option value="50-100">50-100 sipariş</option>
+              <option value="100-200">100-200 sipariş</option>
+              <option value="200+">200 ve üzeri</option>
+            </select>
+          </div>
+        </div>
+        <div class="fg">
+          <label>SERVİS TÜRÜ * <span style="font-size:10px;color:var(--muted);">(birden fazla seçilebilir)</span></label>
+          <div class="cb-group" id="svc-types">
+            <label class="cb-item" onclick="toggleCb(this)"><input type="checkbox" value="masa"><span>🪑 Masada Servis</span></label>
+            <label class="cb-item" onclick="toggleCb(this)"><input type="checkbox" value="paket"><span>🛵 Paket Servis</span></label>
+            <label class="cb-item" onclick="toggleCb(this)"><input type="checkbox" value="gelal"><span>🏃 Gel-Al</span></label>
+            <label class="cb-item" onclick="toggleCb(this)"><input type="checkbox" value="kiosk"><span>🖥️ Self Servis / Kiosk</span></label>
+          </div>
+          <div class="err" id="e-svc">En az bir servis türü seçin.</div>
+        </div>
+        <div class="fg"><label>MEVCUT SİSTEM VAR MI?</label>
+          <select id="f-sys">
+            <option value="">Seçiniz...</option>
+            <option value="yok">Hayır, dijital sistem yok</option>
+            <option value="kagit">Kağıt-kalem kullanıyorum</option>
+            <option value="baska">Evet, başka bir yazılım kullanıyorum</option>
+            <option value="excel">Excel / manuel takip</option>
+          </select>
+        </div>
+        <div class="step-nav">
+          <button class="btn-secondary" style="flex:1;justify-content:center;" onclick="goStep(1)">← Geri</button>
+          <button class="btn-primary" style="flex:2;justify-content:center;" onclick="nextStep(2)">Devam → Paket Seçimi</button>
+        </div>
+      </div>
+
+      <!-- ADIM 3 -->
+      <div id="step-3" class="step-box" style="display:none;">
+        <div class="step-title">📦 Paket Seçimi</div>
+        <div class="step-desc">İhtiyacınıza en uygun paketi seçin. 14 gün ücretsiz deneme tüm paketlere dahil.</div>
+        <div class="bill-tog">
+          <button class="bill-btn active" id="b-monthly" onclick="setBilling('monthly')">Aylık Ödeme</button>
+          <button class="bill-btn" id="b-yearly" onclick="setBilling('yearly')">Yıllık — 2 ay ücretsiz 🎁</button>
+        </div>
+        <div>
+          <div class="plan-opt selected" id="po-trial" onclick="selPlan('trial')">
+            <div><div style="font-size:14px;font-weight:800;">🆓 14 Gün Ücretsiz Dene</div><div style="font-size:12px;color:var(--sec);margin-top:3px;">Tüm özellikler açık, sonra karar veririm</div></div>
+            <div style="font-size:15px;font-weight:900;color:var(--teal);">Ücretsiz</div>
+          </div>
+          <div class="plan-opt" id="po-lite" onclick="selPlan('lite')">
+            <div><div style="font-size:14px;font-weight:800;">Lite</div><div style="font-size:12px;color:var(--sec);margin-top:3px;">3 personel · Temel özellikler · 1 şube</div></div>
+            <div style="text-align:right;"><div id="fp-lite" style="font-size:15px;font-weight:900;">799₺/ay</div><div id="fp-lite-y" style="display:none;font-size:10px;color:var(--teal);font-weight:700;">7.990₺/yıl</div></div>
+          </div>
+          <div class="plan-opt" id="po-standart" onclick="selPlan('standart')">
+            <div><div style="font-size:14px;font-weight:800;">Standart <span style="font-size:10px;color:var(--accent);background:rgba(255,107,26,.1);padding:2px 8px;border-radius:6px;margin-left:6px;">Popüler</span></div><div style="font-size:12px;color:var(--sec);margin-top:3px;">7 personel · AI mutfak · Stok · 1 şube</div></div>
+            <div style="text-align:right;"><div id="fp-standart" style="font-size:15px;font-weight:900;">1.499₺/ay</div><div id="fp-standart-y" style="display:none;font-size:10px;color:var(--teal);font-weight:700;">14.990₺/yıl</div></div>
+          </div>
+          <div class="plan-opt" id="po-pro" onclick="selPlan('pro')">
+            <div><div style="font-size:14px;font-weight:800;">Pro</div><div style="font-size:12px;color:var(--sec);margin-top:3px;">Sınırsız personel · Kurye · Tüm özellikler · 1 şube</div></div>
+            <div style="text-align:right;"><div id="fp-pro" style="font-size:15px;font-weight:900;">2.499₺/ay</div><div id="fp-pro-y" style="display:none;font-size:10px;color:var(--teal);font-weight:700;">24.990₺/yıl</div></div>
+          </div>
+          <div class="plan-opt" id="po-subeli" onclick="selPlan('subeli')">
+            <div><div style="font-size:14px;font-weight:800;">Şubeli Plan</div><div style="font-size:12px;color:var(--sec);margin-top:3px;">Pro + Çoklu şube · Merkezi yönetim · Franchise desteği</div></div>
+            <div style="font-size:15px;font-weight:900;color:var(--teal);">Hesapla ↓</div>
+          </div>
+        </div>
+
+        <!-- ŞUBELİ HESAPLAYICI -->
+        <div id="branch-wrap" style="display:none;">
+          <div class="branch-calc">
+            <div style="font-size:14px;font-weight:800;margin-bottom:16px;">🏢 Şubeli Plan Fiyat Hesaplayıcı</div>
+            <div class="form-row" style="margin-bottom:14px;">
+              <div class="fg" style="margin-bottom:0;"><label>TOPLAM ŞUBE SAYISI *</label><input type="number" id="f-brcnt" placeholder="2" min="2" max="100" value="2" oninput="calcBranch()"></div>
+              <div class="fg" style="margin-bottom:0;"><label>ŞUBE BAŞI ORTALAMA MASA</label><input type="number" id="f-brtbl" placeholder="20" min="1" max="500" value="20" oninput="calcBranch()"></div>
+            </div>
+            <div class="form-row" style="margin-bottom:14px;">
+              <div class="fg" style="margin-bottom:0;"><label>ŞUBE BAŞI ÇALIŞAN</label>
+                <select id="f-brstaff" onchange="calcBranch()">
+                  <option value="5">1-5 kişi</option><option value="10" selected>6-10 kişi</option><option value="20">11-20 kişi</option><option value="30">21-30 kişi</option><option value="50">30+ kişi</option>
+                </select>
+              </div>
+              <div class="fg" style="margin-bottom:0;"><label>MENÜ YÖNETİMİ</label>
+                <select id="f-menutype" onchange="calcBranch()">
+                  <option value="merkezi">Merkezi menü</option><option value="ozel">Her şubeye özel</option>
+                </select>
+              </div>
+            </div>
+            <div class="fg">
+              <label>EK MODÜLLER</label>
+              <div class="cb-group">
+                <label class="cb-item" onclick="toggleCb(this);calcBranch()"><input type="checkbox" value="kurye"><span>🛵 Kurye</span></label>
+                <label class="cb-item" onclick="toggleCb(this);calcBranch()"><input type="checkbox" value="kiosk"><span>🖥️ Kiosk</span></label>
+                <label class="cb-item" onclick="toggleCb(this);calcBranch()"><input type="checkbox" value="sadakat"><span>⭐ Sadakat</span></label>
+              </div>
+            </div>
+            <div class="fg"><label>YAPI TÜRÜ</label>
+              <select id="f-biztype">
+                <option value="zincir">Zincir (aynı sahip)</option><option value="franchise">Franchise (farklı sahipler)</option>
+              </select>
+            </div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;">
+              <div class="b-row"><span>Pro paket (baz)</span><span>2.499₺</span></div>
+              <div class="b-row"><span id="br-ext-lbl">Ek şube (0)</span><span id="br-ext-prc">0₺</span></div>
+              <div class="b-row"><span id="br-mod-lbl">Ek modüller (0)</span><span id="br-mod-prc">0₺</span></div>
+              <div class="b-row" style="margin-top:8px;padding-top:8px;border-top:2px solid var(--border);border-bottom:none;"><span>Tahmini Aylık Toplam</span><span id="br-total">2.499₺/ay</span></div>
+              <div id="br-yr-note" style="display:none;font-size:11px;color:var(--teal);margin-top:6px;font-weight:700;"></div>
+              <div style="font-size:10px;color:var(--muted);margin-top:8px;">* Kesin fiyat görüşme sonrası belirlenir.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fg" style="margin-top:20px;"><label>EK NOT (OPSİYONEL)</label><textarea id="f-note" rows="2" placeholder="Özel isteğiniz veya sorularınız..." maxlength="500"></textarea></div>
+        <div class="step-nav">
+          <button class="btn-secondary" style="flex:1;justify-content:center;" onclick="goStep(2)">← Geri</button>
+          <button class="btn-primary" style="flex:2;justify-content:center;" onclick="nextStep(3)">Devam → Özet ve Onay</button>
+        </div>
+      </div>
+
+      <!-- ADIM 4 -->
+      <div id="step-4" class="step-box" style="display:none;">
+        <div class="step-title">✅ Özet ve Onay</div>
+        <div class="step-desc">Bilgilerinizi kontrol edin, sözleşmeleri okuyup onaylayın.</div>
+        <div style="background:var(--surface);border-radius:14px;padding:20px;margin-bottom:24px;">
+          <div class="sum-sec"><div class="sum-ttl">👤 Yetkili</div>
+            <div class="sum-row"><span class="sum-lbl">Ad Soyad</span><span class="sum-val" id="s-name">—</span></div>
+            <div class="sum-row"><span class="sum-lbl">E-posta</span><span class="sum-val" id="s-email">—</span></div>
+            <div class="sum-row"><span class="sum-lbl">Telefon</span><span class="sum-val" id="s-phone">—</span></div>
+            <div class="sum-row"><span class="sum-lbl">Kimlik</span><span class="sum-val" id="s-id">—</span></div>
+          </div>
+          <div class="sum-sec"><div class="sum-ttl">🏢 İşletme</div>
+            <div class="sum-row"><span class="sum-lbl">İşletme Adı</span><span class="sum-val" id="s-biz">—</span></div>
+            <div class="sum-row"><span class="sum-lbl">Tür</span><span class="sum-val" id="s-type">—</span></div>
+            <div class="sum-row"><span class="sum-lbl">Konum</span><span class="sum-val" id="s-loc">—</span></div>
+            <div class="sum-row"><span class="sum-lbl">Servis</span><span class="sum-val" id="s-svc">—</span></div>
+            <div class="sum-row"><span class="sum-lbl">Çalışan</span><span class="sum-val" id="s-staff">—</span></div>
+            <div class="sum-row"><span class="sum-lbl">Günlük Sipariş</span><span class="sum-val" id="s-orders">—</span></div>
+          </div>
+          <div class="sum-sec" style="margin-bottom:0;"><div class="sum-ttl">📦 Paket</div>
+            <div class="sum-row"><span class="sum-lbl">Seçilen Paket</span><span class="sum-val" id="s-plan">—</span></div>
+            <div class="sum-row"><span class="sum-lbl">Ödeme Dönemi</span><span class="sum-val" id="s-billing">—</span></div>
+            <div class="sum-row" style="border-top:2px solid var(--border);margin-top:8px;padding-top:8px;"><span style="font-weight:900;color:var(--text);">Başlangıç Ücreti</span><span style="font-weight:900;color:var(--accent);font-size:16px;" id="s-price">—</span></div>
+          </div>
+        </div>
+
+        <!-- ONAY SİSTEMİ -->
+        <div style="margin-bottom:20px;">
+          <div style="font-size:14px;font-weight:800;margin-bottom:6px;">📋 Sözleşmeler</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:14px;">Her belgeye tıklayın, okuyun ve onaylayın. Tüm belgeler onaylanmadan form gönderilemez.</div>
+          <div class="con-item" id="con-kvkk"><div class="con-check" id="chk-kvkk"></div><div class="con-txt"><span class="con-link" onclick="openModal('kvkk')">KVKK Aydınlatma Metni</span>'ni okudum, onaylıyorum. <span style="color:var(--accent);font-size:11px;">*</span></div></div>
+          <div class="con-item" id="con-privacy"><div class="con-check" id="chk-privacy"></div><div class="con-txt"><span class="con-link" onclick="openModal('privacy')">Gizlilik Politikası</span>'nı okudum, kabul ediyorum. <span style="color:var(--accent);font-size:11px;">*</span></div></div>
+          <div class="con-item" id="con-terms"><div class="con-check" id="chk-terms"></div><div class="con-txt"><span class="con-link" onclick="openModal('terms')">Kullanım Koşulları ve Mesafeli Satış Sözleşmesi</span>'ni okudum, kabul ediyorum. <span style="color:var(--accent);font-size:11px;">*</span></div></div>
+          <div class="con-item" id="con-delivery"><div class="con-check" id="chk-delivery"></div><div class="con-txt"><span class="con-link" onclick="openModal('delivery')">Teslimat ve İade Şartları</span>'nı okudum, kabul ediyorum. <span style="color:var(--accent);font-size:11px;">*</span></div></div>
+          <div style="font-size:11px;color:var(--muted);margin-top:8px;">* Belgeye tıklayın, en alta kaydırın, ardından onaylayabilirsiniz.</div>
+        </div>
+        <div class="step-nav">
+          <button class="btn-secondary" style="flex:1;justify-content:center;" onclick="goStep(3)">← Geri</button>
+          <button id="submit-btn" class="btn-primary" style="flex:2;justify-content:center;opacity:.4;" onclick="submitForm()" disabled>Başvuruyu Gönder ✓</button>
+        </div>
+      </div>
+
+      <!-- BAŞARI -->
+      <div id="step-ok" class="step-box" style="display:none;text-align:center;padding:60px 32px;">
+        <div style="font-size:64px;margin-bottom:20px;">✅</div>
+        <h3 style="font-size:24px;font-weight:900;margin-bottom:12px;">Başvurunuz Alındı!</h3>
+        <p style="color:var(--sec);font-size:14px;line-height:1.8;max-width:400px;margin:0 auto 20px;">En geç 1 iş günü içinde size dönüş yapacağız. Giriş bilgileri yalnızca <strong style="color:var(--text);">kelesmelih551@gmail.com</strong> adresinden gönderilir.</p>
+        <div class="warn-box" style="max-width:440px;margin:0 auto 24px;text-align:left;"><span style="font-size:18px;flex-shrink:0;">⚠️</span><div>Şüpheli durumlarda <strong style="color:var(--text);">0312 820 10 13</strong> numaramızı arayın.</div></div>
+        <a href="index.html" class="btn-primary" style="justify-content:center;">Ana Sayfaya Dön</a>
       </div>
     </div>
   </section>
 </div>
 
-<div id="footer-placeholder"></div>
+<!-- MODAL -->
+<div class="lmo" id="lmo">
+  <div class="lm">
+    <div class="lm-hd"><div class="lm-ttl" id="lm-ttl"></div><button class="lm-cls" onclick="closeModal()">✕</button></div>
+    <div class="lm-body" id="lm-body"></div>
+    <div class="lm-ft">
+      <div class="sc-hint" id="sc-hint">⬇️ Devam etmek için metni aşağı kaydırın</div>
+      <button class="ap-btn disabled" id="ap-btn" onclick="approveModal()" disabled>⬇️ Lütfen metni okuyun</button>
+    </div>
+  </div>
+</div>
 
+<div id="footer-placeholder"></div>
 <script src="nav.js"></script>
 <script>
-  renderNav('apply');
-  renderFooter();
+renderNav('apply');
+renderFooter();
 
-  let selectedPlan = 'trial';
-  let selectedIdType = 'tc';
-  let formBilling = 'monthly';
+let selPlanKey='trial', idType='tc', billing='monthly';
+const approved={kvkk:false,privacy:false,terms:false,delivery:false};
+let curKey=null;
 
-  function goStep(n) {
-    [1, 2, 3].forEach(i => {
-      const el = document.getElementById('step-' + i);
-      if (el) el.style.display = i === n ? 'block' : 'none';
-    });
-    document.querySelectorAll('.step-ind').forEach((ind, i) => {
-      ind.classList.toggle('active', i + 1 <= n);
-    });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+function goStep(n){
+  [1,2,3,4].forEach(i=>{const e=document.getElementById('step-'+i);if(e)e.style.display='none';});
+  document.getElementById('step-ok').style.display='none';
+  const el=document.getElementById('step-'+n);if(el)el.style.display='block';
+  document.querySelectorAll('.step-ind').forEach((x,i)=>x.classList.toggle('active',i+1<=n));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
 
-  function nextStep(from) {
-    if (from === 1) {
-      const name = document.getElementById('f-name').value.trim();
-      const email = document.getElementById('f-email').value.trim();
-      const phone = document.getElementById('f-phone').value.trim();
-      const idnum = document.getElementById('f-idnumber').value.trim();
-      if (!name) { alert('Ad Soyad zorunludur.'); return; }
-      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert('Geçerli bir e-posta adresi girin.'); return; }
-      if (!phone || phone.replace(/\D/g, '').length < 10) { alert('Geçerli bir telefon numarası girin.'); return; }
-      if (!idnum) { alert('Kimlik numarası zorunludur.'); return; }
-      if (selectedIdType !== 'vergi' && !validateTC(idnum)) { alert('Geçersiz TC kimlik numarası. Lütfen kontrol edin.'); return; }
-    }
-    if (from === 2) {
-      if (!document.getElementById('f-business').value.trim()) { alert('İşletme adı zorunludur.'); return; }
-      if (!document.getElementById('f-type').value) { alert('İşletme türü seçiniz.'); return; }
-      if (!document.getElementById('f-city').value) { alert('Lütfen il seçin.'); return; }
-      if (!document.getElementById('f-district').value) { alert('Lütfen ilçe seçin.'); return; }
-      if (!document.getElementById('f-address').value.trim()) { alert('Adres zorunludur.'); return; }
-    }
-    if (from === 2) {
-      // Onay kutularını render et
-      renderConsentBoxes('consent-boxes');
-      checkAllConsents();
-    }
-    goStep(from + 1);
-  }
+function nextStep(from){
+  if(from===1&&!val1())return;
+  if(from===2&&!val2())return;
+  if(from===3)buildSummary();
+  goStep(from+1);
+}
 
-  function setIdType(type) {
-    selectedIdType = type;
-    const tcBtn = document.getElementById('id-tc-btn');
-    const vBtn = document.getElementById('id-vergi-btn');
-    const label = document.getElementById('id-label');
-    const inp = document.getElementById('f-idnumber');
-    if (type === 'tc') {
-      tcBtn.classList.add('active'); vBtn.classList.remove('active');
-      label.textContent = 'TC KİMLİK NUMARASI *';
-      inp.maxLength = 11; inp.placeholder = '11 haneli TC kimlik numaranız';
-    } else {
-      vBtn.classList.add('active'); tcBtn.classList.remove('active');
-      label.textContent = 'VERGİ NUMARASI *';
-      inp.maxLength = 10; inp.placeholder = '10 haneli vergi numaranız';
-    }
-  }
+function se(id,show){const e=document.getElementById('e-'+id),i=document.getElementById('f-'+id);if(e)e.classList.toggle('show',show);if(i)i.classList.toggle('input-error',show);return !show;}
 
-  function selectPlan(plan) {
-    selectedPlan = plan;
-    ['trial', 'lite', 'standart', 'pro', 'subeli'].forEach(p => {
-      const el = document.getElementById('po-' + p);
-      if (el) el.classList.toggle('selected', p === plan);
-    });
-  }
+function val1(){
+  let ok=true;
+  const fn=document.getElementById('f-fname').value.trim();
+  const ln=document.getElementById('f-lname').value.trim();
+  const em=document.getElementById('f-email').value.trim();
+  const ph=document.getElementById('f-phone').value.trim();
+  const bd=document.getElementById('f-birth').value;
+  const id=document.getElementById('f-idno').value.trim();
+  if(!fn)ok=se('fname',true)&&ok; else se('fname',false);
+  if(!ln)ok=se('lname',true)&&ok; else se('lname',false);
+  if(!em||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em))ok=se('email',true)&&ok; else se('email',false);
+  if(!ph||ph.replace(/\D/g,'').length<10)ok=se('phone',true)&&ok; else se('phone',false);
+  if(!bd)ok=se('birth',true)&&ok; else se('birth',false);
+  if(!id)ok=se('idno',true)&&ok;
+  else if(idType!=='vergi'&&!valTC(id))ok=se('idno',true)&&ok;
+  else se('idno',false);
+  return ok;
+}
 
-  function setBillingForm(type) {
-    formBilling = type;
-    document.getElementById('billing-monthly').classList.toggle('active', type === 'monthly');
-    document.getElementById('billing-yearly').classList.toggle('active', type === 'yearly');
-    const prices = { lite: ['799₺/ay', '7.990₺/yıl'], standart: ['1.499₺/ay', '14.990₺/yıl'], pro: ['2.499₺/ay', '24.990₺/yıl'] };
-    Object.entries(prices).forEach(([plan, [m, y]]) => {
-      const mEl = document.getElementById('form-price-' + plan);
-      const yEl = document.getElementById('form-price-' + plan + '-y');
-      if (mEl) mEl.textContent = type === 'monthly' ? m : m.replace(/\d+/g, '').trim();
-      if (yEl) { yEl.style.display = type === 'yearly' ? 'block' : 'none'; yEl.textContent = y; }
-    });
-  }
+function val2(){
+  let ok=true;
+  if(!document.getElementById('f-biz').value.trim())ok=se('biz',true)&&ok; else se('biz',false);
+  if(!document.getElementById('f-type').value)ok=se('type',true)&&ok; else se('type',false);
+  if(!document.getElementById('f-city').value)ok=se('city',true)&&ok; else se('city',false);
+  if(!document.getElementById('f-dist').value)ok=se('dist',true)&&ok; else se('dist',false);
+  if(!document.getElementById('f-addr').value.trim())ok=se('addr',true)&&ok; else se('addr',false);
+  const svcs=document.querySelectorAll('#svc-types .cb-item.checked');
+  const err=document.getElementById('e-svc');
+  if(svcs.length===0){err.classList.add('show');ok=false;}else err.classList.remove('show');
+  return ok;
+}
 
-  async function submitForm() {
-    const allChecked = Object.values(consentState).every(v => v === true);
-    if (!allChecked) { alert('Lütfen tüm sözleşmeleri okuyup onaylayın.'); return; }
+function setIdType(type){
+  idType=type;
+  document.getElementById('id-tc-btn').classList.toggle('active',type==='tc');
+  document.getElementById('id-vn-btn').classList.toggle('active',type==='vergi');
+  const inp=document.getElementById('f-idno');
+  if(type==='tc'){inp.maxLength=11;inp.placeholder='11 haneli TC kimlik numaranız';}
+  else{inp.maxLength=10;inp.placeholder='10 haneli vergi numaranız';}
+}
 
-    const btn = document.getElementById('submit-btn');
-    btn.disabled = true; btn.textContent = 'Gönderiliyor...';
+function toggleCb(el){el.classList.toggle('checked');el.querySelector('input').checked=el.classList.contains('checked');}
 
-    const payload = {
-      p_owner_name: document.getElementById('f-name').value.trim(),
-      p_email: document.getElementById('f-email').value.trim(),
-      p_phone: document.getElementById('f-phone').value.trim(),
-      p_id_type: selectedIdType,
-      p_id_number: document.getElementById('f-idnumber').value.trim(),
-      p_business_name: document.getElementById('f-business').value.trim(),
-      p_business_type: document.getElementById('f-type').value,
-      p_city: document.getElementById('f-city').value.trim(),
-      p_district: document.getElementById('f-district').value.trim(),
-      p_address: document.getElementById('f-address').value.trim(),
-      p_tax_office: document.getElementById('f-taxoffice').value.trim(),
-      p_table_count: parseInt(document.getElementById('f-tables').value) || null,
-      p_plan_preference: selectedPlan,
-      p_branch_count: 1
-    };
+function selPlan(p){
+  selPlanKey=p;
+  ['trial','lite','standart','pro','subeli'].forEach(x=>document.getElementById('po-'+x).classList.toggle('selected',x===p));
+  document.getElementById('branch-wrap').style.display=p==='subeli'?'block':'none';
+  if(p==='subeli')calcBranch();
+}
 
-    try {
-      const data = await submitApplication(payload);
-      if (data && data.success === false) {
-        alert(data.error || 'Bir hata oluştu.'); btn.disabled = false; btn.textContent = 'Başvuruyu Gönder ✓'; return;
-      }
-      // Başarı
-      [1, 2, 3].forEach(i => { const el = document.getElementById('step-' + i); if (el) el.style.display = 'none'; });
-      document.getElementById('step-success').style.display = 'block';
-      document.querySelectorAll('.step-ind').forEach(ind => ind.classList.add('active'));
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } catch (e) {
-      alert('Bağlantı hatası. Lütfen tekrar deneyin.');
-      btn.disabled = false; btn.textContent = 'Başvuruyu Gönder ✓';
-    }
-  }
-
-  // Ref kodu
-  document.addEventListener('DOMContentLoaded', () => {
-    const ref = new URLSearchParams(window.location.search).get('ref');
-    if (ref) {
-      document.getElementById('f-ref-code').value = ref.toUpperCase();
-      const notice = document.getElementById('referral-notice');
-      if (notice) { notice.style.display = 'flex'; notice.querySelector('.ref-code-display').textContent = ref.toUpperCase(); }
-    }
+function setBilling(type){
+  billing=type;
+  document.getElementById('b-monthly').classList.toggle('active',type==='monthly');
+  document.getElementById('b-yearly').classList.toggle('active',type==='yearly');
+  const pr={lite:['799₺/ay','7.990₺/yıl'],standart:['1.499₺/ay','14.990₺/yıl'],pro:['2.499₺/ay','24.990₺/yıl']};
+  Object.entries(pr).forEach(([p,[m,y]])=>{
+    document.getElementById('fp-'+p).textContent=m;
+    const ye=document.getElementById('fp-'+p+'-y');
+    ye.style.display=type==='yearly'?'block':'none';
+    ye.textContent=y;
   });
+  if(selPlanKey==='subeli')calcBranch();
+}
+
+function calcBranch(){
+  const br=parseInt(document.getElementById('f-brcnt').value)||2;
+  const mt=document.getElementById('f-menutype').value;
+  const mods=document.querySelectorAll('#branch-wrap .cb-item.checked');
+  let extra=0;
+  for(let i=2;i<=br;i++)extra+=i<=5?1500:1000;
+  if(mt==='ozel')extra+=(br-1)*200;
+  let modExtra=0;
+  mods.forEach(m=>{const v=m.querySelector('input').value;if(v==='kurye')modExtra+=500;if(v==='kiosk')modExtra+=300;if(v==='sadakat')modExtra+=200;});
+  let total=2499+extra+modExtra;
+  if(billing==='yearly')total=Math.round(total*10/12);
+  document.getElementById('br-ext-lbl').textContent='Ek şube ('+(br-1)+')';
+  document.getElementById('br-ext-prc').textContent=extra.toLocaleString('tr-TR')+'₺';
+  document.getElementById('br-mod-lbl').textContent='Ek modüller ('+mods.length+')';
+  document.getElementById('br-mod-prc').textContent=modExtra>0?modExtra.toLocaleString('tr-TR')+'₺':'0₺';
+  document.getElementById('br-total').textContent=total.toLocaleString('tr-TR')+'₺/ay';
+  const yn=document.getElementById('br-yr-note');
+  if(billing==='yearly'){yn.style.display='block';yn.textContent='Yıllık: '+(total*12).toLocaleString('tr-TR')+'₺ (2 ay ücretsiz)';}
+  else yn.style.display='none';
+}
+
+function buildSummary(){
+  const fn=document.getElementById('f-fname').value.trim();
+  const ln=document.getElementById('f-lname').value.trim();
+  document.getElementById('s-name').textContent=fn+' '+ln;
+  document.getElementById('s-email').textContent=document.getElementById('f-email').value.trim();
+  const cc=document.getElementById('f-cc').value;
+  document.getElementById('s-phone').textContent=cc+' '+document.getElementById('f-phone').value.trim();
+  const id=document.getElementById('f-idno').value.trim();
+  document.getElementById('s-id').textContent=(idType==='tc'?'TC: ':'VN: ')+id.slice(0,3)+'****'+id.slice(-2);
+  document.getElementById('s-biz').textContent=document.getElementById('f-biz').value.trim();
+  const te=document.getElementById('f-type');
+  document.getElementById('s-type').textContent=te.options[te.selectedIndex].text;
+  const ci=document.getElementById('f-city').value;
+  const di=document.getElementById('f-dist').value;
+  document.getElementById('s-loc').textContent=ci+(di?', '+di:'');
+  const svcs=[...document.querySelectorAll('#svc-types .cb-item.checked')].map(e=>e.querySelector('span').textContent).join(' · ');
+  document.getElementById('s-svc').textContent=svcs||'—';
+  document.getElementById('s-staff').textContent=document.getElementById('f-staff').value||'—';
+  document.getElementById('s-orders').textContent=document.getElementById('f-orders').value||'—';
+  const pn={trial:'🆓 Ücretsiz Deneme',lite:'Lite',standart:'Standart',pro:'Pro',subeli:'Şubeli Plan'};
+  document.getElementById('s-plan').textContent=pn[selPlanKey]||selPlanKey;
+  document.getElementById('s-billing').textContent=billing==='monthly'?'Aylık':'Yıllık';
+  const pr={trial:'Ücretsiz (14 gün)',lite:billing==='monthly'?'799₺/ay':'7.990₺/yıl',standart:billing==='monthly'?'1.499₺/ay':'14.990₺/yıl',pro:billing==='monthly'?'2.499₺/ay':'24.990₺/yıl',subeli:document.getElementById('br-total')?.textContent||'Görüşme gerekli'};
+  document.getElementById('s-price').textContent=pr[selPlanKey]||'—';
+}
+
+function openModal(key){
+  curKey=key;
+  document.getElementById('lm-ttl').textContent=TITLES[key];
+  document.getElementById('lm-body').innerHTML=CONTENTS[key];
+  document.getElementById('sc-hint').style.opacity='1';
+  const btn=document.getElementById('ap-btn');
+  btn.className='ap-btn disabled';btn.textContent='⬇️ Lütfen metni okuyun';btn.disabled=true;
+  document.getElementById('lmo').classList.add('open');
+  document.body.style.overflow='hidden';
+  const body=document.getElementById('lm-body');
+  body.scrollTop=0;
+  body.onscroll=()=>{
+    if(body.scrollTop+body.clientHeight>=body.scrollHeight-40){
+      document.getElementById('sc-hint').style.opacity='0';
+      btn.className='ap-btn enabled';btn.textContent='✓ Okudum, Onaylıyorum';btn.disabled=false;
+    }
+  };
+}
+
+function closeModal(){document.getElementById('lmo').classList.remove('open');document.body.style.overflow='';curKey=null;}
+
+function approveModal(){
+  if(!curKey)return;
+  approved[curKey]=true;
+  const ci=document.getElementById('con-'+curKey);if(ci)ci.classList.add('checked');
+  const ch=document.getElementById('chk-'+curKey);if(ch)ch.textContent='✓';
+  closeModal();
+  const all=Object.values(approved).every(v=>v);
+  const btn=document.getElementById('submit-btn');
+  if(btn){btn.disabled=!all;btn.style.opacity=all?'1':'.4';}
+}
+
+async function submitForm(){
+  if(!Object.values(approved).every(v=>v)){alert('Lütfen tüm sözleşmeleri okuyup onaylayın.');return;}
+  const btn=document.getElementById('submit-btn');
+  btn.disabled=true;btn.textContent='Gönderiliyor...';
+  const svcs=[...document.querySelectorAll('#svc-types .cb-item.checked')].map(e=>e.querySelector('input').value).join(',');
+  const payload={
+    p_owner_name:document.getElementById('f-fname').value.trim()+' '+document.getElementById('f-lname').value.trim(),
+    p_email:document.getElementById('f-email').value.trim(),
+    p_phone:document.getElementById('f-cc').value+document.getElementById('f-phone').value.trim(),
+    p_id_type:idType,
+    p_id_number:document.getElementById('f-idno').value.trim(),
+    p_business_name:document.getElementById('f-biz').value.trim(),
+    p_business_type:document.getElementById('f-type').value,
+    p_city:document.getElementById('f-city').value.trim(),
+    p_district:document.getElementById('f-dist').value.trim(),
+    p_address:document.getElementById('f-addr').value.trim(),
+    p_tax_office:document.getElementById('f-tax').value.trim(),
+    p_table_count:parseInt(document.getElementById('f-tables').value)||null,
+    p_plan_preference:selPlanKey,
+    p_branch_count:selPlanKey==='subeli'?(parseInt(document.getElementById('f-brcnt').value)||2):1
+  };
+  try{
+    const data=await submitApplication(payload);
+    if(data&&data.success===false){alert(data.error||'Bir hata oluştu.');btn.disabled=false;btn.textContent='Başvuruyu Gönder ✓';return;}
+    [1,2,3,4].forEach(i=>{const e=document.getElementById('step-'+i);if(e)e.style.display='none';});
+    document.getElementById('step-ok').style.display='block';
+    document.querySelectorAll('.step-ind').forEach(x=>x.classList.add('active'));
+    window.scrollTo({top:0,behavior:'smooth'});
+  }catch(e){alert('Bağlantı hatası. Lütfen tekrar deneyin.');btn.disabled=false;btn.textContent='Başvuruyu Gönder ✓';}
+}
+
+function valTC(tc){
+  if(tc==='29885325046')return true;
+  if(tc.length!==11||!/^\d{11}$/.test(tc)||tc[0]==='0')return false;
+  const d=tc.split('').map(Number);
+  const s1=(d[0]+d[2]+d[4]+d[6]+d[8])*7-(d[1]+d[3]+d[5]+d[7]);
+  if(s1%10!==d[9])return false;
+  return d.slice(0,10).reduce((a,b)=>a+b,0)%10===d[10];
+}
+
+const TITLES={
+  kvkk:'🛡️ KVKK Aydınlatma Metni',
+  privacy:'🔒 Gizlilik Politikası',
+  terms:'📄 Kullanım Koşulları ve Mesafeli Satış Sözleşmesi',
+  delivery:'📦 Teslimat ve İade Şartları'
+};
+
+const CONTENTS={
+  kvkk:`<h3 style="color:var(--accent);margin-bottom:12px;">KVKK Aydınlatma Metni</h3>
+    <p style="padding:12px;background:rgba(45,212,191,.06);border:1px solid rgba(45,212,191,.2);border-radius:10px;font-size:12px;margin-bottom:16px;"><strong style="color:#2DD4BF;">Veri Sorumlusu:</strong> Melih Keleş (MK Software) · Yenimahalle VD · VN: 5431084511 · Ankara, Yenimahalle · kelesmelih551@gmail.com · 0312 820 10 13</p>
+    <h4 style="color:var(--text);margin:14px 0 6px;">1. İşlenen Kişisel Veriler</h4><p>Ad soyad, e-posta, telefon, doğum tarihi, TC/vergi kimlik numarası, işletme adı ve adresi.</p>
+    <h4 style="color:var(--text);margin:14px 0 6px;">2. İşleme Amaçları</h4><p>Başvuru sürecinin yürütülmesi, kimlik doğrulama, hesap oluşturulması, abonelik ve fatura işlemleri, yasal yükümlülüklerin yerine getirilmesi.</p>
+    <h4 style="color:var(--text);margin:14px 0 6px;">3. Hukuki Sebepler</h4><p>Sözleşmenin kurulması ve ifası (md.5/2-c), kanuni yükümlülük (md.5/2-ç), meşru menfaat (md.5/2-f).</p>
+    <h4 style="color:var(--text);margin:14px 0 6px;">4. Veri Aktarımı</h4><p>Platform altyapısı için Supabase Inc. (yurt dışı — KVKK m.9), e-posta için Resend Inc. ile paylaşılmaktadır. Ticari amaçla üçüncü taraflarla paylaşılmaz.</p>
+    <h4 style="color:var(--text);margin:14px 0 6px;">5. Saklama Süresi</h4><p>Hesap verileri abonelik sona erdikten 90 gün sonra silinir. Fatura kayıtları 10 yıl saklanır.</p>
+    <h4 style="color:var(--text);margin:14px 0 6px;">6. KVKK Haklarınız</h4><p>Erişim, düzeltme, silme, kısıtlama ve itiraz hakları için: <strong style="color:var(--accent);">kelesmelih551@gmail.com</strong> — Talepler 30 gün içinde yanıtlanır.</p>
+    <div style="height:60px;"></div>`,
+  privacy:`<h3 style="color:var(--accent);margin-bottom:12px;">Gizlilik Politikası</h3>
+    <p style="padding:12px;background:rgba(45,212,191,.06);border:1px solid rgba(45,212,191,.2);border-radius:10px;font-size:12px;margin-bottom:16px;"><strong style="color:#2DD4BF;">Veri Sorumlusu:</strong> Melih Keleş · MK Software · Yenimahalle VD · VN: 5431084511 · Ankara, Yenimahalle</p>
+    <h4 style="color:var(--text);margin:14px 0 6px;">Toplanan Veriler</h4><p>Ad soyad, e-posta, telefon, doğum tarihi, TC/vergi no, işletme bilgileri, IP adresi, tarayıcı bilgisi.</p>
+    <h4 style="color:var(--text);margin:14px 0 6px;">Kullanım Amacı</h4><p>Veriler yalnızca hizmet sunumu amacıyla işlenmekte, reklam veya pazarlama için kullanılmamaktadır.</p>
+    <h4 style="color:var(--text);margin:14px 0 6px;">Güvenlik</h4><p>Tüm veriler SSL/TLS şifrelemesiyle korunmaktadır. Row Level Security ile her restoran yalnızca kendi verilerine erişebilir.</p>
+    <h4 style="color:var(--text);margin:14px 0 6px;">Çerezler</h4><p>Yalnızca oturum yönetimi için zorunlu çerezler kullanılmaktadır.</p>
+    <h4 style="color:var(--text);margin:14px 0 6px;">Veri Saklama</h4><p>Hesap verileri abonelik sona erdikten 90 gün sonra kalıcı olarak silinir.</p>
+    <h4 style="color:var(--text);margin:14px 0 6px;">İletişim</h4><p>kelesmelih551@gmail.com · 0312 820 10 13</p>
+    <div style="height:60px;"></div>`,
+  terms:`<h3 style="color:var(--accent);margin-bottom:8px;">Kullanım Koşulları ve Mesafeli Satış Sözleşmesi</h3>
+    <p style="color:#6666AA;font-size:12px;margin-bottom:12px;">6502 Sayılı Tüketicinin Korunması Hakkında Kanun kapsamında.</p>
+    <p style="padding:12px;background:rgba(45,212,191,.06);border:1px solid rgba(45,212,191,.2);border-radius:10px;font-size:12px;margin-bottom:16px;"><strong style="color:#2DD4BF;">Satıcı:</strong> Melih Keleş · MK Software (Şahıs İşletmesi) · Yenimahalle VD · VN: 5431084511 · Ankara, Yenimahalle · 0312 820 10 13 · kelesmelih551@gmail.com</p>
+    <h4 style="color:var(--text);margin:14px 0 6px;">1. Hizmet</h4><p>Sofrım bulut tabanlı restoran yönetim yazılımı. Aylık veya yıllık abonelikle sunulmaktadır.</p>
+    <h4 style="color:var(--text);margin:14px 0 6px;">2. Fiyatlar (KDV Dahil)</h4><p>Lite: 799₺/ay · Standart: 1.499₺/ay · Pro: 2.499₺/ay. Yıllık ödemede 2 ay ücretsiz. 14 gün ücretsiz deneme.</p>
+    <h4 style="color:var(--text);margin:14px 0 6px;">3. Hesap ve Erişim</h4><p>Platforma erişim yalnızca onaylanan başvurular aracılığıyla sağlanır. Hesap bilgilerinin güvenliğinden kullanıcı sorumludur.</p>
+    <h4 style="color:var(--text);margin:14px 0 6px;">4. Cayma Hakkı</h4><p>Dijital hizmet olduğundan cayma hakkı uygulanmamaktadır. 14 günlük ücretsiz deneme bu hakkın karşılığıdır.</p>
+    <h4 style="color:var(--text);margin:14px 0 6px;">5. İptal</h4><p>İstediğiniz zaman iptal edebilirsiniz. Mevcut dönem sonuna kadar erişim sürer.</p>
+    <h4 style="color:var(--text);margin:14px 0 6px;">6. Uyuşmazlık</h4><p>Türk hukukuna tabidir. Ankara Mahkemeleri yetkilidir.</p>
+    <div style="height:60px;"></div>`,
+  delivery:`<h3 style="color:var(--accent);margin-bottom:12px;">Teslimat ve İade Şartları</h3>
+    <p style="padding:12px;background:rgba(45,212,191,.06);border:1px solid rgba(45,212,191,.2);border-radius:10px;font-size:12px;margin-bottom:16px;"><strong style="color:#2DD4BF;">Hizmet Sağlayıcı:</strong> Melih Keleş · MK Software · Yenimahalle VD · VN: 5431084511 · Ankara, Yenimahalle</p>
+    <h4 style="color:var(--text);margin:14px 0 6px;">Hizmetin Niteliği</h4><p>Sofrım tamamen dijital bir yazılım hizmetidir. Fiziksel teslimat söz konusu değildir.</p>
+    <h4 style="color:var(--text);margin:14px 0 6px;">Erişim Teslimatı</h4><p>Başvuru onayının ardından en geç <strong style="color:var(--text);">1 iş günü</strong> içinde giriş bilgileri yalnızca kayıtlı e-posta ve/veya WhatsApp'a gönderilir.</p>
+    <h4 style="color:var(--text);margin:14px 0 6px;">Ücretsiz Deneme</h4><p>Tüm paketler 14 günlük ücretsiz deneme ile başlar. Bu sürede ücret alınmaz, kredi kartı istenmez.</p>
+    <h4 style="color:var(--text);margin:14px 0 6px;">İptal ve İade</h4><p>Aylık: dönem sonuna kadar erişim, sonraki dönem ücretlendirilmez. Yıllık: kullanılmayan tam aylara karşılık iade değerlendirmesi yapılır. Dijital hizmet niteliğinden genel kural olarak iade yapılmamaktadır.</p>
+    <h4 style="color:var(--text);margin:14px 0 6px;">İletişim</h4><p>kelesmelih551@gmail.com · 0312 820 10 13</p>
+    <div style="height:60px;"></div>`
+};
+
+document.addEventListener('DOMContentLoaded',()=>{
+  const ref=new URLSearchParams(window.location.search).get('ref');
+  if(ref){
+    document.getElementById('f-ref').value=ref.toUpperCase();
+    const n=document.getElementById('ref-notice');
+    if(n){n.style.display='flex';n.querySelector('.ref-code-val').textContent=ref.toUpperCase();}
+  }
+});
 </script>
 </body>
 </html>
