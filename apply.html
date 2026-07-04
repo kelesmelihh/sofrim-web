@@ -80,7 +80,45 @@
   </div>
   <section style="padding-top:0;">
     <div class="apply-wrap">
+      <!-- SEÇİM EKRANI -->
+      <div id="product-select" style="margin-bottom:0;">
+        <div style="text-align:center;margin-bottom:32px;">
+          <div style="font-size:13px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;">BAŞVURU</div>
+          <h2 style="font-size:24px;font-weight:900;margin-bottom:8px;">Ne için başvurmak istiyorsunuz?</h2>
+          <p style="font-size:13px;color:var(--sec);">Aşağıdan size uygun ürünü seçin.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+          <!-- SOFRIM -->
+          <div onclick="startApply()" style="background:var(--card);border:2px solid rgba(255,107,26,.4);border-radius:20px;padding:32px 24px;cursor:pointer;transition:all .3s;text-align:center;" onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(255,107,26,.4)';this.style.transform='translateY(0)'">
+            <div style="font-size:48px;margin-bottom:16px;">🍽️</div>
+            <div style="font-size:18px;font-weight:900;margin-bottom:8px;">Sofrım</div>
+            <div style="font-size:12px;color:var(--sec);line-height:1.7;margin-bottom:20px;">QR sipariş, AI mutfak, kurye, personel yönetimi. Restoran ve kafeler için eksiksiz sistem.</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:20px;">
+              <span style="font-size:10px;padding:3px 10px;border-radius:20px;background:rgba(255,107,26,.1);color:var(--accent);font-weight:700;">QR Sipariş</span>
+              <span style="font-size:10px;padding:3px 10px;border-radius:20px;background:rgba(139,92,246,.1);color:var(--purple);font-weight:700;">🤖 AI Mutfak</span>
+              <span style="font-size:10px;padding:3px 10px;border-radius:20px;background:rgba(45,212,191,.1);color:var(--teal);font-weight:700;">PWA</span>
+            </div>
+            <div style="padding:12px 20px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:14px;font-weight:800;">Başvuru Yap →</div>
+          </div>
+
+          <!-- KİOSK -->
+          <div style="background:var(--card);border:2px solid var(--border);border-radius:20px;padding:32px 24px;text-align:center;opacity:.6;position:relative;overflow:hidden;">
+            <div style="position:absolute;top:14px;right:14px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-size:10px;font-weight:800;color:var(--sec);">YAKINDA</div>
+            <div style="font-size:48px;margin-bottom:16px;">🖥️</div>
+            <div style="font-size:18px;font-weight:900;margin-bottom:8px;">Kiosk</div>
+            <div style="font-size:12px;color:var(--sec);line-height:1.7;margin-bottom:20px;">Self-servis dokunmatik sipariş sistemi. Fast food, kafeterya ve AVM restoranları için.</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:20px;">
+              <span style="font-size:10px;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.06);color:var(--sec);font-weight:700;">Self Servis</span>
+              <span style="font-size:10px;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.06);color:var(--sec);font-weight:700;">Dokunmatik</span>
+              <span style="font-size:10px;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.06);color:var(--sec);font-weight:700;">Sanal POS</span>
+            </div>
+            <div style="padding:12px 20px;border-radius:12px;background:var(--border);color:var(--muted);font-size:14px;font-weight:800;cursor:not-allowed;">Yakında</div>
+          </div>
+        </div>
+      </div>
+
       <!-- ADIM GÖSTERGESİ -->
+      <div id="apply-form-wrap" style="display:none;">
       <div style="display:flex;align-items:center;margin-bottom:32px;" class="step-indicators">
         <div class="step-ind active" id="si-1"><div class="step-ind-num">1</div><div class="step-ind-label">Yetkili</div></div>
         <div class="step-ind-line"></div>
@@ -473,9 +511,9 @@
             <div class="fg">
               <label>EK MODÜLLER</label>
               <div class="cb-group">
-                <label class="cb-item" id="cb-kurye"><input type="checkbox" value="kurye" onchange="toggleCbById('cb-kurye');calcBranch()"><span>🛵 Kurye Modülü</span></label>
-                <label class="cb-item" id="cb-kiosk"><input type="checkbox" value="kiosk" onchange="toggleCbById('cb-kiosk');calcBranch()"><span>🖥️ Kiosk Modülü</span></label>
-                <label class="cb-item" id="cb-sadakat"><input type="checkbox" value="sadakat" onchange="toggleCbById('cb-sadakat');calcBranch()"><span>⭐ Sadakat Sistemi</span></label>
+                <label class="cb-item" id="cb-br-kurye"><input type="checkbox" value="kurye" onchange="toggleCbById('cb-br-kurye');calcBranch()"><span>🛵 Kurye Modülü</span></label>
+                <label class="cb-item" id="cb-br-kiosk"><input type="checkbox" value="kiosk" onchange="toggleCbById('cb-br-kiosk');calcBranch()"><span>🖥️ Kiosk Modülü</span></label>
+                <label class="cb-item" id="cb-br-sadakat"><input type="checkbox" value="sadakat" onchange="toggleCbById('cb-br-sadakat');calcBranch()"><span>⭐ Sadakat Sistemi</span></label>
               </div>
             </div>
             <div class="fg"><label>YAPI TÜRÜ</label>
@@ -551,6 +589,7 @@
         <div class="warn-box" style="max-width:440px;margin:0 auto 24px;text-align:left;"><span style="font-size:18px;flex-shrink:0;">⚠️</span><div>Şüpheli durumlarda <strong style="color:var(--text);">0312 820 10 13</strong> numaramızı arayın.</div></div>
         <a href="index.html" class="btn-primary" style="justify-content:center;">Ana Sayfaya Dön</a>
       </div>
+      </div><!-- apply-form-wrap sonu -->
     </div>
   </section>
 </div>
@@ -591,6 +630,12 @@ renderFooter();
 let selPlanKey='trial', idType='tc', billing='monthly';
 const approved={kvkk:false,privacy:false,terms:false,delivery:false};
 let curKey=null;
+
+function startApply(){
+  document.getElementById('product-select').style.display='none';
+  document.getElementById('apply-form-wrap').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
 
 function goStep(n){
   [1,2,3,4].forEach(i=>{const e=document.getElementById('step-'+i);if(e)e.style.display='none';});
@@ -680,7 +725,7 @@ function calcBranch(){
   const staffVal = parseInt(document.getElementById('f-brstaff').value) || 10;
   const mt = document.getElementById('f-menutype').value;
   const bizType = document.getElementById('f-biztype').value;
-  const mods = document.querySelectorAll('#branch-wrap .cb-item.checked');
+  const mods = document.querySelectorAll('#branch-wrap .cb-item.checked input[type="checkbox"]');
 
   // Baz fiyat: Pro (2499)
   const base = 2499;
@@ -711,7 +756,7 @@ function calcBranch(){
   // Modül ücretleri (şube sayısıyla orantılı)
   let modExtra = 0;
   mods.forEach(m => {
-    const v = m.querySelector('input').value;
+    const v = m.value;
     if (v === 'kurye') modExtra += 500 + (br - 1) * 200;
     if (v === 'kiosk') modExtra += 400 + (br - 1) * 150;
     if (v === 'sadakat') modExtra += 300 + (br - 1) * 100;
