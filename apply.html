@@ -473,9 +473,9 @@
             <div class="fg">
               <label>EK MODÜLLER</label>
               <div class="cb-group">
-                <label class="cb-item" onclick="toggleCb(this);calcBranch()"><input type="checkbox" value="kurye"><span>🛵 Kurye</span></label>
-                <label class="cb-item" onclick="toggleCb(this);calcBranch()"><input type="checkbox" value="kiosk"><span>🖥️ Kiosk</span></label>
-                <label class="cb-item" onclick="toggleCb(this);calcBranch()"><input type="checkbox" value="sadakat"><span>⭐ Sadakat</span></label>
+                <label class="cb-item" id="cb-kurye"><input type="checkbox" value="kurye" onchange="toggleCbById('cb-kurye');calcBranch()"><span>🛵 Kurye Modülü</span></label>
+                <label class="cb-item" id="cb-kiosk"><input type="checkbox" value="kiosk" onchange="toggleCbById('cb-kiosk');calcBranch()"><span>🖥️ Kiosk Modülü</span></label>
+                <label class="cb-item" id="cb-sadakat"><input type="checkbox" value="sadakat" onchange="toggleCbById('cb-sadakat');calcBranch()"><span>⭐ Sadakat Sistemi</span></label>
               </div>
             </div>
             <div class="fg"><label>YAPI TÜRÜ</label>
@@ -675,24 +675,72 @@ function setBilling(type){
 }
 
 function calcBranch(){
-  const br=parseInt(document.getElementById('f-brcnt').value)||2;
-  const mt=document.getElementById('f-menutype').value;
-  const mods=document.querySelectorAll('#branch-wrap .cb-item.checked');
-  let extra=0;
-  for(let i=2;i<=br;i++)extra+=i<=5?1500:1000;
-  if(mt==='ozel')extra+=(br-1)*200;
-  let modExtra=0;
-  mods.forEach(m=>{const v=m.querySelector('input').value;if(v==='kurye')modExtra+=500;if(v==='kiosk')modExtra+=300;if(v==='sadakat')modExtra+=200;});
-  let total=2499+extra+modExtra;
-  if(billing==='yearly')total=Math.round(total*10/12);
-  document.getElementById('br-ext-lbl').textContent='Ek şube ('+(br-1)+')';
-  document.getElementById('br-ext-prc').textContent=extra.toLocaleString('tr-TR')+'₺';
-  document.getElementById('br-mod-lbl').textContent='Ek modüller ('+mods.length+')';
-  document.getElementById('br-mod-prc').textContent=modExtra>0?modExtra.toLocaleString('tr-TR')+'₺':'0₺';
-  document.getElementById('br-total').textContent=total.toLocaleString('tr-TR')+'₺/ay';
-  const yn=document.getElementById('br-yr-note');
-  if(billing==='yearly'){yn.style.display='block';yn.textContent='Yıllık: '+(total*12).toLocaleString('tr-TR')+'₺ (2 ay ücretsiz)';}
-  else yn.style.display='none';
+  const br = parseInt(document.getElementById('f-brcnt').value) || 2;
+  const tables = parseInt(document.getElementById('f-brtbl').value) || 20;
+  const staffVal = parseInt(document.getElementById('f-brstaff').value) || 10;
+  const mt = document.getElementById('f-menutype').value;
+  const bizType = document.getElementById('f-biztype').value;
+  const mods = document.querySelectorAll('#branch-wrap .cb-item.checked');
+
+  // Baz fiyat: Pro (2499)
+  const base = 2499;
+
+  // Şube başı ücret - artan oranda
+  let branchExtra = 0;
+  for (let i = 2; i <= br; i++) {
+    if (i <= 3) branchExtra += 1800;
+    else if (i <= 5) branchExtra += 1600;
+    else if (i <= 10) branchExtra += 1200;
+    else branchExtra += 900;
+  }
+
+  // Toplam masa ve toplam personel üzerinden fiyat (tüm sistem tek bütün)
+  const totalTables = br * tables;
+  const totalStaff = br * staffVal;
+  // Her 50 masada +200₺
+  const tableBonus = Math.floor(totalTables / 50) * 200;
+  // Her 30 personelde +150₺
+  const staffBonus = Math.floor(totalStaff / 30) * 150;
+
+  // Özel menü ek ücret
+  const menuBonus = mt === 'ozel' ? (br - 1) * 300 : 0;
+
+  // Franchise ek ücret
+  const franchiseBonus = bizType === 'franchise' ? (br - 1) * 400 : 0;
+
+  // Modül ücretleri (şube sayısıyla orantılı)
+  let modExtra = 0;
+  mods.forEach(m => {
+    const v = m.querySelector('input').value;
+    if (v === 'kurye') modExtra += 500 + (br - 1) * 200;
+    if (v === 'kiosk') modExtra += 400 + (br - 1) * 150;
+    if (v === 'sadakat') modExtra += 300 + (br - 1) * 100;
+  });
+
+  const subtotal = base + branchExtra + tableBonus + staffBonus + menuBonus + franchiseBonus + modExtra;
+  let total = billing === 'yearly' ? Math.round(subtotal * 10 / 12) : subtotal;
+
+  // UI güncelle
+  const branchEl = document.getElementById('br-ext-lbl');
+  const branchPrcEl = document.getElementById('br-ext-prc');
+  const modEl = document.getElementById('br-mod-lbl');
+  const modPrcEl = document.getElementById('br-mod-prc');
+  const totalEl = document.getElementById('br-total');
+  const ynEl = document.getElementById('br-yr-note');
+
+  const bonusTotal = tableBonus + staffBonus + menuBonus + franchiseBonus;
+  branchEl.textContent = 'Şube ücretleri (' + (br-1) + ' ek şube)';
+  branchPrcEl.textContent = (branchExtra + bonusTotal).toLocaleString('tr-TR') + '₺';
+  modEl.textContent = 'Ek modüller (' + mods.length + ')';
+  modPrcEl.textContent = modExtra > 0 ? modExtra.toLocaleString('tr-TR') + '₺' : '0₺';
+  totalEl.textContent = total.toLocaleString('tr-TR') + '₺/ay';
+
+  if (billing === 'yearly') {
+    ynEl.style.display = 'block';
+    ynEl.textContent = 'Yıllık toplam: ' + (total * 12).toLocaleString('tr-TR') + '₺ (2 ay ücretsiz)';
+  } else {
+    ynEl.style.display = 'none';
+  }
 }
 
 function buildSummary(){
