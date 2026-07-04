@@ -8,19 +8,7 @@
   <link rel="canonical" href="https://sofrim-web.vercel.app/pricing.html">
   <link rel="icon" href="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/sofrim_logo.jpeg">
   <link rel="stylesheet" href="style.css">
-  <style>
-    .branch-calc{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:16px;}
-    .fg-sm{margin-bottom:12px;}
-    .fg-sm label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--sec);margin-bottom:5px;}
-    .fg-sm input,.fg-sm select{width:100%;padding:9px 12px;background:var(--card);border:1.5px solid var(--border);border-radius:9px;color:var(--text);font-size:13px;outline:none;font-family:inherit;}
-    .fg-sm input:focus,.fg-sm select:focus{border-color:var(--accent);}
-    .cb-grp{display:flex;flex-wrap:wrap;gap:6px;}
-    .cb-tag{display:flex;align-items:center;gap:6px;padding:6px 12px;background:var(--card);border:1.5px solid var(--border);border-radius:9px;cursor:pointer;font-size:12px;font-weight:600;color:var(--sec);transition:all .2s;}
-    .cb-tag.checked{border-color:var(--accent);background:rgba(255,107,26,.08);color:var(--text);}
-    .cb-tag input{display:none;}
-    .price-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--sec);padding:5px 0;border-bottom:1px solid var(--border);}
-    .price-row:last-child{border-bottom:none;font-weight:900;color:var(--accent);font-size:16px;}
-  </style>
+
 </head>
 <body>
 <div id="nav-placeholder"></div>
@@ -76,64 +64,18 @@
       <!-- ŞUBELİ -->
       <div class="pricing-card">
         <div class="plan-name">Şubeli Plan</div>
-        <div class="plan-price" id="price-subeli" style="font-size:22px;">2.499₺ <span>+ şube başı</span></div>
+        <div class="plan-price" style="font-size:22px;">2.499₺ <span>+ şube başı</span></div>
         <div id="price-subeli-y" style="display:none;font-size:12px;color:var(--teal);font-weight:700;margin-bottom:8px;">Yıllık ödemede 2 ay ücretsiz</div>
         <div class="plan-desc">Zincir ve franchise restoranlar için</div>
-
-        <div class="branch-calc">
-          <div style="font-size:11px;font-weight:800;color:var(--sec);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;">Tahmini Fiyat Hesapla</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-            <div class="fg-sm">
-              <label>Şube Sayısı</label>
-              <input type="number" id="p-brcnt" value="2" min="2" max="100" oninput="calcP()">
-            </div>
-            <div class="fg-sm">
-              <label>Şube Başı Masa</label>
-              <input type="number" id="p-brtbl" value="20" min="1" max="500" oninput="calcP()">
-            </div>
-            <div class="fg-sm">
-              <label>Şube Başı Çalışan</label>
-              <select id="p-brstaff" onchange="calcP()">
-                <option value="5">1-5 kişi</option>
-                <option value="10" selected>6-10 kişi</option>
-                <option value="20">11-20 kişi</option>
-                <option value="30">21-30 kişi</option>
-                <option value="50">30+ kişi</option>
-              </select>
-            </div>
-            <div class="fg-sm">
-              <label>Menü Yönetimi</label>
-              <select id="p-menutype" onchange="calcP()">
-                <option value="merkezi">Merkezi menü</option>
-                <option value="ozel">Her şubeye özel</option>
-              </select>
-            </div>
-          </div>
-          <div class="fg-sm">
-            <label>Ek Modüller</label>
-            <div class="cb-grp">
-              <label class="cb-tag" id="ptag-kurye"><input type="checkbox" value="kurye" onchange="togglePTag('ptag-kurye');calcP()"><span>🛵 Kurye</span></label>
-              <label class="cb-tag" id="ptag-sadakat"><input type="checkbox" value="sadakat" onchange="togglePTag('ptag-sadakat');calcP()"><span>⭐ Sadakat</span></label>
-            </div>
-          </div>
-          <div class="fg-sm">
-            <label>Yapı Türü</label>
-            <select id="p-biztype" onchange="calcP()">
-              <option value="zincir">Zincir (aynı sahip)</option>
-              <option value="franchise">Franchise (farklı sahipler)</option>
-            </select>
-          </div>
-          <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;margin-top:4px;">
-            <div class="price-row"><span>Pro paket (baz)</span><span>2.499₺</span></div>
-            <div class="price-row"><span id="p-ext-lbl">Şube ücretleri</span><span id="p-ext-prc">0₺</span></div>
-            <div class="price-row"><span id="p-mod-lbl">Ek modüller</span><span id="p-mod-prc">0₺</span></div>
-            <div class="price-row"><span>Tahmini Aylık</span><span id="p-total">2.499₺/ay</span></div>
-            <div id="p-yr-note" style="display:none;font-size:10px;color:var(--teal);margin-top:6px;font-weight:700;"></div>
-            <div style="font-size:10px;color:var(--muted);margin-top:6px;">* Kesin fiyat görüşme sonrası belirlenir.</div>
-          </div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:16px;font-size:13px;color:var(--sec);line-height:1.9;">
+          <div style="font-size:11px;font-weight:800;color:var(--sec);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Şube Başı Ücretler</div>
+          <div>2-3. şube: <strong style="color:var(--text);">+1.800₺/şube</strong></div>
+          <div>4-5. şube: <strong style="color:var(--text);">+1.600₺/şube</strong></div>
+          <div>6-10. şube: <strong style="color:var(--text);">+1.200₺/şube</strong></div>
+          <div>11+ şube: <strong style="color:var(--text);">+900₺/şube</strong></div>
+          <div style="margin-top:8px;font-size:10px;color:var(--muted);">* Masa/personel sayısına göre ek ücret uygulanabilir. Kesin fiyat başvuru sonrası belirlenir.</div>
         </div>
-
-        <ul class="plan-features">
+                <ul class="plan-features">
           <li>Pro'nun tamamı +</li><li>Çoklu şube yönetimi</li><li>Şubeler arası karşılaştırma</li><li>Merkezi menü yönetimi</li><li>Sınırsız personel</li>
         </ul>
         <a href="apply.html" class="plan-btn outline">Başvur</a>
@@ -176,12 +118,6 @@ function setBilling(type) {
     document.getElementById('price-pro').innerHTML='2.082₺ <span>/ay</span>';
     ['lite','standart','pro','subeli'].forEach(p=>{const e=document.getElementById('price-'+p+'-y');if(e)e.style.display='block';});
   }
-  calcP();
-}
-
-function togglePTag(id) {
-  const el = document.getElementById(id);
-  if (el) el.classList.toggle('checked', el.querySelector('input').checked);
 }
 
 function calcP() {
@@ -231,7 +167,6 @@ function calcP() {
   }
 }
 
-calcP();
 </script>
 </body>
 </html>

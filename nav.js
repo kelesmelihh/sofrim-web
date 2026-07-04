@@ -78,6 +78,7 @@ function renderFooter() {
           </div>
         </div>
       </div>
+      <div id="trust-badges"></div>
       <div class="footer-bottom">
         <div class="footer-copy">
           <span class="footer-copy-text">© 2026 Sofrım · Melih Keleş · Yenimahalle VD · VN: 5431084511</span>
@@ -90,6 +91,7 @@ function renderFooter() {
     </footer>
     <a class="whatsapp-btn" href="https://wa.me/903128201013" target="_blank">💬</a>
   `;
+  renderTrustBadges();
 }
 
 // ─── INTRO ANİMASYON ──────────────────────────────────────────
@@ -171,4 +173,119 @@ async function submitApplication(payload) {
 document.addEventListener('DOMContentLoaded', () => {
   renderIntro();
   loadTenantCount();
+  initStickyCTA();
+  initExitPopup();
 });
+
+// ─── STICKY CTA ───────────────────────────────────────────────
+function initStickyCTA() {
+  // apply.html ve index.html'de gösterme
+  const path = window.location.pathname;
+  if (path.includes('apply.html')) return;
+
+  const bar = document.createElement('div');
+  bar.id = 'sticky-cta';
+  bar.innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:space-between;max-width:900px;margin:0 auto;gap:16px;flex-wrap:wrap;">
+      <div>
+        <div style="font-size:14px;font-weight:800;color:#fff;">Sofrım'ı ücretsiz deneyin</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.7);">14 gün · Kredi kartı gerekmez · Hemen başlayın</div>
+      </div>
+      <a href="apply.html" style="padding:10px 24px;border-radius:10px;background:#fff;color:var(--accent);font-size:13px;font-weight:800;text-decoration:none;white-space:nowrap;flex-shrink:0;">Başvuru Yap →</a>
+    </div>
+  `;
+  bar.style.cssText = `
+    position:fixed;bottom:0;left:0;right:0;z-index:500;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    padding:14px 24px;
+    box-shadow:0 -4px 24px rgba(255,107,26,.4);
+    transform:translateY(100%);
+    transition:transform .3s ease;
+  `;
+  document.body.appendChild(bar);
+
+  let shown = false;
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400 && !shown) {
+      shown = true;
+      bar.style.transform = 'translateY(0)';
+    } else if (window.scrollY < 100 && shown) {
+      shown = false;
+      bar.style.transform = 'translateY(100%)';
+    }
+  }, { passive: true });
+}
+
+// ─── ÇIKIŞ NİYETİ POPUP ──────────────────────────────────────
+function initExitPopup() {
+  const path = window.location.pathname;
+  if (path.includes('apply.html')) return;
+  if (sessionStorage.getItem('exitPopupShown')) return;
+
+  const overlay = document.createElement('div');
+  overlay.id = 'exit-popup';
+  overlay.style.cssText = `
+    display:none;position:fixed;inset:0;z-index:9000;
+    background:rgba(0,0,0,.85);
+    align-items:center;justify-content:center;padding:20px;
+  `;
+  overlay.innerHTML = `
+    <div style="background:var(--card);border:1.5px solid var(--border);border-radius:24px;padding:40px 36px;max-width:460px;width:100%;text-align:center;position:relative;">
+      <button onclick="closeExitPopup()" style="position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;border:1px solid var(--border);background:var(--surface);color:var(--sec);cursor:pointer;font-size:16px;">✕</button>
+      <div style="font-size:48px;margin-bottom:16px;">🍽️</div>
+      <h3 style="font-size:22px;font-weight:900;margin-bottom:10px;">Bekleyin!</h3>
+      <p style="font-size:14px;color:var(--sec);line-height:1.7;margin-bottom:24px;">Sofrım'ı <strong style="color:var(--text);">14 gün ücretsiz</strong> deneyebilirsiniz. Kredi kartı gerekmez, istediğiniz zaman iptal edebilirsiniz.</p>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <a href="apply.html" onclick="closeExitPopup()" style="padding:14px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:14px;font-weight:800;text-decoration:none;display:block;">Ücretsiz Deneyin →</a>
+        <button onclick="closeExitPopup()" style="padding:12px;border-radius:12px;border:1px solid var(--border);background:transparent;color:var(--sec);font-size:13px;cursor:pointer;">Hayır teşekkürler</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  // Mouse sayfadan çıkınca tetikle
+  let triggered = false;
+  document.addEventListener('mouseleave', (e) => {
+    if (e.clientY < 10 && !triggered) {
+      triggered = true;
+      overlay.style.display = 'flex';
+      sessionStorage.setItem('exitPopupShown', '1');
+    }
+  });
+
+  // Mobilde: 60 saniye sonra göster
+  setTimeout(() => {
+    if (!triggered) {
+      triggered = true;
+      overlay.style.display = 'flex';
+      sessionStorage.setItem('exitPopupShown', '1');
+    }
+  }, 60000);
+}
+
+function closeExitPopup() {
+  const p = document.getElementById('exit-popup');
+  if (p) p.style.display = 'none';
+}
+
+// ─── FOOTER GÜVEN İKONLARI ───────────────────────────────────
+function renderTrustBadges() {
+  const el = document.getElementById('trust-badges');
+  if (!el) return;
+  el.innerHTML = `
+    <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;padding:20px 0;border-top:1px solid var(--border);margin-top:16px;">
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);font-weight:600;">
+        <span style="font-size:16px;">🔒</span> SSL Şifrelemeli
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);font-weight:600;">
+        <span style="font-size:16px;">🇹🇷</span> Türkiye'de Geliştiriliyor
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);font-weight:600;">
+        <span style="font-size:16px;">🛡️</span> KVKK Uyumlu
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);font-weight:600;">
+        <span style="font-size:16px;">☁️</span> 7/24 Bulut Erişim
+      </div>
+    </div>
+  `;
+}
