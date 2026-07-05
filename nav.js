@@ -14,6 +14,7 @@ function renderNav(activePage) {
     { href: 'faq.html', label: 'SSS', id: 'faq' },
     { href: 'about.html', label: 'Hakkımızda', id: 'about' },
     { href: 'contact.html', label: 'İletişim', id: 'contact' },
+    { href: 'bayi.html', label: 'Bayi Ol', id: 'bayi' },
   ];
   const navLinks = pages.map(p =>
     `<li><a href="${p.href}" class="${activePage === p.id ? 'active' : ''}">${p.label}</a></li>`
