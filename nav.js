@@ -85,7 +85,7 @@ function renderFooter() {
           <img src="${PAYMENT_LOGO}" alt="Visa Mastercard" style="height:26px;opacity:.8;" onerror="this.style.display='none'">
         </div>
         <div class="footer-warning">
-          <strong>⚠️ Güvenli Alışveriş:</strong> Sofrım yalnızca <strong style="color:var(--text);">sofrim-web.vercel.app</strong> üzerinden satılmaktadır.
+          <strong>⚠️ Güvenli Alışveriş:</strong> Sofrım yalnızca <strong style="color:var(--text);">sofrimapp.com</strong> üzerinden satılmaktadır.
         </div>
       </div>
     </footer>
