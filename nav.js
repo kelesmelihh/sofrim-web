@@ -165,7 +165,7 @@ async function submitApplication(payload) {
 // ─── INIT ─────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   const path = window.location.pathname;
-  if (path === '/' || path.endsWith('index.html') || path === '') renderIntro();
+  if (path === '/' || path.endsWith('index.html') || path === '' || path.endsWith('bayi.html')) renderIntro();
   loadTenantCount();
   initStickyCTA();
   initExitPopup();
