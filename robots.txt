@@ -3,4 +3,4 @@ Allow: /
 
 Disallow: /apply.html
 
-Sitemap: https://sofrim-web.vercel.app/sitemap.xml
+Sitemap: https://sofrimapp.com/sitemap.xml
