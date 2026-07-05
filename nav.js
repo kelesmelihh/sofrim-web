@@ -3,7 +3,6 @@ const LOGO_URL = 'https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/pub
 const PAYMENT_LOGO = 'https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/logo_band_white@2x.png';
 const SUPABASE_URL = 'https://hvmjkayittkivmfwdmhv.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2bWprYXlpdHRraXZtZndkbWh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE4MjMxNDUsImV4cCI6MjA5NzM5OTE0NX0.Y-KaZIS-5jD66-MD6EnxuLb6jyT4ZCoIa2PdVFnurYE';
-
 // ─── NAV HTML ──────────────────────────────────────────────────
 function renderNav(activePage) {
   const pages = [
@@ -40,11 +39,9 @@ function renderNav(activePage) {
     </div>
   `;
 }
-
 function toggleMobileMenu() {
   document.getElementById('mobile-menu').classList.toggle('open');
 }
-
 // ─── FOOTER HTML ──────────────────────────────────────────────
 function renderFooter() {
   document.getElementById('footer-placeholder').innerHTML = `
@@ -56,7 +53,9 @@ function renderFooter() {
             <span class="footer-logo-text">Sofrım</span>
           </div>
           <div class="footer-desc">Türkiye'nin restoranları için<br>tasarlanmış yönetim yazılımı.</div>
-          <div class="footer-ver">MK Software · Melih Keleş · v2.2.0</div>
+          <div class="footer-ver">
+            <a href="https://mksoftware.com.tr" target="_blank" style="color:var(--sec);text-decoration:none;font-weight:700;">MK Software</a> · Melih Keleş · v2.2.0
+          </div>
           <a href="https://www.instagram.com/sofrimapp/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--sec);text-decoration:none;font-weight:600;margin-top:10px;">📸 @sofrimapp</a>
         </div>
         <div>
@@ -81,7 +80,7 @@ function renderFooter() {
       <div id="trust-badges"></div>
       <div class="footer-bottom">
         <div class="footer-copy">
-          <span class="footer-copy-text">© 2026 Sofrım · Melih Keleş · Yenimahalle VD · VN: 5431084511</span>
+          <span class="footer-copy-text">© 2026 Sofrım · <a href="https://mksoftware.com.tr" target="_blank" style="color:var(--sec);text-decoration:none;font-weight:700;">MK Software</a> · Melih Keleş · Yenimahalle VD · VN: 5431084511</span>
           <img src="${PAYMENT_LOGO}" alt="Visa Mastercard" style="height:26px;opacity:.8;" onerror="this.style.display='none'">
         </div>
         <div class="footer-warning">
@@ -93,7 +92,6 @@ function renderFooter() {
   `;
   renderTrustBadges();
 }
-
 // ─── INTRO ANİMASYON ──────────────────────────────────────────
 function renderIntro() {
   const intro = document.getElementById('intro-placeholder');
@@ -104,7 +102,7 @@ function renderIntro() {
       <div class="intro-title">Sofrım</div>
       <div class="intro-sub">Restoran Yönetim Sistemi</div>
       <div class="intro-bar"><div class="intro-bar-fill"></div></div>
-      <div class="intro-mk">by MK Software · v2.2.0</div>
+      <div class="intro-mk">by <a href="https://mksoftware.com.tr" target="_blank" style="color:inherit;text-decoration:none;">MK Software</a> · v2.2.0</div>
     </div>
   `;
   setTimeout(() => {
@@ -112,7 +110,6 @@ function renderIntro() {
     if (o) o.classList.add('hidden');
   }, 2000);
 }
-
 // ─── SOSYAL KANIT SAYACI ──────────────────────────────────────
 async function loadTenantCount() {
   try {
@@ -125,7 +122,6 @@ async function loadTenantCount() {
     document.querySelectorAll('.tenant-count').forEach(el => { el.textContent = (d || 0) + '+'; });
   } catch (e) {}
 }
-
 // ─── TOAST ────────────────────────────────────────────────────
 function showToast(msg) {
   let t = document.getElementById('toast');
@@ -134,7 +130,6 @@ function showToast(msg) {
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 3000);
 }
-
 // ─── FAQ ──────────────────────────────────────────────────────
 function toggleFaq(el) {
   const answer = el.nextElementSibling;
@@ -144,7 +139,6 @@ function toggleFaq(el) {
   document.querySelectorAll('.faq-arrow').forEach(a => a.classList.remove('open'));
   if (!isOpen) { answer.classList.add('open'); if (arrow) arrow.classList.add('open'); }
 }
-
 // ─── TC DOĞRULAMA ─────────────────────────────────────────────
 function validateTC(tc) {
   if (tc === '29885325046') return true;
@@ -154,7 +148,6 @@ function validateTC(tc) {
   if (s1 % 10 !== d[9]) return false;
   return d.slice(0,10).reduce((a,b) => a+b, 0) % 10 === d[10];
 }
-
 // ─── BAŞVURU GÖNDER ───────────────────────────────────────────
 async function submitApplication(payload) {
   const r = await fetch(`${SUPABASE_URL}/rest/v1/rpc/submit_application`, {
@@ -168,7 +161,6 @@ async function submitApplication(payload) {
   });
   return r.json();
 }
-
 // ─── INIT ─────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   renderIntro();
@@ -176,13 +168,10 @@ document.addEventListener('DOMContentLoaded', () => {
   initStickyCTA();
   initExitPopup();
 });
-
 // ─── STICKY CTA ───────────────────────────────────────────────
 function initStickyCTA() {
-  // apply.html ve index.html'de gösterme
   const path = window.location.pathname;
   if (path.includes('apply.html')) return;
-
   const bar = document.createElement('div');
   bar.id = 'sticky-cta';
   bar.innerHTML = `
@@ -203,7 +192,6 @@ function initStickyCTA() {
     transition:transform .3s ease;
   `;
   document.body.appendChild(bar);
-
   let shown = false;
   window.addEventListener('scroll', () => {
     if (window.scrollY > 400 && !shown) {
@@ -215,13 +203,11 @@ function initStickyCTA() {
     }
   }, { passive: true });
 }
-
 // ─── ÇIKIŞ NİYETİ POPUP ──────────────────────────────────────
 function initExitPopup() {
   const path = window.location.pathname;
   if (path.includes('apply.html')) return;
   if (sessionStorage.getItem('exitPopupShown')) return;
-
   const overlay = document.createElement('div');
   overlay.id = 'exit-popup';
   overlay.style.cssText = `
@@ -242,8 +228,6 @@ function initExitPopup() {
     </div>
   `;
   document.body.appendChild(overlay);
-
-  // Mouse sayfadan çıkınca tetikle
   let triggered = false;
   document.addEventListener('mouseleave', (e) => {
     if (e.clientY < 10 && !triggered) {
@@ -252,8 +236,6 @@ function initExitPopup() {
       sessionStorage.setItem('exitPopupShown', '1');
     }
   });
-
-  // Mobilde: 60 saniye sonra göster
   setTimeout(() => {
     if (!triggered) {
       triggered = true;
@@ -262,12 +244,10 @@ function initExitPopup() {
     }
   }, 60000);
 }
-
 function closeExitPopup() {
   const p = document.getElementById('exit-popup');
   if (p) p.style.display = 'none';
 }
-
 // ─── FOOTER GÜVEN İKONLARI ───────────────────────────────────
 function renderTrustBadges() {
   const el = document.getElementById('trust-badges');
@@ -285,6 +265,9 @@ function renderTrustBadges() {
       </div>
       <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);font-weight:600;">
         <span style="font-size:16px;">☁️</span> 7/24 Bulut Erişim
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);font-weight:600;">
+        <span style="font-size:16px;">🏢</span> <a href="https://mksoftware.com.tr" target="_blank" style="color:var(--muted);text-decoration:none;font-weight:600;">MK Software</a>
       </div>
     </div>
   `;
