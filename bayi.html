@@ -269,6 +269,23 @@
     renderNav('bayi')
     renderFooter()
 
+    // Özel intro
+    const introEl = document.getElementById('intro-placeholder')
+    if (introEl) {
+      introEl.innerHTML = `
+        <div id="intro-overlay">
+          <div class="intro-logo"><img src="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/sofrim_logo.jpeg" alt="Sofrım"></div>
+          <div class="intro-title" style="font-size:1.1rem;line-height:1.6;max-width:320px;text-align:center;">Sofrım'ın kazançlı dünyasında yer almak için son birkaç adım</div>
+          <div class="intro-sub">Bayi (İş Ortağı) sayfasına yönlendiriliyorsunuz...</div>
+          <div class="intro-bar"><div class="intro-bar-fill"></div></div>
+        </div>
+      `
+      setTimeout(() => {
+        const o = document.getElementById('intro-overlay')
+        if (o) o.classList.add('hidden')
+      }, 2500)
+    }
+
     // Hesap makinesi
     function calcCommission() {
       const customers = parseInt(document.getElementById('calc-customers').value)
