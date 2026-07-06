@@ -51,41 +51,44 @@ function renderFooter() {
   document.getElementById('footer-placeholder').innerHTML = `
     <footer>
       <div class="footer-grid">
-        <div>
+        <div class="footer-col footer-col-brand">
           <div class="footer-logo">
-            <img src="${LOGO_URL}" alt="Sofrım">
+            <img src="${LOGO_URL}" alt="Sofrım" style="width:32px;height:32px;border-radius:8px;object-fit:cover;">
             <span class="footer-logo-text">Sofrım</span>
           </div>
           <div class="footer-desc">Türkiye'nin restoranları için<br>tasarlanmış yönetim yazılımı.</div>
-          <div class="footer-ver">MK Software · Melih Keleş · v2.2.0</div>
-          <a href="https://www.instagram.com/sofrimapp/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--sec);text-decoration:none;font-weight:600;margin-top:10px;">📸 @sofrimapp</a>
+          <div class="footer-ver">MK Software · v2.3.0</div>
         </div>
-        <div>
-          <div class="footer-title">İletişim</div>
+        <div class="footer-col">
+          <div class="footer-title">Ürün</div>
           <div class="footer-links">
-            <a href="tel:+903128201013">📞 0312 820 10 13</a>
-            <a href="mailto:kelesmelih551@gmail.com">📧 kelesmelih551@gmail.com</a>
-            <a href="https://wa.me/903128201013" target="_blank">💬 WhatsApp</a>
-            <a href="https://www.instagram.com/sofrimapp/" target="_blank">📸 @sofrimapp</a>
+            <a href="features.html">Özellikler</a>
+            <a href="pricing.html">Fiyatlar</a>
+            <a href="demo.html">Demo Talep Et</a>
+            <a href="roadmap.html">Yol Haritası</a>
+            <a href="blog.html">Blog</a>
           </div>
         </div>
-        <div>
-          <div class="footer-title">Yasal</div>
+        <div class="footer-col">
+          <div class="footer-title">Şirket</div>
           <div class="footer-links">
             <a href="about.html">Hakkımızda</a>
-            <a href="blog.html">Blog</a>
             <a href="referanslar.html">Referanslar</a>
-            <a href="roadmap.html">Yol Haritası</a>
+            <a href="bayi.html">Bayi Ol</a>
+            <a href="contact.html">İletişim</a>
             <a href="yardim.html">Yardım Merkezi</a>
             <a href="status.html">Sistem Durumu</a>
-            <a href="demo.html">Demo Talebi</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-title">Yasal</div>
+          <div class="footer-links">
             <a href="privacy.html">Gizlilik Politikası</a>
             <a href="terms.html">Mesafeli Satış Sözleşmesi</a>
-            <a href="delivery.html">Teslimat ve İade Şartları</a>
+            <a href="delivery.html">Teslimat & İade</a>
           </div>
         </div>
       </div>
-      <div id="trust-badges"></div>
       <div class="footer-bottom">
         <div class="footer-copy">
           <span class="footer-copy-text">© 2026 Sofrım · Melih Keleş · Yenimahalle VD · VN: 5431084511</span>
@@ -178,7 +181,9 @@ async function submitApplication(payload) {
 
 // ─── INIT ─────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-  renderIntro();
+  const path = window.location.pathname;
+  const showIntro = path === '/' || path.endsWith('index.html') || path === '' || path.endsWith('bayi.html');
+  if (showIntro) renderIntro();
   loadTenantCount();
   initStickyCTA();
   initExitPopup();
