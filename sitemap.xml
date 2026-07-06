@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://sofrimapp.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://sofrimapp.com/features.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://sofrimapp.com/pricing.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://sofrimapp.com/how-it-works.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://sofrimapp.com/why-sofrim.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://sofrimapp.com/faq.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://sofrimapp.com/about.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://sofrimapp.com/contact.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://sofrimapp.com/privacy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://sofrimapp.com/terms.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://sofrimapp.com/delivery.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://sofrimapp.com/</loc><lastmod>2026-07-06</lastmod><priority>1.0</priority></url>
+  <url><loc>https://sofrimapp.com/features.html</loc><lastmod>2026-07-06</lastmod><priority>0.9</priority></url>
+  <url><loc>https://sofrimapp.com/pricing.html</loc><lastmod>2026-07-06</lastmod><priority>0.9</priority></url>
+  <url><loc>https://sofrimapp.com/demo.html</loc><lastmod>2026-07-06</lastmod><priority>0.9</priority></url>
+  <url><loc>https://sofrimapp.com/apply.html</loc><lastmod>2026-07-06</lastmod><priority>0.8</priority></url>
+  <url><loc>https://sofrimapp.com/bayi.html</loc><lastmod>2026-07-06</lastmod><priority>0.8</priority></url>
+  <url><loc>https://sofrimapp.com/how-it-works.html</loc><lastmod>2026-07-06</lastmod><priority>0.8</priority></url>
+  <url><loc>https://sofrimapp.com/why-sofrim.html</loc><lastmod>2026-07-06</lastmod><priority>0.7</priority></url>
+  <url><loc>https://sofrimapp.com/blog.html</loc><lastmod>2026-07-06</lastmod><priority>0.8</priority></url>
+  <url><loc>https://sofrimapp.com/referanslar.html</loc><lastmod>2026-07-06</lastmod><priority>0.7</priority></url>
+  <url><loc>https://sofrimapp.com/roadmap.html</loc><lastmod>2026-07-06</lastmod><priority>0.6</priority></url>
+  <url><loc>https://sofrimapp.com/yardim.html</loc><lastmod>2026-07-06</lastmod><priority>0.7</priority></url>
+  <url><loc>https://sofrimapp.com/status.html</loc><lastmod>2026-07-06</lastmod><priority>0.5</priority></url>
+  <url><loc>https://sofrimapp.com/faq.html</loc><lastmod>2026-07-06</lastmod><priority>0.7</priority></url>
+  <url><loc>https://sofrimapp.com/about.html</loc><lastmod>2026-07-06</lastmod><priority>0.7</priority></url>
+  <url><loc>https://sofrimapp.com/contact.html</loc><lastmod>2026-07-06</lastmod><priority>0.6</priority></url>
+  <url><loc>https://sofrimapp.com/privacy.html</loc><lastmod>2026-07-06</lastmod><priority>0.5</priority></url>
+  <url><loc>https://sofrimapp.com/terms.html</loc><lastmod>2026-07-06</lastmod><priority>0.5</priority></url>
+  <url><loc>https://sofrimapp.com/delivery.html</loc><lastmod>2026-07-06</lastmod><priority>0.5</priority></url>
 </urlset>

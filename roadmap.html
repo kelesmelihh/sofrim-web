@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yol Haritası — Sofrım</title>
+  <meta name="description" content="Sofrım'ın gelecek özellik planları ve geliştirme yol haritası.">
+  <link rel="canonical" href="https://sofrimapp.com/roadmap.html">
+  <link rel="icon" href="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/sofrim_logo.jpeg">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .roadmap-timeline { max-width: 760px; margin: 0 auto; padding: 40px 20px; }
+    .roadmap-quarter { margin-bottom: 48px; }
+    .quarter-label { font-size: 13px; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .quarter-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .roadmap-item { display: flex; align-items: flex-start; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--border); }
+    .roadmap-item:last-child { border-bottom: none; }
+    .roadmap-status { width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0; margin-top: 2px; }
+    .status-done { background: var(--green); }
+    .status-progress { background: var(--accent); }
+    .status-planned { background: var(--border); }
+    .roadmap-content { flex: 1; }
+    .roadmap-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .roadmap-desc { font-size: 12px; color: var(--sec); line-height: 1.6; }
+    .roadmap-tag { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 20px; font-weight: 700; margin-top: 4px; }
+    .tag-new { background: var(--accent)20; color: var(--accent); }
+    .tag-improve { background: var(--teal)20; color: var(--teal); }
+    .tag-enterprise { background: var(--purple)20; color: var(--purple); }
+    .legend { display: flex; gap: 20px; margin-bottom: 32px; }
+    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--sec); }
+    .legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+  </style>
+</head>
+<body>
+<div id="nav-placeholder"></div>
+<div class="page-wrap">
+  <div class="page-header">
+    <div class="section-label">YOL HARİTASI</div>
+    <h1>Sofrım <span>Nerelere Gidiyor?</span></h1>
+    <p>Yakında gelecek özellikler ve uzun vadeli planlarımız.</p>
+  </div>
+
+  <div class="roadmap-timeline">
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> Tamamlandı</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div> Geliştiriliyor</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--border)"></div> Planlandı</div>
+    </div>
+
+    <div class="roadmap-quarter">
+      <div class="quarter-label">✅ 2026 Q1-Q2 — Tamamlandı</div>
+      <div class="roadmap-item"><div class="roadmap-status status-done"></div><div class="roadmap-content"><div class="roadmap-title">QR Menü & Masa Sipariş Sistemi</div><div class="roadmap-desc">Müşteriler QR okutarak sipariş verebiliyor, garson uygulaması aktif.</div></div></div>
+      <div class="roadmap-item"><div class="roadmap-status status-done"></div><div class="roadmap-content"><div class="roadmap-title">Mutfak Ekranı (KDS)</div><div class="roadmap-desc">AI destekli hazırlanma süresi, otomatik durum güncellemeleri.</div></div></div>
+      <div class="roadmap-item"><div class="roadmap-status status-done"></div><div class="roadmap-content"><div class="roadmap-title">Stok Takibi</div><div class="roadmap-desc">Ürün bazında stok girişi, fire takibi, kritik seviye uyarıları.</div></div></div>
+      <div class="roadmap-item"><div class="roadmap-status status-done"></div><div class="roadmap-content"><div class="roadmap-title">Personel & Vardiya Yönetimi</div><div class="roadmap-desc">Rol bazlı yetki, vardiya planlama, mesai takibi.</div></div></div>
+      <div class="roadmap-item"><div class="roadmap-status status-done"></div><div class="roadmap-content"><div class="roadmap-title">Çok Şubeli Yönetim</div><div class="roadmap-desc">Tek hesaptan birden fazla şube yönetimi.</div></div></div>
+      <div class="roadmap-item"><div class="roadmap-status status-done"></div><div class="roadmap-content"><div class="roadmap-title">Bayi Sistemi</div><div class="roadmap-desc">Komisyonlu bayi ağı, alt bayi desteği, liderlik tablosu.</div></div></div>
+    </div>
+
+    <div class="roadmap-quarter">
+      <div class="quarter-label">🔥 2026 Q3 — Geliştiriliyor</div>
+      <div class="roadmap-item"><div class="roadmap-status status-progress"></div><div class="roadmap-content"><div class="roadmap-title">WhatsApp Sipariş Entegrasyonu</div><div class="roadmap-desc">Müşteriler WhatsApp'tan sipariş verebilecek, otomatik onay mesajı gidecek.</div><span class="roadmap-tag tag-new">Yeni</span></div></div>
+      <div class="roadmap-item"><div class="roadmap-status status-progress"></div><div class="roadmap-content"><div class="roadmap-title">SMS Bildirimleri</div><div class="roadmap-desc">Sipariş hazır, rezervasyon hatırlatma, kampanya bildirimleri SMS ile.</div><span class="roadmap-tag tag-new">Yeni</span></div></div>
+      <div class="roadmap-item"><div class="roadmap-status status-progress"></div><div class="roadmap-content"><div class="roadmap-title">Reçete & Maliyet Hesabı</div><div class="roadmap-desc">Her ürünün hammadde maliyeti, kâr marjı otomatik hesaplama.</div><span class="roadmap-tag tag-improve">Geliştirme</span></div></div>
+      <div class="roadmap-item"><div class="roadmap-status status-progress"></div><div class="roadmap-content"><div class="roadmap-title">Bahşiş Yönetimi</div><div class="roadmap-desc">Dijital bahşiş toplama, personel arası adil dağılım.</div><span class="roadmap-tag tag-new">Yeni</span></div></div>
+      <div class="roadmap-item"><div class="roadmap-status status-progress"></div><div class="roadmap-content"><div class="roadmap-title">Müşteri Subdomain Sistemi</div><div class="roadmap-desc">Her restoran kendi alt domain'ini alabilecek: restoranadı.sofrimapp.online</div><span class="roadmap-tag tag-improve">Geliştirme</span></div></div>
+    </div>
+
+    <div class="roadmap-quarter">
+      <div class="quarter-label">📋 2026 Q4 — Planlandı</div>
+      <div class="roadmap-item"><div class="roadmap-status status-planned"></div><div class="roadmap-content"><div class="roadmap-title">E-Fatura / E-Arşiv Entegrasyonu</div><div class="roadmap-desc">GİB uyumlu otomatik e-fatura kesme.</div><span class="roadmap-tag tag-new">Yeni</span></div></div>
+      <div class="roadmap-item"><div class="roadmap-status status-planned"></div><div class="roadmap-content"><div class="roadmap-title">Muhasebe Entegrasyonu</div><div class="roadmap-desc">Logo, Mikro, Luca yazılımlarıyla otomatik veri aktarımı.</div><span class="roadmap-tag tag-enterprise">Kurumsal</span></div></div>
+      <div class="roadmap-item"><div class="roadmap-status status-planned"></div><div class="roadmap-content"><div class="roadmap-title">Yemeksepeti / Getir Entegrasyonu</div><div class="roadmap-desc">Platform siparişleri otomatik Sofrım'a düşecek, tek panelden yönetim.</div><span class="roadmap-tag tag-new">Yeni</span></div></div>
+      <div class="roadmap-item"><div class="roadmap-status status-planned"></div><div class="roadmap-content"><div class="roadmap-title">Barkod & Terazi Entegrasyonu</div><div class="roadmap-desc">Stok girişi barkod okuyucu ile, gramaj tartım sistemi entegrasyonu.</div><span class="roadmap-tag tag-enterprise">Kurumsal</span></div></div>
+      <div class="roadmap-item"><div class="roadmap-status status-planned"></div><div class="roadmap-content"><div class="roadmap-title">Gelir-Gider & Nakit Akış Raporu</div><div class="roadmap-desc">Detaylı finans modülü, kâr-zarar analizi.</div><span class="roadmap-tag tag-improve">Geliştirme</span></div></div>
+    </div>
+
+    <div class="roadmap-quarter">
+      <div class="quarter-label">🚀 2027 — Uzun Vade</div>
+      <div class="roadmap-item"><div class="roadmap-status status-planned"></div><div class="roadmap-content"><div class="roadmap-title">Yapay Zeka Satış Analizi</div><div class="roadmap-desc">Talep tahmini, otomatik stok önerileri, menü optimizasyonu.</div><span class="roadmap-tag tag-new">Yeni</span></div></div>
+      <div class="roadmap-item"><div class="roadmap-status status-planned"></div><div class="roadmap-content"><div class="roadmap-title">White Label</div><div class="roadmap-desc">Bayilerin kendi markasıyla Sofrım altyapısını satması.</div><span class="roadmap-tag tag-enterprise">Kurumsal</span></div></div>
+      <div class="roadmap-item"><div class="roadmap-status status-planned"></div><div class="roadmap-content"><div class="roadmap-title">Franchise Yönetimi</div><div class="roadmap-desc">Zincir ve franchise restoranlar için merkezi kontrol paneli.</div><span class="roadmap-tag tag-enterprise">Kurumsal</span></div></div>
+      <div class="roadmap-item"><div class="roadmap-status status-planned"></div><div class="roadmap-content"><div class="roadmap-title">Mobil Uygulama (iOS & Android)</div><div class="roadmap-desc">App Store ve Google Play'de yerel uygulama.</div><span class="roadmap-tag tag-new">Yeni</span></div></div>
+    </div>
+  </div>
+</div>
+<div id="footer-placeholder"></div>
+<script src="data.js"></script>
+<script src="nav.js"></script>
+<script>renderNav('roadmap'); renderFooter()</script>
+</body>
+</html>
