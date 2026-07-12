@@ -68,19 +68,22 @@
     .warn-box{background:rgba(255,107,26,.06);border:1.5px solid rgba(255,107,26,.2);border-radius:12px;padding:12px 16px;margin-bottom:20px;display:flex;gap:10px;align-items:flex-start;font-size:12px;color:var(--sec);line-height:1.7;}
     @media(max-width:600px){.form-row{grid-template-columns:1fr;}}
   </style>
+  <!-- Google Analytics - G-XXXXXXXXXX yerine kendi ID'nizi yazın -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script> -->
 </head>
 <body>
 <div id="nav-placeholder"></div>
 
 <!-- APPLY INTRO -->
-<div id="apply-intro" style="position:fixed;inset:0;z-index:9999;background:#07070F;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;">
-  <div id="ai-logo" style="width:80px;height:80px;border-radius:20px;overflow:hidden;opacity:0;transform:scale(.5);transition:all .5s cubic-bezier(.34,1.56,.64,1);">
-    <img src="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/sofrim_logo.jpeg" style="width:100%;height:100%;object-fit:cover;">
+<div id="apply-intro>
+  <div id="ai-logo>
+    <img src="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/sofrim_logo.jpeg>
   </div>
-  <div id="ai-line1" style="font-size:clamp(22px,5vw,36px);font-weight:900;margin-top:24px;opacity:0;transform:translateY(20px);transition:all .5s ease;color:var(--sec);">Sofrım Dünyasına</div>
-  <div id="ai-line2" style="font-size:clamp(28px,6vw,48px);font-weight:900;margin-top:6px;opacity:0;transform:translateY(20px);transition:all .5s ease;background:linear-gradient(135deg,var(--accent),#FFD166);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Hoş Geldiniz</div>
-  <div id="ai-line3" style="font-size:clamp(13px,2vw,16px);font-weight:600;margin-top:16px;opacity:0;transform:translateY(10px);transition:all .4s ease;color:var(--sec);">Son birkaç adım kaldı ✨</div>
-  <div id="ai-bar" style="width:0;height:3px;background:linear-gradient(90deg,var(--accent),#FFD166);border-radius:99px;margin-top:32px;transition:width 1s ease;max-width:200px;"></div>
+  <div id="ai-line1>Sofrım Dünyasına</div>
+  <div id="ai-line2>Hoş Geldiniz</div>
+  <div id="ai-line3>Son birkaç adım kaldı ✨</div>
+  <div id="ai-bar></div>
 </div>
 <div class="page-wrap">
   <div class="page-header">
@@ -91,7 +94,7 @@
   <section style="padding-top:0;">
     <div class="apply-wrap">
       <!-- SEÇİM EKRANI -->
-      <div id="product-select" style="margin-bottom:0;">
+      <div id="product-select>
         <div style="text-align:center;margin-bottom:32px;">
           <div style="font-size:13px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;">BAŞVURU</div>
           <h2 style="font-size:24px;font-weight:900;margin-bottom:8px;">Ne için başvurmak istiyorsunuz?</h2>
@@ -128,7 +131,7 @@
       </div>
 
       <!-- ADIM GÖSTERGESİ -->
-      <div id="apply-form-wrap" style="display:none;">
+      <div id="apply-form-wrap>
       <div style="display:flex;align-items:center;margin-bottom:32px;" class="step-indicators">
         <div class="step-ind active" id="si-1"><div class="step-ind-num">1</div><div class="step-ind-label">Yetkili</div></div>
         <div class="step-ind-line"></div>
@@ -144,9 +147,9 @@
         <div class="step-title">👤 Yetkili Bilgileri</div>
         <div class="step-desc">Hesabı yönetecek kişinin bilgileri.</div>
         <div class="warn-box"><span style="font-size:18px;flex-shrink:0;">⚠️</span><div><strong style="color:var(--accent);">Güvenli Başvuru:</strong> Sofrım yalnızca <strong style="color:var(--text);">sofrimapp.com</strong> üzerinden satılmaktadır.</div></div>
-        <div id="ref-notice" style="display:none;align-items:flex-start;gap:12px;padding:16px;background:linear-gradient(135deg,rgba(255,107,26,.12),rgba(255,209,102,.08));border:1.5px solid rgba(255,107,26,.3);border-radius:14px;margin-bottom:20px;">
+        <div id="ref-notice>
           <span style="font-size:28px;flex-shrink:0;">🎁</span>
-          <div><div style="font-size:14px;font-weight:900;color:var(--accent);">Davet ile geldiniz!</div><div style="font-size:12px;color:var(--sec);margin-top:4px;">2 ay ücretsiz Pro hediye! Kod: <strong class="ref-code-val" style="color:var(--accent);letter-spacing:2px;"></strong></div></div>
+          <div><div style="font-size:14px;font-weight:900;color:var(--accent);">Davet ile geldiniz!</div><div style="font-size:12px;color:var(--sec);margin-top:4px;">2 ay ücretsiz Pro hediye! Kod: <strong class="ref-code-val></strong></div></div>
         </div>
         <input type="hidden" id="f-ref">
         <div class="form-row">
@@ -354,12 +357,12 @@
               <option value="+263">🇿🇼 +263</option>
               </optgroup>
             </select>
-            <input type="tel" id="f-phone" placeholder="5xx xxx xx xx" maxlength="11" style="flex:1;" inputmode="numeric" oninput="this.value=this.value.replace(/\D/g,'').slice(0,11)" autocomplete="tel" style="flex:1!important;min-width:0;">
+            <input type="tel" id="f-phone" placeholder="5xx xxx xx xx" maxlength="11" style="flex:1;" inputmode="numeric" oninput="this.value=this.value.replace(/\D/g,'').slice(0,11)" autocomplete="tel>
           </div>
           <div class="err" id="e-phone">Geçerli bir telefon numarası girin.</div>
         </div>
         <div class="fg"><label>DOĞUM TARİHİ *</label><input type="hidden" id="f-birth">
-          <button type="button" id="f-birth-btn" onclick="openDatePicker()" style="width:100%;padding:12px 14px;background:var(--surface);border:1.5px solid var(--border);border-radius:10px;color:var(--sec);font-size:14px;text-align:left;cursor:pointer;transition:border-color .2s;font-family:inherit;">
+          <button type="button" id="f-birth-btn" onclick="openDatePicker()>
             📅 Tarih seçin...
           </button><div class="err" id="e-birth">Doğum tarihi zorunludur.</div></div>
         <div class="fg">
@@ -376,7 +379,7 @@
       </div>
 
       <!-- ADIM 2 -->
-      <div id="step-2" class="step-box" style="display:none;">
+      <div id="step-2" class="step-box>
         <div class="step-title">🏢 İşletme Bilgileri</div>
         <div class="step-desc">Restoranınız hakkında bilgiler.</div>
         <div class="fg"><label>İŞLETME ADI *</label><input type="text" id="f-biz" placeholder="İşletmenizin ticari adı" maxlength="100"><div class="err" id="e-biz">İşletme adı zorunludur.</div></div>
@@ -409,89 +412,7 @@
           <div class="fg"><label>İL *</label>
             <select id="f-city" onchange="cityChanged('f-city','f-dist','f-tax')">
               <option value="">İl seçin...</option>
-              <option disabled>─ En Çok Tercih Edilenler ─</option>
-              <option>İstanbul</option>
-              <option>Ankara</option>
-              <option>İzmir</option>
-              <option disabled>─────────────────────────</option>
-              <option>Adana</option>
-              <option>Adıyaman</option>
-              <option>Afyonkarahisar</option>
-              <option>Aksaray</option>
-              <option>Amasya</option>
-              <option>Antalya</option>
-              <option>Ardahan</option>
-              <option>Artvin</option>
-              <option>Aydın</option>
-              <option>Ağrı</option>
-              <option>Balıkesir</option>
-              <option>Bartın</option>
-              <option>Batman</option>
-              <option>Bayburt</option>
-              <option>Bilecik</option>
-              <option>Bingöl</option>
-              <option>Bitlis</option>
-              <option>Bolu</option>
-              <option>Burdur</option>
-              <option>Bursa</option>
-              <option>Çanakkale</option>
-              <option>Çankırı</option>
-              <option>Çorum</option>
-              <option>Denizli</option>
-              <option>Diyarbakır</option>
-              <option>Düzce</option>
-              <option>Edirne</option>
-              <option>Elazığ</option>
-              <option>Erzincan</option>
-              <option>Erzurum</option>
-              <option>Eskişehir</option>
-              <option>Gaziantep</option>
-              <option>Giresun</option>
-              <option>Gümüşhane</option>
-              <option>Hakkari</option>
-              <option>Hatay</option>
-              <option>Isparta</option>
-              <option>Iğdır</option>
-              <option>Kahramanmaraş</option>
-              <option>Karabük</option>
-              <option>Karaman</option>
-              <option>Kars</option>
-              <option>Kastamonu</option>
-              <option>Kayseri</option>
-              <option>Kilis</option>
-              <option>Kocaeli</option>
-              <option>Konya</option>
-              <option>Kütahya</option>
-              <option>Kırklareli</option>
-              <option>Kırıkkale</option>
-              <option>Kırşehir</option>
-              <option>Malatya</option>
-              <option>Manisa</option>
-              <option>Mardin</option>
-              <option>Mersin</option>
-              <option>Muğla</option>
-              <option>Muş</option>
-              <option>Nevşehir</option>
-              <option>Niğde</option>
-              <option>Ordu</option>
-              <option>Osmaniye</option>
-              <option>Rize</option>
-              <option>Sakarya</option>
-              <option>Samsun</option>
-              <option>Şanlıurfa</option>
-              <option>Siirt</option>
-              <option>Sinop</option>
-              <option>Sivas</option>
-              <option>Şırnak</option>
-              <option>Tekirdağ</option>
-              <option>Tokat</option>
-              <option>Trabzon</option>
-              <option>Tunceli</option>
-              <option>Uşak</option>
-              <option>Van</option>
-              <option>Yalova</option>
-              <option>Yozgat</option>
-              <option>Zonguldak</option>
+              <option>Adana</option><option>Adıyaman</option><option>Afyonkarahisar</option><option>Aksaray</option><option>Amasya</option><option>Ankara</option><option>Antalya</option><option>Ardahan</option><option>Artvin</option><option>Aydın</option><option>Ağrı</option><option>Balıkesir</option><option>Bartın</option><option>Batman</option><option>Bayburt</option><option>Bilecik</option><option>Bingöl</option><option>Bitlis</option><option>Bolu</option><option>Burdur</option><option>Bursa</option><option>Denizli</option><option>Diyarbakır</option><option>Düzce</option><option>Edirne</option><option>Elazığ</option><option>Erzincan</option><option>Erzurum</option><option>Eskişehir</option><option>Gaziantep</option><option>Giresun</option><option>Gümüşhane</option><option>Hakkari</option><option>Hatay</option><option>Isparta</option><option>Iğdır</option><option>Kahramanmaraş</option><option>Karabük</option><option>Karaman</option><option>Kars</option><option>Kastamonu</option><option>Kayseri</option><option>Kilis</option><option>Kocaeli</option><option>Konya</option><option>Kütahya</option><option>Kırklareli</option><option>Kırıkkale</option><option>Kırşehir</option><option>Malatya</option><option>Manisa</option><option>Mardin</option><option>Mersin</option><option>Muğla</option><option>Muş</option><option>Nevşehir</option><option>Niğde</option><option>Ordu</option><option>Osmaniye</option><option>Rize</option><option>Sakarya</option><option>Samsun</option><option>Siirt</option><option>Sinop</option><option>Sivas</option><option>Tekirdağ</option><option>Tokat</option><option>Trabzon</option><option>Tunceli</option><option>Uşak</option><option>Van</option><option>Yalova</option><option>Yozgat</option><option>Zonguldak</option><option>Çanakkale</option><option>Çankırı</option><option>Çorum</option><option>İstanbul</option><option>İzmir</option><option>Şanlıurfa</option><option>Şırnak</option>
             </select>
             <div class="err" id="e-city">Lütfen il seçin.</div>
           </div>
@@ -549,7 +470,7 @@
       </div>
 
       <!-- ADIM 3 -->
-      <div id="step-3" class="step-box" style="display:none;">
+      <div id="step-3" class="step-box>
         <div class="step-title">📦 Paket Seçimi</div>
         <div class="step-desc">İhtiyacınıza en uygun paketi seçin. 14 gün ücretsiz deneme tüm paketlere dahil.</div>
         <div class="bill-tog">
@@ -563,15 +484,15 @@
           </div>
           <div class="plan-opt" id="po-lite" onclick="selPlan('lite')">
             <div><div style="font-size:14px;font-weight:800;">Lite</div><div style="font-size:12px;color:var(--sec);margin-top:3px;">3 personel · Temel özellikler · 1 şube</div></div>
-            <div style="text-align:right;"><div id="fp-lite" style="font-size:15px;font-weight:900;">799₺/ay</div><div id="fp-lite-y" style="display:none;font-size:10px;color:var(--teal);font-weight:700;">7.990₺/yıl</div></div>
+            <div style="text-align:right;"><div id="fp-lite>799₺/ay</div><div id="fp-lite-y>7.990₺/yıl</div></div>
           </div>
           <div class="plan-opt" id="po-standart" onclick="selPlan('standart')">
             <div><div style="font-size:14px;font-weight:800;">Standart <span style="font-size:10px;color:var(--accent);background:rgba(255,107,26,.1);padding:2px 8px;border-radius:6px;margin-left:6px;">Popüler</span></div><div style="font-size:12px;color:var(--sec);margin-top:3px;">7 personel · AI mutfak · Stok · 1 şube</div></div>
-            <div style="text-align:right;"><div id="fp-standart" style="font-size:15px;font-weight:900;">1.499₺/ay</div><div id="fp-standart-y" style="display:none;font-size:10px;color:var(--teal);font-weight:700;">14.990₺/yıl</div></div>
+            <div style="text-align:right;"><div id="fp-standart>1.499₺/ay</div><div id="fp-standart-y>14.990₺/yıl</div></div>
           </div>
           <div class="plan-opt" id="po-pro" onclick="selPlan('pro')">
             <div><div style="font-size:14px;font-weight:800;">Pro</div><div style="font-size:12px;color:var(--sec);margin-top:3px;">Sınırsız personel · Kurye · Tüm özellikler · 1 şube</div></div>
-            <div style="text-align:right;"><div id="fp-pro" style="font-size:15px;font-weight:900;">2.499₺/ay</div><div id="fp-pro-y" style="display:none;font-size:10px;color:var(--teal);font-weight:700;">24.990₺/yıl</div></div>
+            <div style="text-align:right;"><div id="fp-pro>2.499₺/ay</div><div id="fp-pro-y>24.990₺/yıl</div></div>
           </div>
           <div class="plan-opt" id="po-subeli" onclick="selPlan('subeli')">
             <div><div style="font-size:14px;font-weight:800;">Şubeli Plan</div><div style="font-size:12px;color:var(--sec);margin-top:3px;">Pro + Çoklu şube · Merkezi yönetim · Franchise desteği</div></div>
@@ -580,20 +501,20 @@
         </div>
 
         <!-- ŞUBELİ HESAPLAYICI -->
-        <div id="branch-wrap" style="display:none;">
+        <div id="branch-wrap>
           <div class="branch-calc">
             <div style="font-size:14px;font-weight:800;margin-bottom:16px;">🏢 Şubeli Plan Fiyat Hesaplayıcı</div>
-            <div class="form-row" style="margin-bottom:14px;">
-              <div class="fg" style="margin-bottom:0;"><label>TOPLAM ŞUBE SAYISI *</label><input type="number" id="f-brcnt" placeholder="2" min="2" max="100" value="2" oninput="calcBranch()"></div>
-              <div class="fg" style="margin-bottom:0;"><label>ŞUBE BAŞI ORTALAMA MASA</label><input type="number" id="f-brtbl" placeholder="20" min="1" max="500" value="20" oninput="calcBranch()"></div>
+            <div class="form-row>
+              <div class="fg><label>TOPLAM ŞUBE SAYISI *</label><input type="number" id="f-brcnt" placeholder="2" min="2" max="100" value="2" oninput="calcBranch()"></div>
+              <div class="fg><label>ŞUBE BAŞI ORTALAMA MASA</label><input type="number" id="f-brtbl" placeholder="20" min="1" max="500" value="20" oninput="calcBranch()"></div>
             </div>
-            <div class="form-row" style="margin-bottom:14px;">
-              <div class="fg" style="margin-bottom:0;"><label>ŞUBE BAŞI ÇALIŞAN</label>
+            <div class="form-row>
+              <div class="fg><label>ŞUBE BAŞI ÇALIŞAN</label>
                 <select id="f-brstaff" onchange="calcBranch()">
                   <option value="5">1-5 kişi</option><option value="10" selected>6-10 kişi</option><option value="20">11-20 kişi</option><option value="30">21-30 kişi</option><option value="50">30+ kişi</option>
                 </select>
               </div>
-              <div class="fg" style="margin-bottom:0;"><label>MENÜ YÖNETİMİ</label>
+              <div class="fg><label>MENÜ YÖNETİMİ</label>
                 <select id="f-menutype" onchange="calcBranch()">
                   <option value="merkezi">Merkezi menü</option><option value="ozel">Her şubeye özel</option>
                 </select>
@@ -615,14 +536,14 @@
               <div class="b-row"><span>Pro paket (baz)</span><span>2.499₺</span></div>
               <div class="b-row"><span id="br-ext-lbl">Ek şube (0)</span><span id="br-ext-prc">0₺</span></div>
               <div class="b-row"><span id="br-mod-lbl">Ek modüller (0)</span><span id="br-mod-prc">0₺</span></div>
-              <div class="b-row" style="margin-top:8px;padding-top:8px;border-top:2px solid var(--border);border-bottom:none;"><span>Tahmini Aylık Toplam</span><span id="br-total">2.499₺/ay</span></div>
-              <div id="br-yr-note" style="display:none;font-size:11px;color:var(--teal);margin-top:6px;font-weight:700;"></div>
+              <div class="b-row><span>Tahmini Aylık Toplam</span><span id="br-total">2.499₺/ay</span></div>
+              <div id="br-yr-note></div>
               <div style="font-size:10px;color:var(--muted);margin-top:8px;">* Kesin fiyat görüşme sonrası belirlenir.</div>
             </div>
           </div>
         </div>
 
-        <div class="fg" style="margin-top:20px;"><label>EK NOT (OPSİYONEL)</label><textarea id="f-note" rows="2" placeholder="Özel isteğiniz veya sorularınız..." maxlength="500"></textarea></div>
+        <div class="fg><label>EK NOT (OPSİYONEL)</label><textarea id="f-note" rows="2" placeholder="Özel isteğiniz veya sorularınız..." maxlength="500"></textarea></div>
         <div class="step-nav">
           <button class="btn-secondary" style="flex:1;justify-content:center;" onclick="goStep(2)">← Geri</button>
           <button class="btn-primary" style="flex:2;justify-content:center;" onclick="nextStep(3)">Devam → Özet ve Onay</button>
@@ -630,7 +551,7 @@
       </div>
 
       <!-- ADIM 4 -->
-      <div id="step-4" class="step-box" style="display:none;">
+      <div id="step-4" class="step-box>
         <div class="step-title">✅ Özet ve Onay</div>
         <div class="step-desc">Bilgilerinizi kontrol edin, sözleşmeleri okuyup onaylayın.</div>
         <div style="background:var(--surface);border-radius:14px;padding:20px;margin-bottom:24px;">
@@ -648,10 +569,10 @@
             <div class="sum-row"><span class="sum-lbl">Çalışan</span><span class="sum-val" id="s-staff">—</span></div>
             <div class="sum-row"><span class="sum-lbl">Günlük Sipariş</span><span class="sum-val" id="s-orders">—</span></div>
           </div>
-          <div class="sum-sec" style="margin-bottom:0;"><div class="sum-ttl">📦 Paket</div>
+          <div class="sum-sec><div class="sum-ttl">📦 Paket</div>
             <div class="sum-row"><span class="sum-lbl">Seçilen Paket</span><span class="sum-val" id="s-plan">—</span></div>
             <div class="sum-row"><span class="sum-lbl">Ödeme Dönemi</span><span class="sum-val" id="s-billing">—</span></div>
-            <div class="sum-row" style="border-top:2px solid var(--border);margin-top:8px;padding-top:8px;"><span style="font-weight:900;color:var(--text);">Başlangıç Ücreti</span><span style="font-weight:900;color:var(--accent);font-size:16px;" id="s-price">—</span></div>
+            <div class="sum-row><span style="font-weight:900;color:var(--text);">Başlangıç Ücreti</span><span style="font-weight:900;color:var(--accent);font-size:16px;" id="s-price">—</span></div>
           </div>
         </div>
 
@@ -672,12 +593,12 @@
       </div>
 
       <!-- BAŞARI -->
-      <div id="step-ok" class="step-box" style="display:none;text-align:center;padding:60px 32px;">
+      <div id="step-ok" class="step-box>
         <div style="font-size:64px;margin-bottom:20px;">✅</div>
         <h3 style="font-size:24px;font-weight:900;margin-bottom:12px;">Başvurunuz Alındı!</h3>
         <p style="color:var(--sec);font-size:14px;line-height:1.8;max-width:400px;margin:0 auto 20px;">En geç 1 iş günü içinde size dönüş yapacağız. Giriş bilgileri yalnızca <strong style="color:var(--text);">kelesmelih551@gmail.com</strong> adresinden gönderilir.</p>
-        <div class="warn-box" style="max-width:440px;margin:0 auto 24px;text-align:left;"><span style="font-size:18px;flex-shrink:0;">⚠️</span><div>Şüpheli durumlarda <strong style="color:var(--text);">0312 820 10 13</strong> numaramızı arayın.</div></div>
-        <a href="index.html" class="btn-primary" style="justify-content:center;">Ana Sayfaya Dön</a>
+        <div class="warn-box><span style="font-size:18px;flex-shrink:0;">⚠️</span><div>Şüpheli durumlarda <strong style="color:var(--text);">0312 820 10 13</strong> numaramızı arayın.</div></div>
+        <a href="index.html" class="btn-primary>Ana Sayfaya Dön</a>
       </div>
       </div><!-- apply-form-wrap sonu -->
     </div>
@@ -685,16 +606,16 @@
 </div>
 
 <!-- TARİH SEÇİCİ -->
-<div id="dp-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:2000;align-items:center;justify-content:center;padding:20px;">
+<div id="dp-overlay>
   <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;width:100%;max-width:360px;overflow:hidden;">
     <div style="padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
       <div style="font-size:15px;font-weight:800;" id="dp-title">Yıl Seçin</div>
-      <button onclick="closeDatePicker()" style="width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:var(--surface);color:var(--sec);cursor:pointer;font-size:16px;">✕</button>
+      <button onclick="closeDatePicker()>✕</button>
     </div>
-    <div id="dp-body" style="padding:16px 20px;"></div>
+    <div id="dp-body></div>
     <div style="padding:12px 20px;border-top:1px solid var(--border);display:flex;gap:8px;">
-      <button id="dp-back-btn" onclick="dpBack()" style="display:none;flex:1;padding:10px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--sec);cursor:pointer;font-size:13px;font-weight:700;">← Geri</button>
-      <button onclick="closeDatePicker()" style="flex:1;padding:10px;border-radius:10px;border:none;background:var(--border);color:var(--sec);cursor:pointer;font-size:13px;font-weight:700;">İptal</button>
+      <button id="dp-back-btn" onclick="dpBack()>← Geri</button>
+      <button onclick="closeDatePicker()>İptal</button>
     </div>
   </div>
 </div>
@@ -1143,5 +1064,6 @@ document.addEventListener('DOMContentLoaded',()=>{
   }
 });
 </script>
+<script src="rimo.js"></script>
 </body>
 </html>

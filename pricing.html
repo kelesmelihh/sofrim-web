@@ -9,6 +9,9 @@
   <link rel="icon" href="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/sofrim_logo.jpeg">
   <link rel="stylesheet" href="style.css">
 
+  <!-- Google Analytics - G-XXXXXXXXXX yerine kendi ID'nizi yazın -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script> -->
 </head>
 <body>
 <div id="nav-placeholder"></div>
@@ -21,8 +24,8 @@
   <section style="padding-top:0;">
     <div style="display:flex;justify-content:center;margin-bottom:32px;">
       <div style="display:inline-flex;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:4px;gap:4px;">
-        <button id="toggle-monthly" onclick="setBilling('monthly')" style="padding:10px 24px;border-radius:9px;border:none;background:var(--accent);color:#fff;font-size:13px;font-weight:700;cursor:pointer;">Aylık</button>
-        <button id="toggle-yearly" onclick="setBilling('yearly')" style="padding:10px 24px;border-radius:9px;border:none;background:transparent;color:var(--sec);font-size:13px;font-weight:700;cursor:pointer;">Yıllık (2 ay ücretsiz)</button>
+        <button id="toggle-monthly" onclick="setBilling('monthly')>Aylık</button>
+        <button id="toggle-yearly" onclick="setBilling('yearly')>Yıllık (2 ay ücretsiz)</button>
       </div>
     </div>
     <div class="pricing-grid">
@@ -30,7 +33,7 @@
       <div class="pricing-card">
         <div class="plan-name">Lite</div>
         <div class="plan-price" id="price-lite">799₺ <span>/ay</span></div>
-        <div id="price-lite-y" style="display:none;font-size:12px;color:var(--teal);font-weight:700;margin-bottom:8px;">7.990₺/yıl — 2 ay ücretsiz</div>
+        <div id="price-lite-y>7.990₺/yıl — 2 ay ücretsiz</div>
         <div class="plan-desc">Küçük kafeler ve restoranlar için</div>
         <ul class="plan-features">
           <li>QR ile müşteri sipariş</li><li>Mutfak & Bar ekranı</li><li>Kasa yönetimi</li><li>Garson sipariş alma</li><li>Temel raporlar</li><li>Yazıcı desteği</li><li>3 personel • 1 şube</li>
@@ -43,7 +46,7 @@
         <div class="popular-badge">En Çok Tercih Edilen</div>
         <div class="plan-name">Standart</div>
         <div class="plan-price" id="price-standart">1.499₺ <span>/ay</span></div>
-        <div id="price-standart-y" style="display:none;font-size:12px;color:var(--teal);font-weight:700;margin-bottom:8px;">14.990₺/yıl — 2 ay ücretsiz</div>
+        <div id="price-standart-y>14.990₺/yıl — 2 ay ücretsiz</div>
         <div class="plan-desc">Büyüyen restoranlar için</div>
         <ul class="plan-features">
           <li>Lite'ın tamamı +</li><li>Stok & reçete takibi</li><li>Masa birleştirme & hesap bölme</li><li>Ürün opsiyonları</li><li>Canlı masa haritası</li><li>Mobil patron özeti</li><li>Vardiya & izin yönetimi</li><li>🤖 AI mutfak yönetimi</li><li>7 personel • 1 şube</li>
@@ -54,7 +57,7 @@
       <div class="pricing-card">
         <div class="plan-name">Pro</div>
         <div class="plan-price" id="price-pro">2.499₺ <span>/ay</span></div>
-        <div id="price-pro-y" style="display:none;font-size:12px;color:var(--teal);font-weight:700;margin-bottom:8px;">24.990₺/yıl — 2 ay ücretsiz</div>
+        <div id="price-pro-y>24.990₺/yıl — 2 ay ücretsiz</div>
         <div class="plan-desc">Tam donanımlı restoranlar için</div>
         <ul class="plan-features">
           <li>Standart'ın tamamı +</li><li>Kurye & teslimat modülü</li><li>Gerçek zamanlı kurye takibi</li><li>Müşteri sadakat sistemi</li><li>Rezervasyon sistemi</li><li>Maaş takibi & hesaplama</li><li>Gelişmiş raporlar</li><li>Öncelikli destek</li><li>Sınırsız personel • 1 şube</li>
@@ -64,8 +67,8 @@
       <!-- ŞUBELİ -->
       <div class="pricing-card">
         <div class="plan-name">Şubeli Plan</div>
-        <div class="plan-price" style="font-size:22px;">2.499₺ <span>+ şube başı</span></div>
-        <div id="price-subeli-y" style="display:none;font-size:12px;color:var(--teal);font-weight:700;margin-bottom:8px;">Yıllık ödemede 2 ay ücretsiz</div>
+        <div class="plan-price>2.499₺ <span>+ şube başı</span></div>
+        <div id="price-subeli-y>Yıllık ödemede 2 ay ücretsiz</div>
         <div class="plan-desc">Zincir ve franchise restoranlar için</div>
         <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:16px;font-size:13px;color:var(--sec);line-height:1.9;">
           <div style="font-size:11px;font-weight:800;color:var(--sec);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Şube Başı Ücretler</div>
@@ -168,5 +171,6 @@ function calcP() {
 }
 
 </script>
+<script src="rimo.js"></script>
 </body>
 </html>

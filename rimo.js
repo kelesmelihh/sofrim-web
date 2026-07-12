@@ -21,7 +21,7 @@ Kurallar:
 - Her zaman Türkçe konuş
 - Sofrım dışı konularda kibarca reddet`
 
-const RIMO_AVATAR = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="%23FF6B1A"/><circle cx="50" cy="42" r="28" fill="%23FFE5D0"/><circle cx="38" cy="38" r="7" fill="white"/><circle cx="62" cy="38" r="7" fill="white"/><circle cx="40" cy="39" r="4" fill="%23FF6B1A"/><circle cx="64" cy="39" r="4" fill="%23FF6B1A"/><circle cx="41" cy="38" r="2" fill="%23333"/><circle cx="65" cy="38" r="2" fill="%23333"/><path d="M38 52 Q50 62 62 52" stroke="%23FF6B1A" stroke-width="3" fill="none" stroke-linecap="round"/><rect x="42" y="70" width="16" height="8" rx="4" fill="%23FF6B1A"/><rect x="22" y="68" width="12" height="6" rx="3" fill="%23FF6B1A"/><rect x="66" y="68" width="12" height="6" rx="3" fill="%23FF6B1A"/><circle cx="35" cy="28" r="4" fill="%23FF6B1A"/><circle cx="65" cy="28" r="4" fill="%23FF6B1A"/><rect x="46" y="18" width="8" height="12" rx="4" fill="%23FF6B1A"/><circle cx="50" cy="16" r="5" fill="%23FFD166"/></svg>`
+const RIMO_AVATAR = null // emoji ile gösterilecek
 
 let messages = [{ role: 'assistant', content: 'Merhaba! 👋 Ben Rimo. Sofrım hakkında merak ettiğin her şeyi sorabilirsin!' }]
 let isOpen = false
@@ -54,7 +54,7 @@ function createRimo() {
   // Buton
   const btn = document.createElement('button')
   btn.id = 'rimo-btn'
-  btn.innerHTML = `<img src="${RIMO_AVATAR}" style="width:56px;height:56px;border-radius:50%;">`
+  btn.innerHTML = `<div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#FF6B1A,#FF8C5A);display:flex;align-items:center;justify-content:center;font-size:28px;">🤖</div>`
   btn.onclick = toggleRimo
   document.body.appendChild(btn)
 
@@ -116,10 +116,10 @@ function renderMessages() {
   if (!container) return
   container.innerHTML = messages.map(m => {
     if (m.role === 'user') return `<div class="rimo-msg-user"><div class="rimo-bubble-user">${m.content}</div></div>`
-    return `<div class="rimo-msg-bot"><img src="${RIMO_AVATAR}" class="rimo-avatar"><div class="rimo-bubble-bot">${m.content}</div></div>`
+    return `<div class="rimo-msg-bot"><div class="rimo-avatar" style="display:flex;align-items:center;justify-content:center;font-size:14px;background:#FF6B1A20;flex-shrink:0;">🤖</div><div class="rimo-bubble-bot">${m.content}</div></div>`
   }).join('')
   if (isLoading) {
-    container.innerHTML += `<div class="rimo-msg-bot"><img src="${RIMO_AVATAR}" class="rimo-avatar"><div class="rimo-bubble-bot" style="display:flex;gap:4px">${[0,1,2].map(i=>`<span style="width:6px;height:6px;border-radius:50%;background:#8888AA;animation:rimoBounce 1s ${i*0.2}s infinite;display:inline-block"></span>`).join('')}</div></div>`
+    container.innerHTML += `<div class="rimo-msg-bot"><div class="rimo-avatar" style="display:flex;align-items:center;justify-content:center;font-size:14px;">🤖</div><div class="rimo-bubble-bot" style="display:flex;gap:4px">${[0,1,2].map(i=>`<span style="width:6px;height:6px;border-radius:50%;background:#8888AA;animation:rimoBounce 1s ${i*0.2}s infinite;display:inline-block"></span>`).join('')}</div></div>`
   }
   container.scrollTop = container.scrollHeight
 }
