@@ -8,10 +8,6 @@
   <link rel="canonical" href="https://sofrimapp.com/pricing.html">
   <link rel="icon" href="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/sofrim_logo.jpeg">
   <link rel="stylesheet" href="style.css">
-
-  <!-- Google Analytics - G-XXXXXXXXXX yerine kendi ID'nizi yazın -->
-  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script> -->
 </head>
 <body>
 <div id="nav-placeholder"></div>
@@ -24,8 +20,8 @@
   <section style="padding-top:0;">
     <div style="display:flex;justify-content:center;margin-bottom:32px;">
       <div style="display:inline-flex;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:4px;gap:4px;">
-        <button id="toggle-monthly" onclick="setBilling('monthly')>Aylık</button>
-        <button id="toggle-yearly" onclick="setBilling('yearly')>Yıllık (2 ay ücretsiz)</button>
+        <button id="toggle-monthly" onclick="setBilling('monthly')">Aylık</button>
+        <button id="toggle-yearly" onclick="setBilling('yearly')">Yıllık (2 ay ücretsiz)</button>
       </div>
     </div>
     <div class="pricing-grid">
@@ -33,7 +29,7 @@
       <div class="pricing-card">
         <div class="plan-name">Lite</div>
         <div class="plan-price" id="price-lite">799₺ <span>/ay</span></div>
-        <div id="price-lite-y>7.990₺/yıl — 2 ay ücretsiz</div>
+        <div id="price-lite-y" style="display:none;font-size:12px;color:var(--accent);margin-bottom:8px;">7.990₺/yıl — 2 ay ücretsiz</div>
         <div class="plan-desc">Küçük kafeler ve restoranlar için</div>
         <ul class="plan-features">
           <li>QR ile müşteri sipariş</li><li>Mutfak & Bar ekranı</li><li>Kasa yönetimi</li><li>Garson sipariş alma</li><li>Temel raporlar</li><li>Yazıcı desteği</li><li>3 personel • 1 şube</li>
@@ -46,7 +42,7 @@
         <div class="popular-badge">En Çok Tercih Edilen</div>
         <div class="plan-name">Standart</div>
         <div class="plan-price" id="price-standart">1.499₺ <span>/ay</span></div>
-        <div id="price-standart-y>14.990₺/yıl — 2 ay ücretsiz</div>
+        <div id="price-standart-y" style="display:none;font-size:12px;color:var(--accent);margin-bottom:8px;">14.990₺/yıl — 2 ay ücretsiz</div>
         <div class="plan-desc">Büyüyen restoranlar için</div>
         <ul class="plan-features">
           <li>Lite'ın tamamı +</li><li>Stok & reçete takibi</li><li>Masa birleştirme & hesap bölme</li><li>Ürün opsiyonları</li><li>Canlı masa haritası</li><li>Mobil patron özeti</li><li>Vardiya & izin yönetimi</li><li>🤖 AI mutfak yönetimi</li><li>7 personel • 1 şube</li>
@@ -57,7 +53,7 @@
       <div class="pricing-card">
         <div class="plan-name">Pro</div>
         <div class="plan-price" id="price-pro">2.499₺ <span>/ay</span></div>
-        <div id="price-pro-y>24.990₺/yıl — 2 ay ücretsiz</div>
+        <div id="price-pro-y" style="display:none;font-size:12px;color:var(--accent);margin-bottom:8px;">24.990₺/yıl — 2 ay ücretsiz</div>
         <div class="plan-desc">Tam donanımlı restoranlar için</div>
         <ul class="plan-features">
           <li>Standart'ın tamamı +</li><li>Kurye & teslimat modülü</li><li>Gerçek zamanlı kurye takibi</li><li>Müşteri sadakat sistemi</li><li>Rezervasyon sistemi</li><li>Maaş takibi & hesaplama</li><li>Gelişmiş raporlar</li><li>Öncelikli destek</li><li>Sınırsız personel • 1 şube</li>
@@ -67,8 +63,8 @@
       <!-- ŞUBELİ -->
       <div class="pricing-card">
         <div class="plan-name">Şubeli Plan</div>
-        <div class="plan-price>2.499₺ <span>+ şube başı</span></div>
-        <div id="price-subeli-y>Yıllık ödemede 2 ay ücretsiz</div>
+        <div class="plan-price">2.499₺ <span>+ şube başı</span></div>
+        <div id="price-subeli-y" style="display:none;font-size:12px;color:var(--accent);margin-bottom:8px;">Yıllık ödemede 2 ay ücretsiz</div>
         <div class="plan-desc">Zincir ve franchise restoranlar için</div>
         <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:16px;font-size:13px;color:var(--sec);line-height:1.9;">
           <div style="font-size:11px;font-weight:800;color:var(--sec);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Şube Başı Ücretler</div>
@@ -76,17 +72,13 @@
           <div>4-5. şube: <strong style="color:var(--text);">+1.600₺/şube</strong></div>
           <div>6-10. şube: <strong style="color:var(--text);">+1.200₺/şube</strong></div>
           <div>11+ şube: <strong style="color:var(--text);">+900₺/şube</strong></div>
-          <div style="margin-top:8px;font-size:10px;color:var(--muted);">* Masa/personel sayısına göre ek ücret uygulanabilir. Kesin fiyat başvuru sonrası belirlenir.</div>
+          <div style="margin-top:8px;font-size:10px;color:var(--muted);">* Masa/personel sayısına göre ek ücret uygulanabilir.</div>
         </div>
-                <ul class="plan-features">
+        <ul class="plan-features">
           <li>Pro'nun tamamı +</li><li>Çoklu şube yönetimi</li><li>Şubeler arası karşılaştırma</li><li>Merkezi menü yönetimi</li><li>Sınırsız personel</li>
         </ul>
         <a href="apply.html" class="plan-btn outline">Başvur</a>
       </div>
-    </div>
-    <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-top:40px;flex-wrap:wrap;">
-      <div style="font-size:12px;color:var(--sec);">🔒 Güvenli ödeme:</div>
-      <img src="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/logo_band_white@2x.png" alt="Visa Mastercard" style="height:28px;opacity:.8;" onerror="this.style.display='none'">
     </div>
   </section>
   <div class="cta-banner">
@@ -102,7 +94,6 @@ renderNav('pricing');
 renderFooter();
 
 let billing = 'monthly';
-
 function setBilling(type) {
   billing = type;
   const mB = document.getElementById('toggle-monthly'), yB = document.getElementById('toggle-yearly');
@@ -122,54 +113,6 @@ function setBilling(type) {
     ['lite','standart','pro','subeli'].forEach(p=>{const e=document.getElementById('price-'+p+'-y');if(e)e.style.display='block';});
   }
 }
-
-function calcP() {
-  const br = parseInt(document.getElementById('p-brcnt').value) || 2;
-  const tables = parseInt(document.getElementById('p-brtbl').value) || 20;
-  const staffVal = parseInt(document.getElementById('p-brstaff').value) || 10;
-  const mt = document.getElementById('p-menutype').value;
-  const bizType = document.getElementById('p-biztype').value;
-  const mods = document.querySelectorAll('.branch-calc .cb-tag.checked input');
-
-  const base = 2499;
-  let branchExtra = 0;
-  for (let i = 2; i <= br; i++) {
-    if (i <= 3) branchExtra += 1800;
-    else if (i <= 5) branchExtra += 1600;
-    else if (i <= 10) branchExtra += 1200;
-    else branchExtra += 900;
-  }
-  const totalTables = br * tables;
-  const totalStaff = br * staffVal;
-  const tableBonus = Math.floor(totalTables / 50) * 200;
-  const staffBonus = Math.floor(totalStaff / 30) * 150;
-  const menuBonus = mt === 'ozel' ? (br - 1) * 300 : 0;
-  const franchiseBonus = bizType === 'franchise' ? (br - 1) * 400 : 0;
-  let modExtra = 0;
-  mods.forEach(m => {
-    if (m.value === 'kurye') modExtra += 500 + (br - 1) * 200;
-    if (m.value === 'sadakat') modExtra += 300 + (br - 1) * 100;
-  });
-
-  const bonusTotal = tableBonus + staffBonus + menuBonus + franchiseBonus;
-  const subtotal = base + branchExtra + bonusTotal + modExtra;
-  const total = billing === 'yearly' ? Math.round(subtotal * 10 / 12) : subtotal;
-
-  document.getElementById('p-ext-lbl').textContent = 'Şube ücretleri (' + (br-1) + ' ek)';
-  document.getElementById('p-ext-prc').textContent = (branchExtra + bonusTotal).toLocaleString('tr-TR') + '₺';
-  document.getElementById('p-mod-lbl').textContent = 'Ek modüller (' + mods.length + ')';
-  document.getElementById('p-mod-prc').textContent = modExtra > 0 ? modExtra.toLocaleString('tr-TR') + '₺' : '0₺';
-  document.getElementById('p-total').textContent = total.toLocaleString('tr-TR') + '₺/ay';
-
-  const yn = document.getElementById('p-yr-note');
-  if (billing === 'yearly') {
-    yn.style.display = 'block';
-    yn.textContent = 'Yıllık: ' + (total * 12).toLocaleString('tr-TR') + '₺ (2 ay ücretsiz)';
-  } else {
-    yn.style.display = 'none';
-  }
-}
-
 </script>
 <script src="rimo.js"></script>
 </body>
