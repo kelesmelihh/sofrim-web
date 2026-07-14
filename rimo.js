@@ -139,11 +139,8 @@ async function rimoSend() {
   try {
     const res = await fetch('https://hvmjkayittkivmfwdmhv.supabase.co/functions/v1/rimo-proxy', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        system: RIMO_SYSTEM,
-        messages: messages.slice(-8)
-      })
+      headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2bWprYXlpdHRraXZtZndkbWh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE4MjMxNDUsImV4cCI6MjA5NzM5OTE0NX0.Y-KaZIS-5jD66-MD6EnxuLb6jyT4ZCoIa2PdVFnurYE'},
+      body: JSON.stringify({ system: RIMO_SYSTEM, messages: messages.slice(-8) })
     })
     const data = await res.json()
     const reply = data.content?.[0]?.text || 'Bir sorun oluştu, tekrar dener misin? 🙏'
