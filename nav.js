@@ -1,6 +1,5 @@
 // ─── SOFRIM NAV.JS ────────────────────────────────────────────
 const LOGO_URL = 'https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/sofrim_logo.jpeg';
-const PAYMENT_LOGO = 'https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/logo_band_white@2x.png';
 const SUPABASE_URL = 'https://hvmjkayittkivmfwdmhv.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2bWprYXlpdHRraXZtZndkbWh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE4MjMxNDUsImV4cCI6MjA5NzM5OTE0NX0.Y-KaZIS-5jD66-MD6EnxuLb6jyT4ZCoIa2PdVFnurYE';
 
@@ -92,7 +91,6 @@ function renderFooter() {
       <div class="footer-bottom">
         <div class="footer-copy">
           <span class="footer-copy-text">© 2026 Sofrım · Melih Keleş · Yenimahalle VD · VN: 5431084511</span>
-          <img src="${PAYMENT_LOGO}" alt="Visa Mastercard" style="height:26px;opacity:.8;" onerror="this.style.display='none'">
         </div>
         <div class="footer-warning">
           <strong>⚠️ Güvenli Alışveriş:</strong> Sofrım yalnızca <strong style="color:var(--text);">sofrimapp.com</strong> üzerinden satılmaktadır.
