@@ -56,7 +56,7 @@ function renderFooter() {
             <span class="footer-logo-text">Sofrım</span>
           </div>
           <div class="footer-desc">Türkiye'nin restoranları için<br>tasarlanmış yönetim yazılımı.</div>
-          <div class="footer-ver">MK Software · v2.3.0</div>
+          <div class="footer-ver" id="footer-version">MK Software · v2.3.0</div>
         </div>
         <div class="footer-col">
           <div class="footer-title">Ürün</div>
@@ -69,7 +69,7 @@ function renderFooter() {
           </div>
         </div>
         <div class="footer-col">
-          <div class="footer-title">Şirket</div>
+          <div class="footer-title">Şirket & Yasal</div>
           <div class="footer-links">
             <a href="about.html">Hakkımızda</a>
             <a href="referanslar.html">Referanslar</a>
@@ -77,11 +77,6 @@ function renderFooter() {
             <a href="contact.html">İletişim</a>
             <a href="yardim.html">Yardım Merkezi</a>
             <a href="status.html">Sistem Durumu</a>
-          </div>
-        </div>
-        <div class="footer-col">
-          <div class="footer-title">Yasal</div>
-          <div class="footer-links">
             <a href="privacy.html">Gizlilik Politikası</a>
             <a href="terms.html">Mesafeli Satış Sözleşmesi</a>
             <a href="delivery.html">Teslimat & İade</a>
@@ -131,6 +126,17 @@ async function loadTenantCount() {
     });
     const d = await r.json();
     document.querySelectorAll('.tenant-count').forEach(el => { el.textContent = (d || 0) + '+'; });
+  } catch (e) {}
+  // Versiyonu app_config'den çek
+  try {
+    const vr = await fetch(`${SUPABASE_URL}/rest/v1/app_config?key=eq.latest_version&select=value`, {
+      headers: { 'apikey': SUPABASE_KEY }
+    });
+    const vd = await vr.json();
+    if (vd?.[0]?.value?.version) {
+      const ver = 'MK Software · v' + vd[0].value.version;
+      document.querySelectorAll('#footer-version, .intro-mk').forEach(el => { el.textContent = ver; });
+    }
   } catch (e) {}
 }
 
