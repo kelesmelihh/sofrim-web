@@ -5,31 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sofrım — Türkiye'nin En Kapsamlı Restoran Yönetim Sistemi</title>
   <meta name="description" content="Mutfaktan kasaya, personelden kuryeye — restoranınızın ihtiyacı olan her şey tek sistemde. AI destekli mutfak, PWA uygulama, müdür paneli ve 40+ özellik.">
-  <meta name="keywords" content="restoran yönetim sistemi, kafe yazılımı, QR sipariş, mutfak ekranı, kurye takibi, personel yönetimi, Sofrım">
-  <meta name="author" content="MK Software — Melih Keleş">
   <meta property="og:title" content="Sofrım — Restoran Yönetim Sistemi">
   <meta property="og:description" content="40+ özellik, tek platform. AI destekli mutfak, PWA, müdür paneli.">
   <meta property="og:image" content="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/sofrim_logo.jpeg">
   <meta property="og:url" content="https://sofrimapp.com">
   <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://sofrimapp.com">
   <link rel="icon" href="https://hvmjkayittkivmfwdmhv.supabase.co/storage/v1/object/public/assets/sofrim_logo.jpeg">
   <link rel="stylesheet" href="style.css">
-  <!-- Google Analytics - G-XXXXXXXXXX yerine kendi ID'nizi yazın -->
-  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script> -->
+  <style>
+    .steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:20px; justify-items:center; }
+    .step { text-align:center; }
+  </style>
 </head>
 <body>
-
 <div id="intro-placeholder"></div>
 <div id="nav-placeholder"></div>
-
 <div class="page-wrap">
-
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-badge"><span>🚀</span><span>Türkiye'nin En Kapsamlı Restoran Yönetim Sistemi · v2.2.0</span></div>
+    <div class="hero-badge"><span>🚀</span><span>Türkiye'nin En Kapsamlı Restoran Yönetim Sistemi · <span id="hero-version">v2.3.0</span></span></div>
     <h1>Restoranını Tek<br><span>Platformdan Yönet</span></h1>
     <p class="hero-sub">Mutfaktan kasaya, personelden kuryeye — restoranınızın ihtiyacı olan her şey tek sistemde. Yapay zeka destekli mutfak, PWA uygulama ve 40+ özellik.</p>
     <div class="hero-buttons">
@@ -45,24 +40,26 @@
     </div>
   </div>
 
-  <!-- v2.2.0 BANNER -->
+  <!-- GÜNCEL VERSİYON BANNER -->
   <section>
     <div class="new-banner">
       <div style="flex:1;min-width:240px;">
-        <div style="font-size:11px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">🆕 v2.2.0 — Yeni Özellikler</div>
+        <div style="font-size:11px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">🆕 Son Güncelleme</div>
         <div style="font-size:18px;font-weight:900;margin-bottom:6px;">Yapay Zeka Artık Mutfağı Yönetiyor</div>
-        <div style="font-size:13px;color:var(--sec);">AI destekli dinamik hazırlama, PWA, müdür paneli, 10 menü şablonu.</div>
+        <div style="font-size:13px;color:var(--sec);">AI destekli dinamik hazırlama, PWA, müdür paneli, 10 menü şablonu ve daha fazlası.</div>
       </div>
       <div class="new-banner-tags">
         <span class="new-banner-tag tag-ai">🤖 AI Mutfak</span>
         <span class="new-banner-tag tag-pwa">📱 PWA</span>
         <span class="new-banner-tag tag-new">👔 Müdür Paneli</span>
         <span class="new-banner-tag tag-pwa">🗺️ Teslimat Bölgeleri</span>
+        <span class="new-banner-tag tag-new">🤖 Rimo AI Asistan</span>
+        <span class="new-banner-tag tag-ai">🔐 Shadow Login</span>
       </div>
     </div>
 
-    <!-- MINI ÖZELLİKLER -->
-    <div style="text-align:center;margin-bottom:48px;">
+    <!-- NEDEN SOFRIM -->
+    <div style="text-align:center;margin-bottom:48px;margin-top:60px;">
       <div class="section-label">NEDEN SOFRIM?</div>
       <h2 class="section-title">Rakiplerinizden Bir Adım Önde</h2>
     </div>
@@ -151,11 +148,8 @@
     <p>Kredi kartı gerekmez. Tüm özellikler açık. Beğenmezseniz hiçbir ücret ödemezsiniz.</p>
     <a href="apply.html" class="btn-primary">Hemen Başvur →</a>
   </div>
-
 </div>
-
 <div id="footer-placeholder"></div>
-
 <script src="nav.js"></script>
 <script>
   renderNav('home');
