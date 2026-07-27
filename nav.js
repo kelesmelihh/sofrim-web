@@ -49,7 +49,7 @@ function toggleMobileMenu() {
 function renderFooter() {
   document.getElementById('footer-placeholder').innerHTML = `
     <footer>
-      <div class="footer-grid">
+      <div class="footer-grid" style="grid-template-columns:1.5fr 1fr 1fr 1fr;">
         <div class="footer-col footer-col-brand">
           <div class="footer-logo">
             <img src="${LOGO_URL}" alt="Sofrım" style="width:32px;height:32px;border-radius:8px;object-fit:cover;">
@@ -69,7 +69,7 @@ function renderFooter() {
           </div>
         </div>
         <div class="footer-col">
-          <div class="footer-title">Şirket & Yasal</div>
+          <div class="footer-title">Şirket</div>
           <div class="footer-links">
             <a href="about.html">Hakkımızda</a>
             <a href="referanslar.html">Referanslar</a>
@@ -77,6 +77,11 @@ function renderFooter() {
             <a href="contact.html">İletişim</a>
             <a href="yardim.html">Yardım Merkezi</a>
             <a href="status.html">Sistem Durumu</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-title">Yasal</div>
+          <div class="footer-links">
             <a href="privacy.html">Gizlilik Politikası</a>
             <a href="terms.html">Mesafeli Satış Sözleşmesi</a>
             <a href="delivery.html">Teslimat & İade</a>
@@ -135,7 +140,9 @@ async function loadTenantCount() {
     const vd = await vr.json();
     if (vd?.[0]?.value?.version) {
       const ver = 'MK Software · v' + vd[0].value.version;
+      const shortVer = 'v' + vd[0].value.version;
       document.querySelectorAll('#footer-version, .intro-mk').forEach(el => { el.textContent = ver; });
+      document.querySelectorAll('#hero-version').forEach(el => { el.textContent = shortVer; });
     }
   } catch (e) {}
 }
