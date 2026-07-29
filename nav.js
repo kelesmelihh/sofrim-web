@@ -276,14 +276,16 @@ function initExitPopup() {
     }
   });
 
-  // Mobilde: 60 saniye sonra göster
-  setTimeout(() => {
-    if (!triggered) {
+  // Mobilde: scroll yüzde 80'e gelince göster
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY + window.innerHeight;
+    const total = document.body.scrollHeight;
+    if (scrolled / total > 0.85 && !triggered) {
       triggered = true;
       overlay.style.display = 'flex';
       sessionStorage.setItem('exitPopupShown', '1');
     }
-  }, 60000);
+  }, { passive: true });
 }
 
 function closeExitPopup() {
